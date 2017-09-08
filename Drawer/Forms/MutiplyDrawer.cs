@@ -72,40 +72,43 @@ namespace Drawer
         private void Form2_Load(object sender, EventArgs e)
         {
             int i;
-            int rNumsForEachLine = int.Parse(Assistance.GetConfigurations(MainForm.ConfigPath, "rNumsForEachLine"));
-            timer1.Interval = int.Parse(Assistance.GetConfigurations(MainForm.ConfigPath, "bigTimerInterval"));
-            int rWidthForEach = int.Parse(Assistance.GetConfigurations(MainForm.ConfigPath, "rWidthForEach"));
-            int rXBlankspace = int.Parse(Assistance.GetConfigurations(MainForm.ConfigPath, "rXBlankspace"));
-            int rTextboxheight = int.Parse(Assistance.GetConfigurations(MainForm.ConfigPath, "rTextboxheight"));
-            int rPictureboxHeight = int.Parse(Assistance.GetConfigurations(MainForm.ConfigPath, "rPictureboxHeight"));
-            int rCommandHeight = int.Parse(Assistance.GetConfigurations(MainForm.ConfigPath, "rCommandHeight"));
-            int yTextboxBlankSpace = int.Parse(Assistance.GetConfigurations(MainForm.ConfigPath, "yTextboxBlankSpace"));
-            bool autoSizeEnabled = Convert.ToBoolean(Assistance.GetConfigurations(MainForm.ConfigPath, "autoSizeEnabled"));
-            bool autoNumsForEachLine = Convert.ToBoolean(Assistance.GetConfigurations(MainForm.ConfigPath, "autoNumsForEachLine"));
-            // autoNumsForEachLine = false;
-            //rNumsForEachLine = 10;
-            //   autoSizeEnabled = false;
+            int MutiplyDrawer_rNumsForEachLine = Assistance.Settings.MutiplyDrawer_rNumsForEachLine;
+            int MutiplyDrawer_bigTimerInterval = Assistance.Settings.MutiplyDrawer_bigTimerInterval;
+            int MutiplyDrawer_rWidthForEach = Assistance.Settings.MutiplyDrawer_rWidthForEach;
+            int MutiplyDrawer_rXBlankspace = Assistance.Settings.MutiplyDrawer_rXBlankspace;
+            int MutiplyDrawer_rTextboxheight = Assistance.Settings.MutiplyDrawer_rTextboxheight;
+            int MutiplyDrawer_rPictureboxHeight = Assistance.Settings.MutiplyDrawer_rPictureboxHeight;
+            int MutiplyDrawer_rCommandHeight = Assistance.Settings.MutiplyDrawer_rCommandHeight;
+            int MutiplyDrawer_yTextboxBlankSpace = Assistance.Settings.MutiplyDrawer_yTextboxBlankSpace;
+            bool MutiplyDrawer_autoSizeEnabled = Assistance.Settings.MutiplyDrawer_autoSizeEnabled;
+            bool MutiplyDrawer_autoNumsForEachLine = Assistance.Settings.MutiplyDrawer_autoNumsForEachLine;
+
+            timer1.Interval = MutiplyDrawer_bigTimerInterval;
+
+            // MutiplyDrawer_autoNumsForEachLine = false;
+            //MutiplyDrawer_rNumsForEachLine = 10;
+            //  MutiplyDrawer_autoSizeEnabled = false;
             int SH;
             int SW;
-            int rHeightForOneLine = rPictureboxHeight + 5 * yTextboxBlankSpace + 3 * rTextboxheight;
-            int rLines = (rollnum - 1) / rNumsForEachLine + 1;
+            int rHeightForOneLine =MutiplyDrawer_rPictureboxHeight + 5 *MutiplyDrawer_yTextboxBlankSpace + 3 * MutiplyDrawer_rTextboxheight;
+            int rLines = (rollnum - 1) /MutiplyDrawer_rNumsForEachLine + 1;
             SH = SystemInformation.WorkingArea.Height;
             SW = SystemInformation.WorkingArea.Width;
             int heightProvideForEachLine;
             #region autosize
-            if (autoSizeEnabled)//如果长度或者宽度超出屏幕大小
+            if (MutiplyDrawer_autoSizeEnabled)//如果长度或者宽度超出屏幕大小
             {
                 #region 如果长度或者宽度超出屏幕大小
                 bool IsOverSized = false;
-                if (rollnum * rWidthForEach + (rollnum - 1) * rXBlankspace > SW && rollnum <= rNumsForEachLine)//一行时超过屏幕宽度
+                if (rollnum * MutiplyDrawer_rWidthForEach + (rollnum - 1) * MutiplyDrawer_rXBlankspace > SW && rollnum <=MutiplyDrawer_rNumsForEachLine)//一行时超过屏幕宽度
                 {
                     IsOverSized = true;
                 }
-                if (rollnum > rNumsForEachLine && rNumsForEachLine * rWidthForEach + (rNumsForEachLine - 1) * rXBlankspace > SW)//多行时超过屏幕宽度
+                if (rollnum >MutiplyDrawer_rNumsForEachLine &&MutiplyDrawer_rNumsForEachLine * MutiplyDrawer_rWidthForEach + (MutiplyDrawer_rNumsForEachLine - 1) * MutiplyDrawer_rXBlankspace > SW)//多行时超过屏幕宽度
                 {
                     IsOverSized = true;
                 }
-                if ((rollnum / rNumsForEachLine) * (rPictureboxHeight + 3 * rTextboxheight + 5 * yTextboxBlankSpace) > SH)//多行时超过屏幕高度
+                if ((rollnum /MutiplyDrawer_rNumsForEachLine) * (MutiplyDrawer_rPictureboxHeight + 3 * MutiplyDrawer_rTextboxheight + 5 *MutiplyDrawer_yTextboxBlankSpace) > SH)//多行时超过屏幕高度
                 {
                     IsOverSized = true;
                 }
@@ -113,19 +116,19 @@ namespace Drawer
 
                 if (IsOverSized)
                 {
-                    if (autoNumsForEachLine)
+                    if (MutiplyDrawer_autoNumsForEachLine)
                     {
                         for (int k = 1; k < 10; k++)
                         {
                             heightProvideForEachLine = SH / k;
-                            rNumsForEachLine = SW / (heightProvideForEachLine / 2);
-                            rWidthForEach = SW / rNumsForEachLine;
+                           MutiplyDrawer_rNumsForEachLine = SW / (heightProvideForEachLine / 2);
+                            MutiplyDrawer_rWidthForEach = SW /MutiplyDrawer_rNumsForEachLine;
                             rLines = k;
                             float textHeight = heightProvideForEachLine / 10 / 2;
-                            rTextboxheight = Convert.ToInt32(textHeight * 2);
+                            MutiplyDrawer_rTextboxheight = Convert.ToInt32(textHeight * 2);
                             this.textBox0.Font = new System.Drawing.Font("微软雅黑", textHeight, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-                            rPictureboxHeight = heightProvideForEachLine - 3 * rTextboxheight;
-                            if (rLines * rNumsForEachLine >= rollnum)
+                           MutiplyDrawer_rPictureboxHeight = heightProvideForEachLine - 3 * MutiplyDrawer_rTextboxheight;
+                            if (rLines *MutiplyDrawer_rNumsForEachLine >= rollnum)
                             {
                                 break;
                             }
@@ -133,45 +136,45 @@ namespace Drawer
                     }
                     else
                     {
-                        rXBlankspace = 0;
-                        if (rollnum <= rNumsForEachLine && rollnum * rWidthForEach + (rollnum - 1) * rXBlankspace > SW)
+                        MutiplyDrawer_rXBlankspace = 0;
+                        if (rollnum <=MutiplyDrawer_rNumsForEachLine && rollnum * MutiplyDrawer_rWidthForEach + (rollnum - 1) * MutiplyDrawer_rXBlankspace > SW)
                         {
-                            rWidthForEach = SW / rNumsForEachLine;
+                            MutiplyDrawer_rWidthForEach = SW /MutiplyDrawer_rNumsForEachLine;
                         }
-                        else if (rollnum >= rNumsForEachLine && rNumsForEachLine * rWidthForEach + (rNumsForEachLine - 1) * rXBlankspace > SW)
+                        else if (rollnum >=MutiplyDrawer_rNumsForEachLine &&MutiplyDrawer_rNumsForEachLine * MutiplyDrawer_rWidthForEach + (MutiplyDrawer_rNumsForEachLine - 1) * MutiplyDrawer_rXBlankspace > SW)
                         {
-                            rWidthForEach = SW / rollnum;
+                            MutiplyDrawer_rWidthForEach = SW / rollnum;
                         }
-                        if (rPictureboxHeight + 5 * yTextboxBlankSpace + 3 * rTextboxheight > SH)
+                        if (MutiplyDrawer_rPictureboxHeight + 5 *MutiplyDrawer_yTextboxBlankSpace + 3 * MutiplyDrawer_rTextboxheight > SH)
                         {
-                            yTextboxBlankSpace = 0;
-                            rTextboxheight = 30;
-                            rPictureboxHeight = SH - 3 * rTextboxheight;
+                           MutiplyDrawer_yTextboxBlankSpace = 0;
+                            MutiplyDrawer_rTextboxheight = 30;
+                           MutiplyDrawer_rPictureboxHeight = SH - 3 * MutiplyDrawer_rTextboxheight;
                         }
-                        if (rollnum > rNumsForEachLine && ((rPictureboxHeight + 5 * yTextboxBlankSpace + 3 * rTextboxheight) * rLines > SH))
+                        if (rollnum >MutiplyDrawer_rNumsForEachLine && ((MutiplyDrawer_rPictureboxHeight + 5 *MutiplyDrawer_yTextboxBlankSpace + 3 * MutiplyDrawer_rTextboxheight) * rLines > SH))
                         {
                             int heightProvidedForEachLine = SH / rLines;
                             float textHeight = heightProvidedForEachLine / 10 / 2;
-                            rTextboxheight = Convert.ToInt32(textHeight * 2);
+                            MutiplyDrawer_rTextboxheight = Convert.ToInt32(textHeight * 2);
                             this.textBox0.Font = new System.Drawing.Font("微软雅黑", textHeight, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-                            rPictureboxHeight = heightProvidedForEachLine - 3 * rTextboxheight;
+                           MutiplyDrawer_rPictureboxHeight = heightProvidedForEachLine - 3 * MutiplyDrawer_rTextboxheight;
                         }
                     }
                 }
             }
             #endregion
             button0.Width = 50;
-            pictureBox0.Width = rWidthForEach;
-            textBox0.Width = rWidthForEach;
-            textBox0.Height = rTextboxheight;
-            pictureBox0.Height = rPictureboxHeight;
-            button0.Height = rCommandHeight;
-            pictureBox0.Left -= rWidthForEach + rXBlankspace;
+            pictureBox0.Width = MutiplyDrawer_rWidthForEach;
+            textBox0.Width = MutiplyDrawer_rWidthForEach;
+            textBox0.Height = MutiplyDrawer_rTextboxheight;
+            pictureBox0.Height =MutiplyDrawer_rPictureboxHeight;
+            button0.Height = MutiplyDrawer_rCommandHeight;
+            pictureBox0.Left -= MutiplyDrawer_rWidthForEach + MutiplyDrawer_rXBlankspace;
             pictureBox0.Visible = false;
-            textBox0.Top = pictureBox0.Top + rPictureboxHeight - rTextboxheight;
+            textBox0.Top = pictureBox0.Top +MutiplyDrawer_rPictureboxHeight - MutiplyDrawer_rTextboxheight;
             textBox0.Visible = false;
-            button0.Top = pictureBox0.Top + rPictureboxHeight + rTextboxheight * 2 + 3 * yTextboxBlankSpace;
-            button0.Left -= rWidthForEach + rXBlankspace;
+            button0.Top = pictureBox0.Top +MutiplyDrawer_rPictureboxHeight + MutiplyDrawer_rTextboxheight * 2 + 3 *MutiplyDrawer_yTextboxBlankSpace;
+            button0.Left -= MutiplyDrawer_rWidthForEach + MutiplyDrawer_rXBlankspace;
             button0.Visible = true;
 
             pb[0] = pictureBox0;
@@ -188,9 +191,9 @@ namespace Drawer
                 pb[i] = new PictureBox();
                 clone(pb[i], pictureBox0);
                 pb[i].BorderStyle = BorderStyle.None;
-                if ((i - 1) % rNumsForEachLine != 0 || i == 1)
+                if ((i - 1) %MutiplyDrawer_rNumsForEachLine != 0 || i == 1)
                 {
-                    pb[i].Left = pb[i - 1].Left + rWidthForEach + rXBlankspace;
+                    pb[i].Left = pb[i - 1].Left + MutiplyDrawer_rWidthForEach + MutiplyDrawer_rXBlankspace;
                     pb[i].Top = pb[i - 1].Top;
                     pb[i].Visible = true;
                     pb[i].MouseDown += roll5_MouseDown;
@@ -205,13 +208,13 @@ namespace Drawer
                         if (j == 1 && i != 1)
                         {
                             tb[i][j].Top = tb[i - 1][j].Top;
-                            tb[i][j].Left = tb[i - 1][j].Left + rWidthForEach + rXBlankspace;
+                            tb[i][j].Left = tb[i - 1][j].Left + MutiplyDrawer_rWidthForEach + MutiplyDrawer_rXBlankspace;
                             tb[i][j].Visible = true;
                             this.Controls.Add(tb[i][j]);
                         }
                         else
                         {
-                            tb[i][j].Top = tb[i][j - 1].Top + rTextboxheight + yTextboxBlankSpace;
+                            tb[i][j].Top = tb[i][j - 1].Top + MutiplyDrawer_rTextboxheight +MutiplyDrawer_yTextboxBlankSpace;
                             tb[i][j].Left = tb[i][j - 1].Left;
                             this.Controls.Add(tb[i][j]);
                         }
@@ -220,18 +223,18 @@ namespace Drawer
                 }
                 else
                 {
-                    pb[i].Top = pb[i - rNumsForEachLine].Top + pb[i - rNumsForEachLine].Height + 3 * rTextboxheight + 5 * yTextboxBlankSpace;
-                    pb[i].Left = pb[i - rNumsForEachLine].Left;
-                    pb[i].Height = rPictureboxHeight;
-                    pb[i].Width = rWidthForEach;
+                    pb[i].Top = pb[i -MutiplyDrawer_rNumsForEachLine].Top + pb[i -MutiplyDrawer_rNumsForEachLine].Height + 3 * MutiplyDrawer_rTextboxheight + 5 *MutiplyDrawer_yTextboxBlankSpace;
+                    pb[i].Left = pb[i -MutiplyDrawer_rNumsForEachLine].Left;
+                    pb[i].Height =MutiplyDrawer_rPictureboxHeight;
+                    pb[i].Width = MutiplyDrawer_rWidthForEach;
                     pb[i].Visible = true;
                     this.Controls.Add(pb[i]);
                     tb[i][1] = new TextBox();
                     clone(tb[i][1], tb[1][0]);
                     tb[i][1].Left = tb[1][1].Left;
-                    tb[i][1].Top = pb[i].Top + rPictureboxHeight + yTextboxBlankSpace;
-                    tb[i][1].Width = rWidthForEach;
-                    tb[i][1].Height = rTextboxheight;
+                    tb[i][1].Top = pb[i].Top +MutiplyDrawer_rPictureboxHeight +MutiplyDrawer_yTextboxBlankSpace;
+                    tb[i][1].Width = MutiplyDrawer_rWidthForEach;
+                    tb[i][1].Height = MutiplyDrawer_rTextboxheight;
                     tb[i][1].Visible = true;
                     this.Controls.Add(tb[i][1]);
 
@@ -239,26 +242,26 @@ namespace Drawer
                     {
                         tb[i][t] = new TextBox();
                         clone(tb[i][t], tb[1][0]);
-                        tb[i][t].Top = tb[i][t - 1].Top + rTextboxheight + yTextboxBlankSpace;
+                        tb[i][t].Top = tb[i][t - 1].Top + MutiplyDrawer_rTextboxheight +MutiplyDrawer_yTextboxBlankSpace;
                         tb[i][t].Left = tb[i][t - 1].Left;
                         tb[i][t].Visible = true;
                         this.Controls.Add(tb[i][t]);
                     }
                 }
             }
-            rHeightForOneLine = rPictureboxHeight + 5 * yTextboxBlankSpace + 3 * rTextboxheight;
-            rLines = (rollnum - 1) / rNumsForEachLine + 1;
+            rHeightForOneLine =MutiplyDrawer_rPictureboxHeight + 5 *MutiplyDrawer_yTextboxBlankSpace + 3 * MutiplyDrawer_rTextboxheight;
+            rLines = (rollnum - 1) /MutiplyDrawer_rNumsForEachLine + 1;
             if (rLines == 1)
             {
                 this.Height = pb[1].Top + rHeightForOneLine;
-                //  this.Height = pb[1].Top * 4 + rPictureboxHeight + 5 * yTextboxBlankSpace + 3 * rTextboxheight + rCommandHeight + 10;
-                this.Width = rWidthForEach * rollnum + pb[1].Left * 2 + (rollnum - 1) * rXBlankspace;
+                //  this.Height = pb[1].Top * 4 +MutiplyDrawer_rPictureboxHeight + 5 *MutiplyDrawer_yTextboxBlankSpace + 3 * MutiplyDrawer_rTextboxheight + MutiplyDrawer_rCommandHeight + 10;
+                this.Width = MutiplyDrawer_rWidthForEach * rollnum + pb[1].Left * 2 + (rollnum - 1) * MutiplyDrawer_rXBlankspace;
             }
             else
             {
                 this.Height = rLines * rHeightForOneLine + pb[1].Top;
-                this.Width = rWidthForEach * rNumsForEachLine + pb[1].Left * 2 + (rNumsForEachLine - 1) * rXBlankspace;
-                if (autoNumsForEachLine)
+                this.Width = MutiplyDrawer_rWidthForEach *MutiplyDrawer_rNumsForEachLine + pb[1].Left * 2 + (MutiplyDrawer_rNumsForEachLine - 1) * MutiplyDrawer_rXBlankspace;
+                if (MutiplyDrawer_autoNumsForEachLine)
                 {
 
                 }
@@ -295,7 +298,7 @@ namespace Drawer
                 clone(bt[k], bt[0]);
                 bt[k].Left = pb[k].Left;
                 bt[k].Height = tb[k][1].Height;
-                bt[k].Top = pb[k].Top + rPictureboxHeight - rCommandHeight - 6;
+                bt[k].Top = pb[k].Top +MutiplyDrawer_rPictureboxHeight - MutiplyDrawer_rCommandHeight - 6;
                 this.Controls.Add(bt[k]);
                 bt[k].Visible = true;
                 this.Controls.SetChildIndex(this.bt[k], 0);

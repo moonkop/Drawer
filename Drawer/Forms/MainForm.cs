@@ -23,7 +23,6 @@ namespace Drawer
         public static string PASSWORD;
         public static string SHA1ofPASSWORD = "54F8C89CE615405C74493D35CDD01BB875ED7428";
         private static bool SECURITY_Enabled = true;
-        public static bool useTxtForDatabase;
         public static string LogPath;
         public static string dataOutPutPath;
         public static string PicPath;
@@ -312,7 +311,7 @@ namespace Drawer
             {
                 currentTime = System.DateTime.Now;
                 LoadConfig_SelectedClassroom();
-                LogPath = System.Environment.CurrentDirectory + Assistance. GetConfigurations(ConfigPath, "logpath");
+                LogPath = System.Environment.CurrentDirectory + Assistance.GetConfigurations(ConfigPath, "logpath");
                 dataOutPutPath = System.Environment.CurrentDirectory + Assistance.GetConfigurations(ConfigPath, "dataOutPutPath") + currentTime.ToString("yyyy-mm-dd_hh.mm.ss") + ".txt";
                 PicPath = System.Environment.CurrentDirectory + Assistance.GetConfigurations(ConfigPath, "picpath");
                 DBpath = System.Environment.CurrentDirectory + Assistance.GetConfigurations(ConfigPath, "DBpath");
@@ -405,6 +404,7 @@ namespace Drawer
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            Assistance.Init();
             LoadConfigurations(ConfigPath);
             //NameNumLength = FileLength(numpath);
             spb.obj = toolStripStatusLabel1;
@@ -1061,15 +1061,36 @@ namespace Drawer
             ClassPicker classPicker = new ClassPicker(classAll, classSelected);
             classPicker.Owner = this;
             classPicker.fm = this;
-
             classPicker.ShowDialog();
             ShowSelectedClassroomCheckbox();
         }
-
-        private void jsonTest()
+        private void 读取设置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurationFileMap map = new ConfigurationFileMap();
+            Assistance.LoadSettings();
         }
+
+        private void 保存设置ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Assistance.StoreSettings();
+        }
+
+        private void 导出设置ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        public void CollectSettings()
+        {
+            Assistance.Settings.classStrs.Clear();
+            foreach (Classroom cls in classSelected)
+            {
+                Assistance.Settings.classStrs.Add(cls.classID);
+
+            }
+
+        }
+
+
+
     }
 }
 

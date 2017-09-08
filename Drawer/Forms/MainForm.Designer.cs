@@ -86,6 +86,9 @@
             this.修改ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TBOutput = new System.Windows.Forms.TextBox();
+            this.读取设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.保存设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.导出设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -216,7 +219,7 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
-            // listView1
+            // listViewResults
             // 
             this.listViewResults.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ch1,
@@ -230,7 +233,7 @@
             this.ch9});
             this.listViewResults.FullRowSelect = true;
             this.listViewResults.Location = new System.Drawing.Point(775, 28);
-            this.listViewResults.Name = "listView1";
+            this.listViewResults.Name = "listViewResults";
             this.listViewResults.Size = new System.Drawing.Size(436, 472);
             this.listViewResults.TabIndex = 23;
             this.listViewResults.UseCompatibleStateImageBehavior = false;
@@ -443,7 +446,10 @@
             // 设置ToolStripMenuItem
             // 
             this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.班级设置ToolStripMenuItem});
+            this.班级设置ToolStripMenuItem,
+            this.读取设置ToolStripMenuItem,
+            this.保存设置ToolStripMenuItem,
+            this.导出设置ToolStripMenuItem});
             this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
             this.设置ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.设置ToolStripMenuItem.Text = "设置";
@@ -451,7 +457,7 @@
             // 班级设置ToolStripMenuItem
             // 
             this.班级设置ToolStripMenuItem.Name = "班级设置ToolStripMenuItem";
-            this.班级设置ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.班级设置ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.班级设置ToolStripMenuItem.Text = "班级设置";
             this.班级设置ToolStripMenuItem.Click += new System.EventHandler(this.班级设置ToolStripMenuItem_Click);
             // 
@@ -541,7 +547,28 @@
             this.TBOutput.Size = new System.Drawing.Size(100, 58);
             this.TBOutput.TabIndex = 40;
             // 
-            // Form1
+            // 读取设置ToolStripMenuItem
+            // 
+            this.读取设置ToolStripMenuItem.Name = "读取设置ToolStripMenuItem";
+            this.读取设置ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.读取设置ToolStripMenuItem.Text = "读取设置";
+            this.读取设置ToolStripMenuItem.Click += new System.EventHandler(this.读取设置ToolStripMenuItem_Click);
+            // 
+            // 保存设置ToolStripMenuItem
+            // 
+            this.保存设置ToolStripMenuItem.Name = "保存设置ToolStripMenuItem";
+            this.保存设置ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.保存设置ToolStripMenuItem.Text = "保存设置";
+            this.保存设置ToolStripMenuItem.Click += new System.EventHandler(this.保存设置ToolStripMenuItem_Click);
+            // 
+            // 导出设置ToolStripMenuItem
+            // 
+            this.导出设置ToolStripMenuItem.Name = "导出设置ToolStripMenuItem";
+            this.导出设置ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.导出设置ToolStripMenuItem.Text = "导出设置";
+            this.导出设置ToolStripMenuItem.Click += new System.EventHandler(this.导出设置ToolStripMenuItem_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -571,7 +598,7 @@
             this.Controls.Add(this.BTFind);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "上课提问";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -641,6 +668,9 @@
         private TextBox TBOutput;
         private ToolStripMenuItem 设置ToolStripMenuItem;
         private ToolStripMenuItem 班级设置ToolStripMenuItem;
+        private ToolStripMenuItem 读取设置ToolStripMenuItem;
+        private ToolStripMenuItem 保存设置ToolStripMenuItem;
+        private ToolStripMenuItem 导出设置ToolStripMenuItem;
     }
 }
 

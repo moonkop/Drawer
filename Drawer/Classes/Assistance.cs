@@ -4,15 +4,28 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-
+using Drawer.Classes;
 namespace Drawer
 {
     public static class Assistance
     {
-        public static SettingManager settings;
+        private static SettingManager settingManager;
         public static string DefaultSettingPath;
-
         public static string LogPath;
+        public static string settingTest;
+
+        public static MySettings Settings
+        {
+            get
+            {
+                return settingManager.settings;
+            }
+            set
+            {
+                settingManager.settings = value;
+            }
+        }
+
         public static string GetSHA1Hash(string pathName)
         {
             string strResult = "";
@@ -95,7 +108,7 @@ namespace Drawer
                 sr.Close();
                 return strline;
             }
-            catch (Exception )
+            catch (Exception)
             {
                 throw;
 
@@ -110,11 +123,11 @@ namespace Drawer
         public static void record(Student std1, string str)
         {
             string path = LogPath;
-           writeln(path,
-                DateTime.Now.ToString() + "|" +
-                std1.classroom.classID + "|" +
-                std1.name + "|" +
-             std1.ID + "|" + str);
+            writeln(path,
+                 DateTime.Now.ToString() + "|" +
+                 std1.classroom.classID + "|" +
+                 std1.name + "|" +
+              std1.ID + "|" + str);
         }
         public static void record(string str)
         {
@@ -125,10 +138,50 @@ namespace Drawer
         {
             return System.IO.File.Exists(file);
         }
-        public static void LoadSettings(string SettingPath)
+        public static void Init()
         {
-
+            settingManager = new SettingManager();
+            DefaultSettingPath = Drawer.Properties.Settings.Default.SettingPath;
         }
 
+        public static void LoadSettings(string SettingPath = "")
+        {
+            try
+            {
+                Settings = settingManager.LoadFromFile(SettingPath);
+            }
+            catch (Exception)
+            {
+            }
+            if (Settings==null)
+            {
+                Settings = new MySettings();
+            }
+            System.Reflection.FieldInfo[] fields = Settings.GetType().GetFields();
+            foreach (System.Reflection.FieldInfo field in fields)
+            {
+                System.Reflection.FieldInfo field2 = typeof(Assistance).GetField(field.Name);
+                if (field2 != null)
+                {
+                    object fieldValueToRead = field.GetValue(Settings);
+                    field2.SetValue(null, fieldValueToRead);
+                }
+            }
+        }
+
+        public static void StoreSettings(string SettingPath = "")
+        {
+            System.Reflection.FieldInfo[] properties = Settings.GetType().GetFields();
+            foreach (System.Reflection.FieldInfo field in properties)
+            {
+                System.Reflection.FieldInfo field2 = typeof(Assistance).GetField(field.Name);
+                if (field2 != null)
+                {
+                    object fieldValueToStore = field2.GetValue(null);
+                    field.SetValue(Settings, fieldValueToStore);
+                }
+            }
+            settingManager.StoreToFile(SettingPath);
+        }
     }
 }

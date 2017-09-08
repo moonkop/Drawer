@@ -23,14 +23,15 @@ namespace Drawer.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("data source=\"C:\\Users\\moonkop\\Documents\\Visual Studio 2010\\Projects\\WindowsFormsA" +
-            "pplication1\\WindowsFormsApplication1\\bin\\Debug\\sqliteDataBase\"")]
-        public string sqliteDataBaseConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("settings.json")]
+        public string SettingPath {
             get {
-                return ((string)(this["sqliteDataBaseConnectionString"]));
+                return ((string)(this["SettingPath"]));
+            }
+            set {
+                this["SettingPath"] = value;
             }
         }
     }
