@@ -9,7 +9,9 @@ namespace Drawer
 {
     public static class Assistance
     {
-        public static Settings settings;
+        public static SettingManager settings;
+        public static string DefaultSettingPath;
+
         public static string LogPath;
         public static string GetSHA1Hash(string pathName)
         {

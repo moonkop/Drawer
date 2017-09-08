@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Assistance.cs" />
+    <Compile Include="Classes\Settings.cs" />
     <Compile Include="Forms\ClassPicker.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,7 +70,7 @@
     <Compile Include="Forms\MutiplyDrawer.Designer.cs">
       <DependentUpon>MutiplyDrawer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Settings.cs" />
+    <Compile Include="Classes\SettingManager.cs" />
     <Compile Include="Classes\StatusPrintBuffer.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
