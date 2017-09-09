@@ -11,9 +11,6 @@ namespace Drawer
     {
         private static SettingManager settingManager;
         public static string DefaultSettingPath;
-        public static string LogPath;
-        public static string settingTest;
-
         public static MySettings Settings
         {
             get
@@ -65,7 +62,7 @@ namespace Drawer
             byte[] bt = SHA1.Create().ComputeHash(btclean);
             return BitConverter.ToString(bt).Replace("-", "");
         }
-        public static string GetConfigurations(string configPath, string option)
+        public static string GetConfigurations1(string configPath, string option)
         {
 
             try
@@ -122,7 +119,7 @@ namespace Drawer
         }
         public static void record(Student std1, string str)
         {
-            string path = LogPath;
+            string path = Settings.LogPath;
             writeln(path,
                  DateTime.Now.ToString() + "|" +
                  std1.classroom.classID + "|" +
@@ -131,7 +128,7 @@ namespace Drawer
         }
         public static void record(string str)
         {
-            string path = LogPath;
+            string path = Settings.LogPath;
             writeln(path, DateTime.Now.ToString() + "|" + str);
         }
         public static bool IsFileExist(string file)
@@ -143,7 +140,6 @@ namespace Drawer
             settingManager = new SettingManager();
             DefaultSettingPath = Drawer.Properties.Settings.Default.SettingPath;
         }
-
         public static void LoadSettings(string SettingPath = "")
         {
             try
@@ -157,30 +153,29 @@ namespace Drawer
             {
                 Settings = new MySettings();
             }
-            System.Reflection.FieldInfo[] fields = Settings.GetType().GetFields();
-            foreach (System.Reflection.FieldInfo field in fields)
-            {
-                System.Reflection.FieldInfo field2 = typeof(Assistance).GetField(field.Name);
-                if (field2 != null)
-                {
-                    object fieldValueToRead = field.GetValue(Settings);
-                    field2.SetValue(null, fieldValueToRead);
-                }
-            }
+            //System.Reflection.FieldInfo[] fields = Settings.GetType().GetFields();
+            //foreach (System.Reflection.FieldInfo field in fields)
+            //{
+            //    System.Reflection.FieldInfo field2 = typeof(Assistance).GetField(field.Name);
+            //    if (field2 != null)
+            //    {
+            //        object fieldValueToRead = field.GetValue(Settings);
+            //        field2.SetValue(null, fieldValueToRead);
+            //    }
+            //}
         }
-
         public static void StoreSettings(string SettingPath = "")
         {
-            System.Reflection.FieldInfo[] properties = Settings.GetType().GetFields();
-            foreach (System.Reflection.FieldInfo field in properties)
-            {
-                System.Reflection.FieldInfo field2 = typeof(Assistance).GetField(field.Name);
-                if (field2 != null)
-                {
-                    object fieldValueToStore = field2.GetValue(null);
-                    field.SetValue(Settings, fieldValueToStore);
-                }
-            }
+            //System.Reflection.FieldInfo[] properties = Settings.GetType().GetFields();
+            //foreach (System.Reflection.FieldInfo field in properties)
+            //{
+            //    System.Reflection.FieldInfo field2 = typeof(Assistance).GetField(field.Name);
+            //    if (field2 != null)
+            //    {
+            //        object fieldValueToStore = field2.GetValue(null);
+            //        field.SetValue(Settings, fieldValueToStore);
+            //    }
+            //}
             settingManager.StoreToFile(SettingPath);
         }
     }

@@ -44,7 +44,7 @@ namespace Drawer
         public string getSHA1()
         {
             string str;
-            str = this.ID + this.name + this.grade + MainForm.SHA1ofPASSWORD;
+            str = this.ID + this.name + this.grade + MainForm.Settings.SHA1ofPASSWORD;
             currentSHA1 = Assistance.getSHA1ofString(str);
             return currentSHA1;
         }

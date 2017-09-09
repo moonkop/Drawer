@@ -13,24 +13,13 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using System.Configuration;
-
+using Drawer.Classes;
 
 namespace Drawer
 {
 
     public partial class MainForm : Form
     {
-        public static string PASSWORD;
-        public static string SHA1ofPASSWORD = "54F8C89CE615405C74493D35CDD01BB875ED7428";
-        private static bool SECURITY_Enabled = true;
-        public static string LogPath;
-        public static string dataOutPutPath;
-        public static string PicPath;
-        public static string DBpath;
-        public static string SHA1ofDBpath;
-        public static string pastDBSHA1;
-        public bool checkBoxChanged;
-        public static string ConfigPath = System.Environment.CurrentDirectory + @"\config.cfg";
         //所有的班级
         public List<Classroom> classAll = new List<Classroom>();
         //显示的班级
@@ -51,9 +40,22 @@ namespace Drawer
         bool textBox4Changed;
         bool textBox2Changed;
         bool textBox3Changed;
+
         Student.selectedType st;
         public Student Hitter;
         int maxnum;
+        private bool checkBoxChanged;
+        private string pastDBSHA1;
+        private bool SECURITY_Enabled;
+
+        public static MySettings Settings
+        {
+            get
+            {
+                return Assistance.Settings;
+            }
+        }
+
         public int get_Selected_counts(Student.selectedType st)
         {
             int count = 0;
@@ -115,17 +117,15 @@ namespace Drawer
         public void LoadConfig_SelectedClassroom()
         {
             classSelected = new List<Classroom>();
-            string str = Assistance.GetConfigurations(ConfigPath, "classroom");
-            string[] strs = str.Split(',');
-            foreach (var str1 in strs)
+            foreach (var str1 in Assistance.Settings.classStrs)
             {
-
                 Classroom cls = GetOrCreateClassroomById(str1);
                 classSelected.Add(cls);
             }
         }
         public void ShowSelectedClassroomCheckbox()
         {
+        
             int top = checkBox1.Top;
             int left = checkBox1.Left;
             checkBox1.Visible = false;
@@ -209,7 +209,7 @@ namespace Drawer
         /// <returns></returns>
         private void OutPutData()
         {
-            dataOutPutPath = System.Environment.CurrentDirectory + Assistance.GetConfigurations(ConfigPath, "dataOutPutPath") + currentTime.ToString("yyyy-mm-dd_hh.mm.ss") + ".csv";
+            Settings.dataOutPutPath = Settings.dataOutPutPath + currentTime.ToString("yyyy-mm-dd_hh.mm.ss") + ".csv";
 
             if (AllStudents.Count == 0)
             {
@@ -217,7 +217,7 @@ namespace Drawer
             }
             try
             {
-                FileStream fs = new FileStream(dataOutPutPath, FileMode.Create);
+                FileStream fs = new FileStream(Settings.dataOutPutPath, FileMode.Create);
 
                 StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
                 foreach (Student astd in AllStudents)
@@ -227,7 +227,7 @@ namespace Drawer
                 sw.Close();
                 fs.Close();
 
-                System.Diagnostics.Process.Start(@"explorer.exe", @"/e,/select," + dataOutPutPath);
+                System.Diagnostics.Process.Start(@"explorer.exe", @"/e,/select," + Settings.dataOutPutPath);
             }
             catch (Exception ex)
             {
@@ -249,7 +249,7 @@ namespace Drawer
             Stopwatch sw = new Stopwatch();
             sw.Start();
             SQLiteConnection conn = new SQLiteConnection();
-            conn.ConnectionString = "Data source=" + DBpath;
+            conn.ConnectionString = "Data source=" + Settings.DBpath;
             conn.Open();
             var cmd = conn.CreateCommand();
             StringBuilder tempCmd = new StringBuilder("replace  into students values");
@@ -262,8 +262,8 @@ namespace Drawer
             cmd.ExecuteNonQuery();
             // loadStudent();
             sw.Stop();
-            var sw1 = new StreamWriter(SHA1ofDBpath, false);
-            sw1.WriteLine(Assistance.GetSHA1Hash(DBpath));
+            var sw1 = new StreamWriter(Settings.SHA1ofDBpath, false);
+            sw1.WriteLine(Assistance.GetSHA1Hash(Settings.DBpath));
             sw1.Close();
             spb.add("完成更新！用时" + sw.ElapsedMilliseconds + "ms");
         }
@@ -305,24 +305,11 @@ namespace Drawer
                 MessageBox.Show(ex.Message);
             }
         }
-        public void LoadConfigurations(string path)
+        public void BindingDatas()
         {
-            try
-            {
-                currentTime = System.DateTime.Now;
-                LoadConfig_SelectedClassroom();
-                LogPath = System.Environment.CurrentDirectory + Assistance.GetConfigurations(ConfigPath, "logpath");
-                dataOutPutPath = System.Environment.CurrentDirectory + Assistance.GetConfigurations(ConfigPath, "dataOutPutPath") + currentTime.ToString("yyyy-mm-dd_hh.mm.ss") + ".txt";
-                PicPath = System.Environment.CurrentDirectory + Assistance.GetConfigurations(ConfigPath, "picpath");
-                DBpath = System.Environment.CurrentDirectory + Assistance.GetConfigurations(ConfigPath, "DBpath");
-                SHA1ofDBpath = System.Environment.CurrentDirectory + Assistance.GetConfigurations(ConfigPath, "SHA1ofDBpath");
-                timer1.Interval = int.Parse(Assistance.GetConfigurations(ConfigPath, "timerinterval"));
-                textBox5.Text = Assistance.GetConfigurations(ConfigPath, "defaultMutiplySelectCount");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            TextBoxMutiplyNum.Text = Settings.DefaultMutiplyDrawerNum.ToString();
+            timer1.Interval = Settings.RollTimeInteval;
+
         }
         public static string getPicturePathOrDefault(string path)
         {
@@ -333,19 +320,19 @@ namespace Drawer
             }
             else
             {
-                return MainForm.PicPath + "default.jpg";
+                return Settings.PicPath + "default.jpg";
             }
         }
         public void DisplayStudentData(Student student)
         {
-            textBox2.Text = student.name;
-            textBox3.Text = student.ID;
-            textBox4.Text = student.classroom.classID;
+            TextBoxName.Text = student.name;
+            textBoxID.Text = student.ID;
+            textBoxClassroom.Text = student.classroom.classID;
             try
             {
                 TBOutput.Visible = false;
 
-                pictureBox1.Load(getPicturePathOrDefault(PicPath + student.ID + ".jpg"));
+                pictureBox1.Load(getPicturePathOrDefault(Settings.PicPath + student.ID + ".jpg"));
             }
             catch (Exception)
             {
@@ -405,24 +392,26 @@ namespace Drawer
         private void Form1_Load(object sender, EventArgs e)
         {
             Assistance.Init();
-            LoadConfigurations(ConfigPath);
+            Assistance.LoadSettings();
+            BindingDatas();
             //NameNumLength = FileLength(numpath);
             spb.obj = toolStripStatusLabel1;
-            pastDBSHA1 = Assistance.readln(SHA1ofDBpath, 1);
+            pastDBSHA1 = Assistance.readln(Settings.SHA1ofDBpath, 1);
             if (SECURITY_Enabled == true)
             {
-                if (pastDBSHA1 != Assistance.GetSHA1Hash(DBpath))
+                if (pastDBSHA1 != Assistance.GetSHA1Hash(Settings.DBpath))
                 {
                     var pib = new PasswordInputDialog(this, "检测到不安全的数据修改，请输入管理员密码", true);
                     pib.Owner = this;
                     pib.Show();
                 }
             }
-            conn.ConnectionString = "Data Source=" + DBpath;
+            conn.ConnectionString = "Data Source=" + Settings.DBpath;
             TBOutput.Location = pictureBox1.Location;
             TBOutput.Size = pictureBox1.Size;
             TBOutput.Visible = false;
             ReadDataFromDatabase();
+            LoadConfig_SelectedClassroom();
             ShowSelectedClassroomCheckbox();
 
         }
@@ -435,7 +424,7 @@ namespace Drawer
                 return;
             }
             int rollnum = 0;
-            if (!int.TryParse(textBox5.Text, out rollnum))
+            if (!int.TryParse(TextBoxMutiplyNum.Text, out rollnum))
             {
                 MessageBox.Show("请输入数字");
                 return;
@@ -454,7 +443,7 @@ namespace Drawer
                             astd.selected_Mutiply = false;
                             astd.grade = -1;
                         }
-                        MessageBox.Show("成绩已保存至" + dataOutPutPath + "\n并清空");
+                        MessageBox.Show("成绩已保存至" + Settings.dataOutPutPath + "\n并清空");
                         return;
                     }
                     else
@@ -565,7 +554,7 @@ namespace Drawer
             {
                 foreach (Student astd in AllStudents)
                 {
-                    if (textBox2.Text == astd.name)
+                    if (TextBoxName.Text == astd.name)
                     {
                         stdFound.Add(astd);
                     }
@@ -575,7 +564,7 @@ namespace Drawer
                 {
                     foreach (Student astd in AllStudents)
                     {
-                        if (astd.name.IndexOf(textBox2.Text) != -1)
+                        if (astd.name.IndexOf(TextBoxName.Text) != -1)
                         {
                             stdFound.Add(astd);
                         }
@@ -586,7 +575,7 @@ namespace Drawer
             {
                 foreach (Student astd in AllStudents)
                 {
-                    if (astd.ID == textBox3.Text || astd.ID.EndsWith(textBox3.Text))
+                    if (astd.ID == textBoxID.Text || astd.ID.EndsWith(textBoxID.Text))
                     {
                         stdFound.Add(astd);
                     }
@@ -597,7 +586,7 @@ namespace Drawer
             {
                 foreach (Student astd in AllStudents)
                 {
-                    if (textBox4.Text == "" || textBox4.Text == astd.classroom.classID)
+                    if (textBoxClassroom.Text == "" || textBoxClassroom.Text == astd.classroom.classID)
                     {
                         stdFound.Add(astd);
                     }
@@ -606,7 +595,7 @@ namespace Drawer
                 {
                     foreach (Student astd in AllStudents)
                     {
-                        if (astd.classroom.classID.IndexOf(textBox4.Text) != -1)
+                        if (astd.classroom.classID.IndexOf(textBoxClassroom.Text) != -1)
                         {
                             stdFound.Add(astd);
                         }
@@ -786,6 +775,9 @@ namespace Drawer
                 updateDataBase();
                 conn.Close();
             }
+            CollectSettings();
+            Assistance.StoreSettings();
+
         }
         private void buttonDeleteAll_Click(object sender, EventArgs e)
         {
@@ -930,13 +922,13 @@ namespace Drawer
 
             foreach (var item in pics)
             {
-                if (Path.GetDirectoryName(item) == PicPath)
+                if (Path.GetDirectoryName(item) == Settings.PicPath)
                 {
                     continue;
                 }
                 else
                 {
-                    System.IO.File.Copy(item, PicPath + Path.GetFileName(item), true);
+                    System.IO.File.Copy(item, Settings.PicPath + Path.GetFileName(item), true);
                 }
             }
         }

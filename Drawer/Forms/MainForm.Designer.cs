@@ -37,9 +37,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.TextBoxName = new System.Windows.Forms.TextBox();
+            this.textBoxID = new System.Windows.Forms.TextBox();
+            this.textBoxClassroom = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -57,13 +57,13 @@
             this.ch8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ch9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.buttonMutiplyDraw = new System.Windows.Forms.Button();
+            this.TextBoxMutiplyNum = new System.Windows.Forms.TextBox();
             this.button11 = new System.Windows.Forms.Button();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.buttonStart = new System.Windows.Forms.Button();
+            this.buttonStop = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,6 +75,9 @@
             this.批量导入学生ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.班级设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.读取设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.保存设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.导出设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.高级ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.执行命令ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.安全设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,9 +89,6 @@
             this.修改ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TBOutput = new System.Windows.Forms.TextBox();
-            this.读取设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.保存设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.导出设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -133,32 +133,32 @@
             this.textBox1.TabIndex = 11;
             this.textBox1.Visible = false;
             // 
-            // textBox2
+            // TextBoxName
             // 
-            this.textBox2.Font = new System.Drawing.Font("微软雅黑", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox2.Location = new System.Drawing.Point(125, 35);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(213, 51);
-            this.textBox2.TabIndex = 12;
-            this.textBox2.Click += new System.EventHandler(this.textBox2_Click);
+            this.TextBoxName.Font = new System.Drawing.Font("微软雅黑", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TextBoxName.Location = new System.Drawing.Point(125, 35);
+            this.TextBoxName.Name = "TextBoxName";
+            this.TextBoxName.Size = new System.Drawing.Size(213, 51);
+            this.TextBoxName.TabIndex = 12;
+            this.TextBoxName.Click += new System.EventHandler(this.textBox2_Click);
             // 
-            // textBox3
+            // textBoxID
             // 
-            this.textBox3.Font = new System.Drawing.Font("微软雅黑", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox3.Location = new System.Drawing.Point(125, 95);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(213, 51);
-            this.textBox3.TabIndex = 13;
-            this.textBox3.Click += new System.EventHandler(this.textBox3_Click);
+            this.textBoxID.Font = new System.Drawing.Font("微软雅黑", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxID.Location = new System.Drawing.Point(125, 95);
+            this.textBoxID.Name = "textBoxID";
+            this.textBoxID.Size = new System.Drawing.Size(213, 51);
+            this.textBoxID.TabIndex = 13;
+            this.textBoxID.Click += new System.EventHandler(this.textBox3_Click);
             // 
-            // textBox4
+            // textBoxClassroom
             // 
-            this.textBox4.Font = new System.Drawing.Font("微软雅黑", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox4.Location = new System.Drawing.Point(125, 155);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(213, 51);
-            this.textBox4.TabIndex = 15;
-            this.textBox4.Click += new System.EventHandler(this.textBox4_Click);
+            this.textBoxClassroom.Font = new System.Drawing.Font("微软雅黑", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxClassroom.Location = new System.Drawing.Point(125, 155);
+            this.textBoxClassroom.Name = "textBoxClassroom";
+            this.textBoxClassroom.Size = new System.Drawing.Size(213, 51);
+            this.textBoxClassroom.TabIndex = 15;
+            this.textBoxClassroom.Click += new System.EventHandler(this.textBox4_Click);
             // 
             // checkBox1
             // 
@@ -294,25 +294,25 @@
             this.button6.Visible = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // button7
+            // buttonMutiplyDraw
             // 
-            this.button7.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button7.Location = new System.Drawing.Point(246, 397);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(96, 50);
-            this.button7.TabIndex = 28;
-            this.button7.Text = "批量抽取";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.roll5Init);
+            this.buttonMutiplyDraw.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonMutiplyDraw.Location = new System.Drawing.Point(246, 397);
+            this.buttonMutiplyDraw.Name = "buttonMutiplyDraw";
+            this.buttonMutiplyDraw.Size = new System.Drawing.Size(96, 50);
+            this.buttonMutiplyDraw.TabIndex = 28;
+            this.buttonMutiplyDraw.Text = "批量抽取";
+            this.buttonMutiplyDraw.UseVisualStyleBackColor = true;
+            this.buttonMutiplyDraw.Click += new System.EventHandler(this.roll5Init);
             // 
-            // textBox5
+            // TextBoxMutiplyNum
             // 
-            this.textBox5.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox5.Location = new System.Drawing.Point(324, 461);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(43, 39);
-            this.textBox5.TabIndex = 29;
-            this.textBox5.Text = "8";
+            this.TextBoxMutiplyNum.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TextBoxMutiplyNum.Location = new System.Drawing.Point(324, 461);
+            this.TextBoxMutiplyNum.Name = "TextBoxMutiplyNum";
+            this.TextBoxMutiplyNum.Size = new System.Drawing.Size(43, 39);
+            this.TextBoxMutiplyNum.TabIndex = 29;
+            this.TextBoxMutiplyNum.Text = "8";
             // 
             // button11
             // 
@@ -348,27 +348,27 @@
             this.radioButton2.Text = "实验报告";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // buttonStart
             // 
-            this.button2.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button2.Location = new System.Drawing.Point(246, 284);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(92, 51);
-            this.button2.TabIndex = 35;
-            this.button2.Text = "开始";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.buttonStart_Click);
+            this.buttonStart.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonStart.Location = new System.Drawing.Point(246, 284);
+            this.buttonStart.Name = "buttonStart";
+            this.buttonStart.Size = new System.Drawing.Size(92, 51);
+            this.buttonStart.TabIndex = 35;
+            this.buttonStart.Text = "开始";
+            this.buttonStart.UseVisualStyleBackColor = true;
+            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
-            // button3
+            // buttonStop
             // 
-            this.button3.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button3.Location = new System.Drawing.Point(246, 341);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(92, 51);
-            this.button3.TabIndex = 36;
-            this.button3.Text = "停止";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.buttonStop_Click);
+            this.buttonStop.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonStop.Location = new System.Drawing.Point(246, 341);
+            this.buttonStop.Name = "buttonStop";
+            this.buttonStop.Size = new System.Drawing.Size(92, 51);
+            this.buttonStop.TabIndex = 36;
+            this.buttonStop.Text = "停止";
+            this.buttonStop.UseVisualStyleBackColor = true;
+            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
             // 
             // contextMenuStrip1
             // 
@@ -457,9 +457,30 @@
             // 班级设置ToolStripMenuItem
             // 
             this.班级设置ToolStripMenuItem.Name = "班级设置ToolStripMenuItem";
-            this.班级设置ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.班级设置ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.班级设置ToolStripMenuItem.Text = "班级设置";
             this.班级设置ToolStripMenuItem.Click += new System.EventHandler(this.班级设置ToolStripMenuItem_Click);
+            // 
+            // 读取设置ToolStripMenuItem
+            // 
+            this.读取设置ToolStripMenuItem.Name = "读取设置ToolStripMenuItem";
+            this.读取设置ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.读取设置ToolStripMenuItem.Text = "读取设置";
+            this.读取设置ToolStripMenuItem.Click += new System.EventHandler(this.读取设置ToolStripMenuItem_Click);
+            // 
+            // 保存设置ToolStripMenuItem
+            // 
+            this.保存设置ToolStripMenuItem.Name = "保存设置ToolStripMenuItem";
+            this.保存设置ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.保存设置ToolStripMenuItem.Text = "保存设置";
+            this.保存设置ToolStripMenuItem.Click += new System.EventHandler(this.保存设置ToolStripMenuItem_Click);
+            // 
+            // 导出设置ToolStripMenuItem
+            // 
+            this.导出设置ToolStripMenuItem.Name = "导出设置ToolStripMenuItem";
+            this.导出设置ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.导出设置ToolStripMenuItem.Text = "导出设置";
+            this.导出设置ToolStripMenuItem.Click += new System.EventHandler(this.导出设置ToolStripMenuItem_Click);
             // 
             // 高级ToolStripMenuItem
             // 
@@ -547,27 +568,6 @@
             this.TBOutput.Size = new System.Drawing.Size(100, 58);
             this.TBOutput.TabIndex = 40;
             // 
-            // 读取设置ToolStripMenuItem
-            // 
-            this.读取设置ToolStripMenuItem.Name = "读取设置ToolStripMenuItem";
-            this.读取设置ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.读取设置ToolStripMenuItem.Text = "读取设置";
-            this.读取设置ToolStripMenuItem.Click += new System.EventHandler(this.读取设置ToolStripMenuItem_Click);
-            // 
-            // 保存设置ToolStripMenuItem
-            // 
-            this.保存设置ToolStripMenuItem.Name = "保存设置ToolStripMenuItem";
-            this.保存设置ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.保存设置ToolStripMenuItem.Text = "保存设置";
-            this.保存设置ToolStripMenuItem.Click += new System.EventHandler(this.保存设置ToolStripMenuItem_Click);
-            // 
-            // 导出设置ToolStripMenuItem
-            // 
-            this.导出设置ToolStripMenuItem.Name = "导出设置ToolStripMenuItem";
-            this.导出设置ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.导出设置ToolStripMenuItem.Text = "导出设置";
-            this.导出设置ToolStripMenuItem.Click += new System.EventHandler(this.导出设置ToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -576,13 +576,13 @@
             this.Controls.Add(this.TBOutput);
             this.Controls.Add(this.BTExcCmd);
             this.Controls.Add(this.listViewResults);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.buttonStop);
+            this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.button11);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.button7);
+            this.Controls.Add(this.TextBoxMutiplyNum);
+            this.Controls.Add(this.buttonMutiplyDraw);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -590,9 +590,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBoxClassroom);
+            this.Controls.Add(this.textBoxID);
+            this.Controls.Add(this.TextBoxName);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.BTFind);
@@ -619,9 +619,9 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox TextBoxName;
+        private System.Windows.Forms.TextBox textBoxID;
+        private System.Windows.Forms.TextBox textBoxClassroom;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -630,13 +630,13 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ListView listViewResults;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Button buttonMutiplyDraw;
+        private System.Windows.Forms.TextBox TextBoxMutiplyNum;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonStart;
+        private System.Windows.Forms.Button buttonStop;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 文件ToolStripMenuItem;

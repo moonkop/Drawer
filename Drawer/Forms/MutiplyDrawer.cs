@@ -46,7 +46,7 @@ namespace Drawer
             {
                 tb[pointer][1].Text = std.ID;
                 tb[pointer][2].Text = std.name + "  " + std.classroom.classID;
-                pb[pointer].Load(MainForm.PicPath + std.ID + ".jpg");
+                pb[pointer].Load(MainForm.Settings.PicPath + std.ID + ".jpg");
             }
             catch (Exception)
             { }

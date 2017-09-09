@@ -102,6 +102,7 @@ namespace Drawer
         {
             _classroomSelected.Clear();
             _classroomSelected.AddRange(classroomSelected.ToList());
+            this.Close();
         }
     }
 }

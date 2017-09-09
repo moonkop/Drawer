@@ -33,7 +33,7 @@ namespace Drawer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (Assistance.getSHA1ofString(textBox1.Text) == MainForm.SHA1ofPASSWORD)
+            if (Assistance.getSHA1ofString(textBox1.Text) == MainForm.Settings.SHA1ofPASSWORD)
             {
                 obj1.Enabled = true;
                 obj1.Visible = true;
