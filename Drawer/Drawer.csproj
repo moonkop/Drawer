@@ -44,6 +44,7 @@
     <Reference Include="System.Data.SQLite, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -78,6 +79,12 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\NewMutiplyDrawer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewMutiplyDrawer.Designer.cs">
+      <DependentUpon>NewMutiplyDrawer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\PasswordInputDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +92,12 @@
       <DependentUpon>PasswordInputDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Program.cs" />
+    <Compile Include="Forms\MutiplyDrawerItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\MutiplyDrawerItem.Designer.cs">
+      <DependentUpon>MutiplyDrawerItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\Student.cs" />
     <Compile Include="Forms\StudentStatus.cs">
@@ -101,6 +114,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MutiplyDrawer.resx">
       <DependentUpon>MutiplyDrawer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MutiplyDrawerItem.resx">
+      <DependentUpon>MutiplyDrawerItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\newMutiplyDrawer.resx">
+      <DependentUpon>NewMutiplyDrawer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PasswordInputDialog.resx">
       <DependentUpon>PasswordInputDialog.cs</DependentUpon>
@@ -133,6 +152,25 @@
     <Content Include="icon\MainIcon.ico" />
     <Content Include="Newtonsoft.Json.dll" />
     <Content Include="图标.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="APlayer3Lib">
+      <Guid>{97830570-35FE-4195-83DE-30E79B718713}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxAPlayer3Lib">
+      <Guid>{97830570-35FE-4195-83DE-30E79B718713}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

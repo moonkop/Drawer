@@ -17,7 +17,6 @@ namespace Drawer.Classes
         public int RollTimeInteval = 10;
         public int DefaultMutiplyDrawerNum = 6;
         public List<string> classStrs = new List<string>();
-        public string settingTest = "aaabbbccc";
         //--mutiplyDrawer
         public int MutiplyDrawer_rNumsForEachLine = 4;
         public int MutiplyDrawer_bigTimerInterval = 500;
@@ -29,8 +28,5 @@ namespace Drawer.Classes
         public int MutiplyDrawer_yTextboxBlankSpace = 0;
         public bool MutiplyDrawer_autoSizeEnabled = true;
         public bool MutiplyDrawer_autoNumsForEachLine = true;
-
-
-
     }
 }
