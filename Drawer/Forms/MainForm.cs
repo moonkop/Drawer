@@ -125,7 +125,7 @@ namespace Drawer
         }
         public void ShowSelectedClassroomCheckbox()
         {
-        
+
             int top = checkBox1.Top;
             int left = checkBox1.Left;
             checkBox1.Visible = false;
@@ -616,6 +616,11 @@ namespace Drawer
         }
         private void button6_Click(object sender, EventArgs e)//listview 返回
         {
+            HideListView();
+        }
+
+        private void HideListView()
+        {
             listViewResults.Visible = false;
             button6.Visible = false;
             this.Width = 783;
@@ -878,21 +883,22 @@ namespace Drawer
         }
         private void 执行命令ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (textBox1.Enabled == false)
+
+            if (SECURITY_Enabled == true)
             {
-                if (SECURITY_Enabled == true)
-                {
-                    var pib = new PasswordInputDialog(this, "请输入密码以执行命令", true);
-                    pib.Show();
-                }
-                textBox1.Enabled = true;
-                textBox1.Visible = true;
-                button11.Enabled = true;
-                button11.Visible = true;
-                BTExcCmd.Enabled = true;
-                BTExcCmd.Visible = true;
-                this.Width = 1215;
+                var pib = new PasswordInputDialog(this, "请输入密码以执行命令", true);
+                pib.Show();
             }
+            textBox1.Enabled = true;
+            textBox1.Visible = true;
+            button11.Enabled = true;
+            button11.Visible = true;
+            BTExcCmd.Enabled = true;
+            BTExcCmd.Visible = true;
+            HideListView();
+
+            this.Width = 1215;
+
         }
         private void 帮助ToolStripMenuItem_Click(object sender, EventArgs e)
         {

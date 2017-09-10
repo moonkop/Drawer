@@ -130,7 +130,7 @@ namespace Drawer
 
             try
             {
-                fs = new FileStream(SettingPath, FileMode.OpenOrCreate);
+                fs = new FileStream(SettingPath, FileMode.Create);
                 sw = new StreamWriter(fs);
                 sw.Write(this.Store());
             }

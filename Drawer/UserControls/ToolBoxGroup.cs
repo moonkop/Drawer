@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Drawer
+namespace Drawer.UserControls
 {
-    public partial class MutiplyDrawerItem : UserControl
+    public partial class ToolBoxGroup : UserControl
     {
-        public MutiplyDrawerItem()
+        public ToolBoxGroup()
         {
             InitializeComponent();
         }
