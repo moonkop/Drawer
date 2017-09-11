@@ -158,6 +158,12 @@
     <EmbeddedResource Include="Forms\StudentStatus.resx">
       <DependentUpon>StudentStatus.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ToolBoxGroup.resx">
+      <DependentUpon>ToolBoxGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ToolBoxItem.resx">
+      <DependentUpon>ToolBoxItem.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

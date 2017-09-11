@@ -11,7 +11,16 @@ namespace Drawer.Forms
 {
     public partial class NewMutiplyDrawer : Form
     {
-        List<MutiplyDrawerItem> items;
+        private List<MutiplyDrawerItem> items;
+        public List<MutiplyDrawerItem> Items
+        {
+            get
+            {
+                return items;
+            }
+
+        }
+
         public NewMutiplyDrawer()
         {
             InitializeComponent();
@@ -23,12 +32,12 @@ namespace Drawer.Forms
             for (int i = 0; i < drawNum; i++)
             {
                 MutiplyDrawerItem item = new MutiplyDrawerItem();
-                items.Add(item);
+                Items.Add(item);
             }
-            foreach (var item in items)
+            foreach (var item in Items)
             {
                 this.flowLayoutPanel1.Controls.Add(item);
-             //   item.Show();
+                //   item.Show();
             }
         }
 
@@ -38,6 +47,11 @@ namespace Drawer.Forms
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolBoxGroup1_Load(object sender, EventArgs e)
         {
 
         }
