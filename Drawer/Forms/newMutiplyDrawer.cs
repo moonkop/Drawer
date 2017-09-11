@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using Drawer.UserControls;
 namespace Drawer.Forms
 {
     public partial class NewMutiplyDrawer : Form
@@ -54,6 +54,11 @@ namespace Drawer.Forms
         private void toolBoxGroup1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            toolBoxGroup1.Controls.Add(new ToolBoxItem());
         }
     }
 }

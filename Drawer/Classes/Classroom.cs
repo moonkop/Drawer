@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Drawer.Forms;
 
-namespace Drawer
+namespace Drawer.Classes
 {
     public class Classroom
     {

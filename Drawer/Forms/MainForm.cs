@@ -15,7 +15,7 @@ using Newtonsoft.Json;
 using System.Configuration;
 using Drawer.Classes;
 
-namespace Drawer
+namespace Drawer.Forms
 {
 
     public partial class MainForm : Form
@@ -41,7 +41,7 @@ namespace Drawer
         bool textBox2Changed;
         bool textBox3Changed;
 
-        Student.selectedType st;
+        Drawer.Classes.Student.selectedType st;
         public Student Hitter;
         int maxnum;
         private bool checkBoxChanged;
@@ -1087,8 +1087,10 @@ namespace Drawer
 
         }
 
-
-
+        private void newMutiplyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new NewMutiplyDrawer().Show();
+        }
     }
 }
 

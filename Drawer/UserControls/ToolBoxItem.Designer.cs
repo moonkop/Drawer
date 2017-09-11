@@ -1,4 +1,4 @@
-﻿namespace Drawer.Forms
+﻿namespace Drawer.UserControls
 {
     partial class ToolBoxItem
     {

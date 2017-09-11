@@ -13,7 +13,7 @@ namespace Drawer.UserControls
 {
     public partial class ToolBoxGroup : UserControl
     {
-        List<Drawer.Forms.ToolBoxItem> tools;
+        List<ToolBoxItem> tools;
         public ToolBoxGroup()
         {
             InitializeComponent();

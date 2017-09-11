@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.toolBoxItem1 = new Drawer.Forms.ToolBoxItem();
+            this.toolBoxItem1 = new Drawer.UserControls.ToolBoxItem();
             this.SuspendLayout();
             // 
             // toolBoxItem1
@@ -56,6 +56,6 @@
 
         #endregion
 
-        private Forms.ToolBoxItem toolBoxItem1;
+        private UserControls.ToolBoxItem toolBoxItem1;
     }
 }

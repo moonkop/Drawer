@@ -33,6 +33,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.sizeDragger1 = new Drawer.Classes.SizeDragger();
             this.toolBoxGroup1 = new Drawer.UserControls.ToolBoxGroup();
             this.mutiplyDrawerItem = new Drawer.MutiplyDrawerItem();
@@ -42,7 +43,6 @@
             this.mutiplyDrawerItem4 = new Drawer.MutiplyDrawerItem();
             this.mutiplyDrawerItem5 = new Drawer.MutiplyDrawerItem();
             this.mutiplyDrawerItem6 = new Drawer.MutiplyDrawerItem();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,6 +83,7 @@
             this.button2.TabIndex = 7;
             this.button2.Text = "保存";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -108,6 +109,14 @@
             this.label1.TabIndex = 11;
             this.label1.Text = "  ";
             this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(704, 282);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(121, 97);
+            this.listView1.TabIndex = 13;
+            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // sizeDragger1
             // 
@@ -186,15 +195,6 @@
             this.mutiplyDrawerItem6.Size = new System.Drawing.Size(222, 329);
             this.mutiplyDrawerItem6.TabIndex = 6;
             this.mutiplyDrawerItem6.TabStop = false;
-            // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(704, 282);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(121, 97);
-            this.listView1.TabIndex = 13;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.Items.Clear();
             // 
             // NewMutiplyDrawer
             // 

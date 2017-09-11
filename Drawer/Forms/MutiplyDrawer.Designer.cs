@@ -1,4 +1,4 @@
-﻿namespace Drawer
+﻿namespace Drawer.Forms
 {
     partial class roll5
     {
@@ -152,7 +152,7 @@
 
         void button3_Click(object sender, System.EventArgs e)
         {
-                this.Close();
+            this.Close();
 
         }
 

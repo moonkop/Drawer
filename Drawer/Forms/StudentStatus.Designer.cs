@@ -1,4 +1,4 @@
-﻿namespace Drawer
+﻿namespace Drawer.Forms
 {
     partial class StudentStatus
     {

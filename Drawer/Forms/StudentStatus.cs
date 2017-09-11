@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Drawer.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Drawer
+namespace Drawer.Forms
 {
     public partial class StudentStatus : Form
     {

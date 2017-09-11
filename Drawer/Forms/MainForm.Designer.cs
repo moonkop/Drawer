@@ -1,4 +1,4 @@
-﻿namespace Drawer
+﻿namespace Drawer.Forms
 {
     using System.Windows.Forms;
     partial class MainForm
@@ -89,6 +89,8 @@
             this.修改ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TBOutput = new System.Windows.Forms.TextBox();
+            this.测试ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newMutiplyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -494,21 +496,22 @@
             // 执行命令ToolStripMenuItem
             // 
             this.执行命令ToolStripMenuItem.Name = "执行命令ToolStripMenuItem";
-            this.执行命令ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.执行命令ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.执行命令ToolStripMenuItem.Text = "执行命令";
             this.执行命令ToolStripMenuItem.Click += new System.EventHandler(this.执行命令ToolStripMenuItem_Click);
             // 
             // 安全设置ToolStripMenuItem
             // 
             this.安全设置ToolStripMenuItem.Name = "安全设置ToolStripMenuItem";
-            this.安全设置ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.安全设置ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.安全设置ToolStripMenuItem.Text = "安全设置";
             // 
             // 关于ToolStripMenuItem
             // 
             this.关于ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.帮助ToolStripMenuItem,
-            this.关于ToolStripMenuItem1});
+            this.关于ToolStripMenuItem1,
+            this.测试ToolStripMenuItem});
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
             this.关于ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.关于ToolStripMenuItem.Text = "帮助";
@@ -516,14 +519,14 @@
             // 帮助ToolStripMenuItem
             // 
             this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
-            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.帮助ToolStripMenuItem.Text = "帮助";
             this.帮助ToolStripMenuItem.Click += new System.EventHandler(this.帮助ToolStripMenuItem_Click);
             // 
             // 关于ToolStripMenuItem1
             // 
             this.关于ToolStripMenuItem1.Name = "关于ToolStripMenuItem1";
-            this.关于ToolStripMenuItem1.Size = new System.Drawing.Size(100, 22);
+            this.关于ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.关于ToolStripMenuItem1.Text = "关于";
             // 
             // BTExcCmd
@@ -567,6 +570,21 @@
             this.TBOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.TBOutput.Size = new System.Drawing.Size(100, 58);
             this.TBOutput.TabIndex = 40;
+            // 
+            // 测试ToolStripMenuItem
+            // 
+            this.测试ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newMutiplyToolStripMenuItem});
+            this.测试ToolStripMenuItem.Name = "测试ToolStripMenuItem";
+            this.测试ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.测试ToolStripMenuItem.Text = "test";
+            // 
+            // newMutiplyToolStripMenuItem
+            // 
+            this.newMutiplyToolStripMenuItem.Name = "newMutiplyToolStripMenuItem";
+            this.newMutiplyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newMutiplyToolStripMenuItem.Text = "newMutiply";
+            this.newMutiplyToolStripMenuItem.Click += new System.EventHandler(this.newMutiplyToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -671,6 +689,8 @@
         private ToolStripMenuItem 读取设置ToolStripMenuItem;
         private ToolStripMenuItem 保存设置ToolStripMenuItem;
         private ToolStripMenuItem 导出设置ToolStripMenuItem;
+        private ToolStripMenuItem 测试ToolStripMenuItem;
+        private ToolStripMenuItem newMutiplyToolStripMenuItem;
     }
 }
 

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Drawer.Forms
+namespace Drawer.UserControls
 {
     public partial class ToolBoxItem : UserControl
     {

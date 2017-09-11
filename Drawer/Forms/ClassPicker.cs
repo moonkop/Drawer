@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections.ObjectModel;
+using Drawer.Classes;
 
-namespace Drawer
+namespace Drawer.Forms
 {
     public partial class ClassPicker : Form
     {
