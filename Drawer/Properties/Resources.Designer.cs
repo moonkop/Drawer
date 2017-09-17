@@ -59,5 +59,25 @@ namespace Drawer.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap close_600px_1181428_easyicon_net {
+            get {
+                object obj = ResourceManager.GetObject("close_600px_1181428_easyicon.net", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Close_up_600px_1181430_easyicon_net {
+            get {
+                object obj = ResourceManager.GetObject("Close_up_600px_1181430_easyicon.net", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

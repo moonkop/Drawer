@@ -26,14 +26,25 @@ namespace Drawer.UserControls
             Items = new List<ToolBoxItem>();
             InitializeComponent();
         }
-        public int CalcPos()
+        public int CalcLeft(Size size)
         {
-            return Items.Count * 30;
-
+            int minPos=int.MinValue;
+            if (Items.Count==0)
+            {
+                return 0;
+            }
+            foreach (ToolBoxItem item in Items)
+            {
+                if (item.Left+item.Width>minPos)
+                {
+                    minPos = item.Left + item.Width;
+                }
+            }
+            return minPos ;
         }
         public void Add(ToolBoxItem item)
         {
-            item.Left = CalcPos();
+            item.Left = CalcLeft(item.Size);
             Items.Add(item);
             this.Controls.Add(item);
 

@@ -43,7 +43,7 @@ namespace Drawer.Forms
 
         private void NewMutiplyDrawer_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -58,9 +58,21 @@ namespace Drawer.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
+            DateTimePicker date = new DateTimePicker();
+            date.Show();    
             ToolBoxItem item = new ToolBoxItem();
-            item.Left = 100;
+      
             toolBoxGroup1.Add(item);
+        }
+
+        private void BtnMinimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void BtnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

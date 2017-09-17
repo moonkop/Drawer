@@ -176,9 +176,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="icon\close_600px_1181428_easyicon.net.png" />
+    <None Include="icon\Close_up_600px_1181430_easyicon.net.png" />
     <Content Include="icon\MainIcon.ico" />
     <Content Include="Newtonsoft.Json.dll" />
-    <Content Include="图标.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

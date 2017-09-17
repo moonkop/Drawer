@@ -1,4 +1,6 @@
-﻿namespace Drawer.Forms
+﻿using Drawer.UserControls;
+
+namespace Drawer.Forms
 {
     partial class NewMutiplyDrawer
     {
@@ -28,8 +30,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewMutiplyDrawer));
             this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.mutiplyDrawerItem = new Drawer.MutiplyDrawerItem();
@@ -40,10 +42,12 @@
             this.mutiplyDrawerItem5 = new Drawer.MutiplyDrawerItem();
             this.mutiplyDrawerItem6 = new Drawer.MutiplyDrawerItem();
             this.label1 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.sizeDragger1 = new Drawer.Classes.SizeDragger();
             this.toolBoxGroup1 = new Drawer.UserControls.ToolBoxGroup();
+            this.BtnMinimize = new Drawer.UserControls.ToolBoxItem();
+            this.BtnClose = new Drawer.UserControls.ToolBoxItem();
             this.flowLayoutPanel1.SuspendLayout();
+            this.toolBoxGroup1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button4
@@ -58,20 +62,6 @@
             this.button4.TabIndex = 9;
             this.button4.Text = "—";
             this.button4.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button3.Location = new System.Drawing.Point(849, -1);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(24, 24);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "X";
-            this.button3.UseVisualStyleBackColor = false;
             // 
             // button2
             // 
@@ -166,14 +156,6 @@
             this.label1.Text = "  ";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(704, 282);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(121, 97);
-            this.listView1.TabIndex = 13;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
             // sizeDragger1
             // 
             this.sizeDragger1.BackColor = System.Drawing.SystemColors.HotTrack;
@@ -190,11 +172,37 @@
             this.toolBoxGroup1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.toolBoxGroup1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.toolBoxGroup1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.toolBoxGroup1.Location = new System.Drawing.Point(626, 139);
+            this.toolBoxGroup1.Controls.Add(this.BtnMinimize);
+            this.toolBoxGroup1.Controls.Add(this.BtnClose);
+            this.toolBoxGroup1.Location = new System.Drawing.Point(810, 0);
             this.toolBoxGroup1.Name = "toolBoxGroup1";
-            this.toolBoxGroup1.Size = new System.Drawing.Size(2, 2);
+            this.toolBoxGroup1.Size = new System.Drawing.Size(62, 32);
             this.toolBoxGroup1.TabIndex = 7;
             this.toolBoxGroup1.Load += new System.EventHandler(this.toolBoxGroup1_Load);
+            // 
+            // BtnMinimize
+            // 
+            this.BtnMinimize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.BtnMinimize.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnMinimize.BackgroundImage")));
+            this.BtnMinimize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BtnMinimize.Location = new System.Drawing.Point(0, 0);
+            this.BtnMinimize.Margin = new System.Windows.Forms.Padding(0);
+            this.BtnMinimize.Name = "BtnMinimize";
+            this.BtnMinimize.Size = new System.Drawing.Size(30, 30);
+            this.BtnMinimize.TabIndex = 0;
+            this.BtnMinimize.Click += new System.EventHandler(this.BtnMinimize_Click);
+            // 
+            // BtnClose
+            // 
+            this.BtnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.BtnClose.BackgroundImage = global::Drawer.Properties.Resources.close_600px_1181428_easyicon_net;
+            this.BtnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BtnClose.Location = new System.Drawing.Point(30, 0);
+            this.BtnClose.Margin = new System.Windows.Forms.Padding(0);
+            this.BtnClose.Name = "BtnClose";
+            this.BtnClose.Size = new System.Drawing.Size(30, 30);
+            this.BtnClose.TabIndex = 1;
+            this.BtnClose.Click += new System.EventHandler(this.BtnClose_Click);
             // 
             // NewMutiplyDrawer
             // 
@@ -202,12 +210,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(870, 663);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.sizeDragger1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.toolBoxGroup1);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.flowLayoutPanel1);
             this.DoubleBuffered = true;
@@ -216,6 +222,7 @@
             this.Text = "NewMutiplyDrawer";
             this.Load += new System.EventHandler(this.NewMutiplyDrawer_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.toolBoxGroup1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -225,7 +232,6 @@
 
         private MutiplyDrawerItem mutiplyDrawerItem;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label1;
@@ -237,6 +243,7 @@
         private MutiplyDrawerItem mutiplyDrawerItem5;
         private MutiplyDrawerItem mutiplyDrawerItem6;
         private UserControls.ToolBoxGroup toolBoxGroup1;
-        private System.Windows.Forms.ListView listView1;
+        private ToolBoxItem BtnMinimize;
+        private ToolBoxItem BtnClose;
     }
 }
