@@ -15,5 +15,15 @@ namespace Drawer.UserControls
         {
             InitializeComponent();
         }
+
+        private void ToolBoxItem_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ToolBoxItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

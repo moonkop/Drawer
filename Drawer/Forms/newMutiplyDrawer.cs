@@ -58,7 +58,9 @@ namespace Drawer.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            toolBoxGroup1.Controls.Add(new ToolBoxItem());
+            ToolBoxItem item = new ToolBoxItem();
+            item.Left = 100;
+            toolBoxGroup1.Add(item);
         }
     }
 }

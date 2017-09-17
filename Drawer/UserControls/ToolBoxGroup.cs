@@ -13,29 +13,34 @@ namespace Drawer.UserControls
 {
     public partial class ToolBoxGroup : UserControl
     {
-        List<ToolBoxItem> tools;
-        public ToolBoxGroup()
-        {
-            InitializeComponent();
-        }
-
 
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Editor("System.Windows.Forms.Design.ColumnHeaderCollectionEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(System.Drawing.Design.UITypeEditor))]
+        [Editor("System.Windows.Forms.Design.CollectionEditor, System.Design, Version=4.0.0.0, Culture=neutral", typeof(System.Drawing.Design.UITypeEditor))]
         [Localizable(true)]
         [MergableProperty(false)]
-        public List<ToolBoxItem> Tools
-        {
-            get
-            {
-                return tools;
-            }
+        public List<ToolBoxItem> Items { get; protected set; }
 
-            set
-            {
-                tools = value;
-            }
+        public ToolBoxGroup()
+        {
+            Items = new List<ToolBoxItem>();
+            InitializeComponent();
         }
+        public int CalcPos()
+        {
+            return Items.Count * 30;
+
+        }
+        public void Add(ToolBoxItem item)
+        {
+            item.Left = CalcPos();
+            Items.Add(item);
+            this.Controls.Add(item);
+
+        }
+
+
+
+
     }
 }

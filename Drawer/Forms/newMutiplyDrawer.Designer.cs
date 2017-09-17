@@ -32,10 +32,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.sizeDragger1 = new Drawer.Classes.SizeDragger();
-            this.toolBoxGroup1 = new Drawer.UserControls.ToolBoxGroup();
             this.mutiplyDrawerItem = new Drawer.MutiplyDrawerItem();
             this.mutiplyDrawerItem1 = new Drawer.MutiplyDrawerItem();
             this.mutiplyDrawerItem2 = new Drawer.MutiplyDrawerItem();
@@ -43,6 +39,10 @@
             this.mutiplyDrawerItem4 = new Drawer.MutiplyDrawerItem();
             this.mutiplyDrawerItem5 = new Drawer.MutiplyDrawerItem();
             this.mutiplyDrawerItem6 = new Drawer.MutiplyDrawerItem();
+            this.label1 = new System.Windows.Forms.Label();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.sizeDragger1 = new Drawer.Classes.SizeDragger();
+            this.toolBoxGroup1 = new Drawer.UserControls.ToolBoxGroup();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,51 +94,10 @@
             this.flowLayoutPanel1.Controls.Add(this.mutiplyDrawerItem4);
             this.flowLayoutPanel1.Controls.Add(this.mutiplyDrawerItem5);
             this.flowLayoutPanel1.Controls.Add(this.mutiplyDrawerItem6);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 305);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(604, 663);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(628, 358);
             this.flowLayoutPanel1.TabIndex = 10;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(854, 651);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(17, 12);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "  ";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(704, 282);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(121, 97);
-            this.listView1.TabIndex = 13;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
-            // sizeDragger1
-            // 
-            this.sizeDragger1.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.sizeDragger1.Cursor = System.Windows.Forms.Cursors.SizeNWSE;
-            this.sizeDragger1.DynamicSizeChangeEnabled = true;
-            this.sizeDragger1.Location = new System.Drawing.Point(824, 649);
-            this.sizeDragger1.Name = "sizeDragger1";
-            this.sizeDragger1.Size = new System.Drawing.Size(15, 14);
-            this.sizeDragger1.TabIndex = 12;
-            // 
-            // toolBoxGroup1
-            // 
-            this.toolBoxGroup1.AutoSize = true;
-            this.toolBoxGroup1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.toolBoxGroup1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.toolBoxGroup1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.toolBoxGroup1.Location = new System.Drawing.Point(794, 80);
-            this.toolBoxGroup1.Name = "toolBoxGroup1";
-            this.toolBoxGroup1.Size = new System.Drawing.Size(29, 28);
-            this.toolBoxGroup1.TabIndex = 7;
-            this.toolBoxGroup1.Load += new System.EventHandler(this.toolBoxGroup1_Load);
             // 
             // mutiplyDrawerItem
             // 
@@ -195,6 +154,47 @@
             this.mutiplyDrawerItem6.Size = new System.Drawing.Size(222, 329);
             this.mutiplyDrawerItem6.TabIndex = 6;
             this.mutiplyDrawerItem6.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(854, 651);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(17, 12);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "  ";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(704, 282);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(121, 97);
+            this.listView1.TabIndex = 13;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // sizeDragger1
+            // 
+            this.sizeDragger1.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.sizeDragger1.Cursor = System.Windows.Forms.Cursors.SizeNWSE;
+            this.sizeDragger1.DynamicSizeChangeEnabled = true;
+            this.sizeDragger1.Location = new System.Drawing.Point(824, 649);
+            this.sizeDragger1.Name = "sizeDragger1";
+            this.sizeDragger1.Size = new System.Drawing.Size(15, 14);
+            this.sizeDragger1.TabIndex = 12;
+            // 
+            // toolBoxGroup1
+            // 
+            this.toolBoxGroup1.AutoSize = true;
+            this.toolBoxGroup1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.toolBoxGroup1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.toolBoxGroup1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.toolBoxGroup1.Location = new System.Drawing.Point(626, 139);
+            this.toolBoxGroup1.Name = "toolBoxGroup1";
+            this.toolBoxGroup1.Size = new System.Drawing.Size(2, 2);
+            this.toolBoxGroup1.TabIndex = 7;
+            this.toolBoxGroup1.Load += new System.EventHandler(this.toolBoxGroup1_Load);
             // 
             // NewMutiplyDrawer
             // 

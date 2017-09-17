@@ -28,16 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.toolBoxItem1 = new Drawer.UserControls.ToolBoxItem();
             this.SuspendLayout();
-            // 
-            // toolBoxItem1
-            // 
-            this.toolBoxItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.toolBoxItem1.Location = new System.Drawing.Point(3, 3);
-            this.toolBoxItem1.Name = "toolBoxItem1";
-            this.toolBoxItem1.Size = new System.Drawing.Size(21, 20);
-            this.toolBoxItem1.TabIndex = 0;
             // 
             // ToolBoxGroup
             // 
@@ -47,15 +38,12 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.toolBoxItem1);
             this.Name = "ToolBoxGroup";
-            this.Size = new System.Drawing.Size(27, 26);
+            this.Size = new System.Drawing.Size(0, 0);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private UserControls.ToolBoxItem toolBoxItem1;
     }
 }

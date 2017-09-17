@@ -35,8 +35,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "ToolBoxItem";
             this.Size = new System.Drawing.Size(21, 20);
+            this.Load += new System.EventHandler(this.ToolBoxItem_Load);
+            this.Click += new System.EventHandler(this.ToolBoxItem_Click);
             this.ResumeLayout(false);
 
         }
