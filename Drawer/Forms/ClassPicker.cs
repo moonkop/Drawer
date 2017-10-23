@@ -46,7 +46,7 @@ namespace Drawer.Forms
         private void AddClassroomToListView(Classroom cls,ListView lv )
         {
             ListViewItem lvi = new ListViewItem();
-            lvi.Text = cls.classID;
+            lvi.Text = cls.ClassID;
             lvi.SubItems.Add(cls.students.Count().ToString());
             lvi.Tag = cls;
             lv.Items.Add(lvi);

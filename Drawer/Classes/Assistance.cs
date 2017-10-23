@@ -122,9 +122,9 @@ namespace Drawer
             string path = Settings.LogPath;
             writeln(path,
                  DateTime.Now.ToString() + "|" +
-                 std1.classroom.classID + "|" +
-                 std1.name + "|" +
-              std1.ID + "|" + str);
+                 std1.Classroom.ClassID + "|" +
+                 std1.Name + "|" +
+              std1.Id + "|" + str);
         }
         public static void record(string str)
         {

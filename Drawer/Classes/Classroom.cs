@@ -8,19 +8,46 @@ namespace Drawer.Classes
 {
     public class Classroom
     {
-        public string classID;
-        public bool selected;
+        private string classID;
+        private bool selected;
         public List<Student> students;
+
+        public string ClassID
+        {
+            get
+            {
+                return classID;
+            }
+
+            set
+            {
+                classID = value;
+            }
+        }
+
+        public bool Selected
+        {
+            get
+            {
+                return selected;
+            }
+
+            set
+            {
+                selected = value;
+            }
+        }
+
         public Classroom(string classId)
         {
-            this.classID = classId;
+            this.ClassID = classId;
             students = new List<Student>();
 
         }
         public void AddStudent(Student stu)
         {
             students.Add(stu);
-            stu.classroom = this;
+            stu.Classroom = this;
 
         }
     }

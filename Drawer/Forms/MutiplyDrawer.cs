@@ -12,7 +12,7 @@ namespace Drawer.Forms
     public partial class roll5 : Form
     {
         public int[][] l = new int[100][];
-        MainForm obj;
+        MainForm mainForm;
         public TextBox[][] tb = new TextBox[100][];
         public PictureBox[] pb = new PictureBox[30];
         public Button[] bt = new Button[30];
@@ -27,35 +27,35 @@ namespace Drawer.Forms
         public roll5(MainForm obj1, int nums, Student.selectedType st)
         {
             InitializeComponent();
-            obj = obj1;
+            mainForm = obj1;
             rollnum = nums;
             selectType = st;
             timer1.Tick += new EventHandler(timer1_Tick);
             timer1.Interval = 3000;
             timer1.Enabled = true;
             timer2.Tick += new EventHandler(timer2_Tick);
-            timer2.Interval = obj.timer1.Interval;
+            timer2.Interval = mainForm.timer1.Interval;
             Assistance.record("roll5 start   selectType=" + st.ToString() + " " + "selectNum=" + rollnum.ToString());
         }
         void timer2_Tick(object sender, EventArgs e)
         {
-            showdata(obj.Hitter, currentPointer);
+            showdata(mainForm.Hitter, currentPointer);
         }
         void showdata(Student std, int pointer)
         {
             try
             {
-                tb[pointer][1].Text = std.ID;
-                tb[pointer][2].Text = std.name + "  " + std.classroom.classID;
-                pb[pointer].Load(MainForm.Settings.PicPath + std.ID + ".jpg");
+                tb[pointer][1].Text = std.Id;
+                tb[pointer][2].Text = std.Name + "  " + std.Classroom.ClassID;
+                pb[pointer].Load(MainForm.Settings.PicPath + std.Id + ".jpg");
             }
             catch (Exception)
             { }
         }
         void timer1_Tick(object sender, EventArgs e)
         {
-            obj.stopRoll5(selectType);
-            stdNamed[currentPointer] = obj.Hitter;
+            mainForm.stopRoll5(selectType);
+            stdNamed[currentPointer] = mainForm.Hitter;
             //stdNamed[currentPointer].selected = false;
 
             showdata(stdNamed[currentPointer], currentPointer);
@@ -67,7 +67,7 @@ namespace Drawer.Forms
             }
             else
             {
-                obj.startRoll5();
+                mainForm.startRoll5();
             }
         }
         private void Form2_Load(object sender, EventArgs e)
@@ -317,25 +317,26 @@ namespace Drawer.Forms
         {
             //MessageBox.Show(((Button)sender).Tag.ToString());
             int target = int.Parse(((Button)sender).Tag.ToString());
-            obj.startRoll5();
-            obj.stopRoll5(selectType);
-            showdata(obj.Hitter, target);
+            mainForm.startRoll5();
+            mainForm.rollStd();
+            mainForm.stopRoll5(selectType);
+            showdata(mainForm.Hitter, target);
             switch (selectType)
             {
                 case Student.selectedType.Mutiply:
-                    stdNamed[target].selected_Mutiply = false;
+                    stdNamed[target].Selected_Mutiply = false;
                     break;
                 case Student.selectedType.Single:
                     break;
                 case Student.selectedType.Report:
-                    stdNamed[target].selected_Report = false;
+                    stdNamed[target].Selected_Report = false;
                     break;
                 default:
                     break;
             }
-            Assistance.record("roll5 skip student =" + stdNamed[target].name + stdNamed[target].ID.ToString());
-            stdNamed[target] = obj.Hitter;
-            Assistance.record("roll5 next student =" + stdNamed[target].name + stdNamed[target].ID.ToString());
+            Assistance.record("roll5 skip student =" + stdNamed[target].Name + stdNamed[target].Id.ToString());
+            stdNamed[target] = mainForm.Hitter;
+            Assistance.record("roll5 next student =" + stdNamed[target].Name + stdNamed[target].Id.ToString());
         }
         #region mouse
         void roll5_MouseUp(object sender, MouseEventArgs e)
@@ -397,12 +398,12 @@ namespace Drawer.Forms
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
-            if (obj.stdSelected[1] != null)
+            if (mainForm.stdSelected[1] != null)
             {
                 timer1.Enabled = true;
                 timer2.Enabled = true;
                 currentPointer = 1;
-                obj.startRoll5();
+                mainForm.startRoll5();
 
             }
             else
@@ -415,7 +416,7 @@ namespace Drawer.Forms
             Assistance.record("roll5 tryclosing");
             timer1.Enabled = false;
             timer2.Enabled = false;
-            obj.timer1.Enabled = false;
+            mainForm.timer1.Enabled = false;
             switch (selectType)
             {
                 case Student.selectedType.Mutiply:
@@ -442,7 +443,7 @@ namespace Drawer.Forms
                             {
                                 for (int i = 1; i <= rollnum; i++)
                                 {
-                                    stdNamed[i].selected_Mutiply = false;
+                                    stdNamed[i].Selected_Mutiply = false;
                                 }
                             }
                             catch (Exception)
@@ -467,7 +468,7 @@ namespace Drawer.Forms
                             {
                                 for (int i = 1; i <= rollnum; i++)
                                 {
-                                    stdNamed[i].selected_Mutiply = false;
+                                    stdNamed[i].Selected_Mutiply = false;
                                 }
                             }
                         }
@@ -501,22 +502,22 @@ namespace Drawer.Forms
                         {
                             try
                             {
-                                stdNamed[i].grade = double.Parse(tb[i][3].Text);
-                                Assistance.record("saving success student=" + stdNamed[i].name + "|" + stdNamed[i].ID.ToString() + "grade=" + stdNamed[i].grade.ToString());
+                                stdNamed[i].Grade = double.Parse(tb[i][3].Text);
+                                Assistance.record("saving success student=" + stdNamed[i].Name + "|" + stdNamed[i].Id.ToString() + "grade=" + stdNamed[i].Grade.ToString());
                             }
                             catch (Exception)
                             {
                                 MessageBox.Show("请输入数字并重新保存");
-                                Assistance.record("saving failure case inputbox not number where student=" + stdNamed[i].name + "|" + stdNamed[i].ID.ToString());
+                                Assistance.record("saving failure case inputbox not number where student=" + stdNamed[i].Name + "|" + stdNamed[i].Id.ToString());
                                 return;
                             }
-                            stdNamed[i].selected_Mutiply = true;
+                            stdNamed[i].Selected_Mutiply = true;
                         }
                         else
                         {
-                            Assistance.record("saving NULL student=" + stdNamed[i].name + "|" + stdNamed[i].ID.ToString());
-                            stdNamed[i].selected_Mutiply = false;
-                            stdNamed[i].grade = -1;
+                            Assistance.record("saving NULL student=" + stdNamed[i].Name + "|" + stdNamed[i].Id.ToString());
+                            stdNamed[i].Selected_Mutiply = false;
+                            stdNamed[i].Grade = -1;
                         }
                         saved = true;
                     }
@@ -530,7 +531,7 @@ namespace Drawer.Forms
                         {
                             for (int i = 1; i <= rollnum; i++)
                             {
-                                stdNamed[i].selected_Report = false;
+                                stdNamed[i].Selected_Report = false;
                             }
                         }
                         catch (Exception)
@@ -553,7 +554,7 @@ namespace Drawer.Forms
                 default:
                     break;
             }
-            obj.updateDataBase();
+            mainForm.updateDataBase();
             saved = true;
         }
         private void button4_Click(object sender, EventArgs e)

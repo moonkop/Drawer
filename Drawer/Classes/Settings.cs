@@ -11,6 +11,7 @@ namespace Drawer.Classes
         public string LogPath = "log.txt";
         public string dataOutPutPath = "outPut\\";
         public string PicPath = "pic\\";
+        public string defaultPicPath = "default.jpg";
         public string DBpath = "data.db";
         public string ShA1OfDB = "";
         public string SHA1ofDBpath = "SHA1ofDB.txt";

@@ -36,15 +36,16 @@ namespace Drawer.Forms
 
         private void StudentStatus_Load(object sender, EventArgs e)
         {
-            textBoxID.DataBindings.Add("Text", student, "ID",false,DataSourceUpdateMode.OnPropertyChanged);
+            textBoxID.DataBindings.Add("Text", student, "Id",false,DataSourceUpdateMode.OnPropertyChanged);
             textBoxName.DataBindings.Add("Text", student, "Name",false, DataSourceUpdateMode.OnPropertyChanged);
-            textBoxClass.DataBindings.Add("Text", student.classroom, "classID",false,DataSourceUpdateMode.OnPropertyChanged);
-            checkBoxMutiply.DataBindings.Add("Checked",student,"selected_Mutiply",false,DataSourceUpdateMode.OnPropertyChanged);
-            checkBoxSingle.DataBindings.Add("Checked",student, "selected_Single", false,DataSourceUpdateMode.OnPropertyChanged);
-            checkBoxReport.DataBindings.Add("Checked",student, "selected_Report", false,DataSourceUpdateMode.OnPropertyChanged);
-            textBoxMutiplyScore.DataBindings.Add("Text", student, "grade", false, DataSourceUpdateMode.OnPropertyChanged);
+            textBoxClass.DataBindings.Add("Text", student.Classroom, "ClassID",false,DataSourceUpdateMode.OnPropertyChanged);
+            checkBoxMutiply.DataBindings.Add("Checked",student, "Selected_Mutiply", false,DataSourceUpdateMode.OnPropertyChanged);
+            checkBoxSingle.DataBindings.Add("Checked",student, "Selected_Single", false,DataSourceUpdateMode.OnPropertyChanged);
+            checkBoxReport.DataBindings.Add("Checked",student, "Selected_Report", false,DataSourceUpdateMode.OnPropertyChanged);
+            textBoxMutiplyScore.DataBindings.Add("Text", student, "Grade", false, DataSourceUpdateMode.OnPropertyChanged);
             textBoxMutiplyScore.DataBindings.Add("Visible",checkBoxMutiply,"Checked",false,DataSourceUpdateMode.OnPropertyChanged);
-
+            pictureBox.DataBindings.Add("ImageLocation", student, "PicturePath", false, DataSourceUpdateMode.OnPropertyChanged);
+            
             //textBoxPicPath.DataBindings.Add("Text", student, "");
 
           //  student.ID
@@ -52,6 +53,7 @@ namespace Drawer.Forms
 
         private void buttonConfirm_Click(object sender, EventArgs e)
         {
+            this.Close();
 
         }
 

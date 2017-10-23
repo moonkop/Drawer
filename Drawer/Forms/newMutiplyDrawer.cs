@@ -61,7 +61,6 @@ namespace Drawer.Forms
             DateTimePicker date = new DateTimePicker();
             date.Show();    
             ToolBoxItem item = new ToolBoxItem();
-      
             toolBoxGroup1.Add(item);
         }
 
@@ -73,6 +72,7 @@ namespace Drawer.Forms
         private void BtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+            
         }
     }
 }
