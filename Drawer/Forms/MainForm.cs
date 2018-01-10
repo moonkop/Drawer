@@ -1102,7 +1102,7 @@ namespace Drawer.Forms
 
         private void newMutiplyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new NewMutiplyDrawer().Show();
+            new NewMutiplyDrawer(20).Show();
         }
 
         private void 修改ToolStripMenuItem_Click(object sender, EventArgs e)

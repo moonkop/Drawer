@@ -179,6 +179,7 @@
     <None Include="icon\close_600px_1181428_easyicon.net.png" />
     <None Include="icon\Close_up_600px_1181430_easyicon.net.png" />
     <Content Include="icon\MainIcon.ico" />
+    <None Include="icon\save.png" />
     <Content Include="Newtonsoft.Json.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
