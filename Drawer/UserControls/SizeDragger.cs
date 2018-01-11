@@ -79,8 +79,9 @@ namespace Drawer.Classes
 
         private void SizeDragger_MouseUp(object sender, MouseEventArgs e)
         {
-            this.Left = Parent.Width - this.Width;
-            this.Top = Parent.Height - this.Height;
+
+            SetParentSize(e.X + this.Width / 2 + this.Left, e.Y + this.Height / 2 + this.Top);
+
         }
     }
 }

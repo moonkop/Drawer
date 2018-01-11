@@ -18,7 +18,6 @@ namespace Drawer.Forms
             {
                 return items;
             }
-
         }
 
         public NewMutiplyDrawer()
@@ -37,21 +36,11 @@ namespace Drawer.Forms
             foreach (var item in Items)
             {
                 this.flowLayoutPanel1.Controls.Add(item);
-                //   item.Show();
+                
             }
         }
 
         private void NewMutiplyDrawer_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolBoxGroup1_Load(object sender, EventArgs e)
         {
 
         }
@@ -59,7 +48,7 @@ namespace Drawer.Forms
         private void button2_Click(object sender, EventArgs e)
         {
             DateTimePicker date = new DateTimePicker();
-            date.Show();    
+            date.Show();
             ToolBoxItem item = new ToolBoxItem();
             toolBoxGroup1.Add(item);
         }
@@ -72,7 +61,19 @@ namespace Drawer.Forms
         private void BtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
-            
+
+        }
+
+        private void BtnSave_Click(object sender, System.EventArgs e)
+        {
+            MessageBox.Show("已保存");
+
+
+        }
+
+        private void toolBoxGroup1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -45,11 +45,9 @@ namespace Drawer.Forms
             textBoxMutiplyScore.DataBindings.Add("Text", student, "Grade", false, DataSourceUpdateMode.OnPropertyChanged);
             textBoxMutiplyScore.DataBindings.Add("Visible",checkBoxMutiply,"Checked",false,DataSourceUpdateMode.OnPropertyChanged);
             pictureBox.DataBindings.Add("ImageLocation", student, "PicturePath", false, DataSourceUpdateMode.OnPropertyChanged);
-            
-            //textBoxPicPath.DataBindings.Add("Text", student, "");
-
-          //  student.ID
+            checkBoxMutiply.CheckedChanged += checkBoxMutiply_CheckedChanged;
         }
+        
 
         private void buttonConfirm_Click(object sender, EventArgs e)
         {
@@ -59,6 +57,27 @@ namespace Drawer.Forms
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+
+        }
+
+        double gradeBefore = 0;
+
+
+        private void checkBoxMutiply_CheckedChanged(object sender, EventArgs e)
+        {
+            
+
+            if (checkBoxMutiply.Checked==false)
+            {
+                double.TryParse(textBoxMutiplyScore.Text, out gradeBefore);
+                student.Grade = -1;
+            }
+            else
+            {
+                student.Grade = gradeBefore ;
+                textBoxMutiplyScore.Text = student.Grade.ToString();
+                
+            }
 
         }
     }
