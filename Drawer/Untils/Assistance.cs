@@ -5,7 +5,13 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Drawer.Classes;
-namespace Drawer
+using Drawer.Untils;
+using Drawer.Control;
+using Drawer.Model;
+using Drawer.UserControls;
+
+
+namespace Drawer.Untils
 {
     public static class Assistance
     {

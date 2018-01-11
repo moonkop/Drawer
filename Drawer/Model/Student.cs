@@ -4,8 +4,12 @@ using System.Linq;
 using System.Text;
 using Drawer.Forms;
 using Drawer.Classes;
+using Drawer.Untils;
+using Drawer.Control;
+using Drawer.Model;
+using Drawer.UserControls;
 
-namespace Drawer.Classes
+namespace Drawer.Model
 {
     public class Student
     {

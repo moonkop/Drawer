@@ -55,8 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Assistance.cs" />
-    <Compile Include="Classes\Settings.cs" />
+    <Compile Include="Untils\Assistance.cs" />
+    <Compile Include="Untils\Settings.cs" />
+    <Compile Include="Control\DrawerControl.cs" />
     <Compile Include="UserControls\SizeDragger.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -69,16 +70,16 @@
     <Compile Include="Forms\ClassPicker.Designer.cs">
       <DependentUpon>ClassPicker.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Classroom.cs" />
-    <Compile Include="Classes\ListViewComparer.cs" />
+    <Compile Include="Model\Classroom.cs" />
+    <Compile Include="Untils\ListViewComparer.cs" />
     <Compile Include="Forms\MutiplyDrawer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\MutiplyDrawer.Designer.cs">
       <DependentUpon>MutiplyDrawer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\SettingManager.cs" />
-    <Compile Include="Classes\StatusPrintBuffer.cs" />
+    <Compile Include="Untils\SettingManager.cs" />
+    <Compile Include="Untils\StatusPrintBuffer.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,7 +98,7 @@
     <Compile Include="Forms\PasswordInputDialog.Designer.cs">
       <DependentUpon>PasswordInputDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Program.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="UserControls\MutiplyDrawerItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -117,7 +118,7 @@
       <DependentUpon>ToolBoxItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Classes\Student.cs" />
+    <Compile Include="Model\Student.cs" />
     <Compile Include="Forms\StudentStatus.cs">
       <SubType>Form</SubType>
     </Compile>

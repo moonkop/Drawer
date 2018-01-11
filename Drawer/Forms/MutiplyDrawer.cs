@@ -7,12 +7,20 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+
+
+using Drawer.Classes;
+using Drawer.Untils;
+using Drawer.Control;
+using Drawer.Model;
+using Drawer.UserControls;
+
 namespace Drawer.Forms
 {
     public partial class roll5 : Form
     {
         public int[][] l = new int[100][];
-        MainForm mainForm;
+        DrawerControl drawerControl;
         public TextBox[][] tb = new TextBox[100][];
         public PictureBox[] pb = new PictureBox[30];
         public Button[] bt = new Button[30];
@@ -24,22 +32,22 @@ namespace Drawer.Forms
         public bool saved = true;
         Student.selectedType selectType;
         private bool mouseIsDown;
-        public roll5(MainForm obj1, int nums, Student.selectedType st)
+        public roll5(DrawerControl obj1, int nums, Student.selectedType st)
         {
             InitializeComponent();
-            mainForm = obj1;
+            drawerControl = obj1;
             rollnum = nums;
             selectType = st;
             timer1.Tick += new EventHandler(timer1_Tick);
             timer1.Interval = 3000;
             timer1.Enabled = true;
             timer2.Tick += new EventHandler(timer2_Tick);
-            timer2.Interval = mainForm.timer1.Interval;
+            timer2.Interval = drawerControl.timer1.Interval;
             Assistance.record("roll5 start   selectType=" + st.ToString() + " " + "selectNum=" + rollnum.ToString());
         }
         void timer2_Tick(object sender, EventArgs e)
         {
-            showdata(mainForm.Hitter, currentPointer);
+            showdata(drawerControl.Hitter, currentPointer);
         }
         void showdata(Student std, int pointer)
         {
@@ -54,8 +62,8 @@ namespace Drawer.Forms
         }
         void timer1_Tick(object sender, EventArgs e)
         {
-            mainForm.stopRoll5(selectType);
-            stdNamed[currentPointer] = mainForm.Hitter;
+            drawerControl.stopRoll5(selectType);
+            stdNamed[currentPointer] = drawerControl.Hitter;
             //stdNamed[currentPointer].selected = false;
 
             showdata(stdNamed[currentPointer], currentPointer);
@@ -67,7 +75,7 @@ namespace Drawer.Forms
             }
             else
             {
-                mainForm.startRoll5();
+                drawerControl.startRoll5();
             }
         }
         private void Form2_Load(object sender, EventArgs e)
@@ -317,10 +325,10 @@ namespace Drawer.Forms
         {
             //MessageBox.Show(((Button)sender).Tag.ToString());
             int target = int.Parse(((Button)sender).Tag.ToString());
-            mainForm.startRoll5();
-            mainForm.rollStd();
-            mainForm.stopRoll5(selectType);
-            showdata(mainForm.Hitter, target);
+            drawerControl.startRoll5();
+            drawerControl.rollStd();
+            drawerControl.stopRoll5(selectType);
+            showdata(drawerControl.Hitter, target);
             switch (selectType)
             {
                 case Student.selectedType.Mutiply:
@@ -335,7 +343,7 @@ namespace Drawer.Forms
                     break;
             }
             Assistance.record("roll5 skip student =" + stdNamed[target].Name + stdNamed[target].Id.ToString());
-            stdNamed[target] = mainForm.Hitter;
+            stdNamed[target] = drawerControl.Hitter;
             Assistance.record("roll5 next student =" + stdNamed[target].Name + stdNamed[target].Id.ToString());
         }
         #region mouse
@@ -351,9 +359,9 @@ namespace Drawer.Forms
             {
                 if (lastPoint.X == lastPoint.Y && lastPoint.X == 0)
                 {
-                    lastPoint = Control.MousePosition;
+                    lastPoint =System.Windows.Forms.Control.MousePosition;
                 }
-                currentPoint = Control.MousePosition;
+                currentPoint = System.Windows.Forms.Control.MousePosition;
                 var formPoint = this.Location;
                 this.Location = new Point(formPoint.X + currentPoint.X - lastPoint.X, formPoint.Y + currentPoint.Y - lastPoint.Y);
                 lastPoint.X = currentPoint.X;
@@ -398,12 +406,12 @@ namespace Drawer.Forms
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
-            if (mainForm.stdSelected[1] != null)
+            if (drawerControl.stdSelected[1] != null)
             {
                 timer1.Enabled = true;
                 timer2.Enabled = true;
                 currentPointer = 1;
-                mainForm.startRoll5();
+                drawerControl.startRoll5();
 
             }
             else
@@ -416,7 +424,7 @@ namespace Drawer.Forms
             Assistance.record("roll5 tryclosing");
             timer1.Enabled = false;
             timer2.Enabled = false;
-            mainForm.timer1.Enabled = false;
+            drawerControl.timer1.Enabled = false;
             switch (selectType)
             {
                 case Student.selectedType.Mutiply:
@@ -554,7 +562,7 @@ namespace Drawer.Forms
                 default:
                     break;
             }
-            mainForm.updateDataBase();
+            drawerControl.updateDataBase();
             saved = true;
         }
         private void button4_Click(object sender, EventArgs e)

@@ -8,6 +8,10 @@ using System.Text;
 using System.Windows.Forms;
 using System.Collections.ObjectModel;
 using Drawer.Classes;
+using Drawer.Untils;
+using Drawer.Control;
+using Drawer.Model;
+using Drawer.UserControls;
 
 namespace Drawer.Forms
 {

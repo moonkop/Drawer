@@ -7,6 +7,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Drawer.Classes;
+using Drawer.Untils;
+using Drawer.Control;
+using Drawer.Model;
+using Drawer.UserControls;
 
 namespace Drawer.Forms
 {

@@ -14,39 +14,33 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using System.Configuration;
 using Drawer.Classes;
+using Drawer.Untils;
+using Drawer.Control;
+using Drawer.Model;
+using Drawer.UserControls;
 
 namespace Drawer.Forms
 {
 
     public partial class MainForm : Form
     {
-        //所有的班级
-        public List<Classroom> classAll = new List<Classroom>();
-        //显示的班级
-        public List<Classroom> classSelected = new List<Classroom>();
-        //勾选的班级
-        public List<Classroom> classMarked = new List<Classroom>();
-        public List<Student> AllStudents = new List<Student>();
-        public List<Student> stdSelected = new List<Student>();
-        public List<Student> stdFound = new List<Student>();
-        public List<Student> stdReady = new List<Student>();
         public List<System.Windows.Forms.CheckBox> CheckboxClassroom = new List<System.Windows.Forms.CheckBox>();
         public Random rd = new Random();
         public DateTime currentTime = new DateTime();
-        SQLiteConnection conn = new SQLiteConnection();
-        StatusPrintBuffer spb = new StatusPrintBuffer();
+        public StatusPrintBuffer spb = new StatusPrintBuffer();
         public int seekNums;
         public int seekPointer;
         bool textBox4Changed;
         bool textBox2Changed;
         bool textBox3Changed;
 
-        Drawer.Classes.Student.selectedType st;
+        Student.selectedType st;
         public Student Hitter;
         int maxnum;
         private bool checkBoxChanged;
         private string pastDBSHA1;
         private bool SECURITY_Enabled;
+        private DrawerControl drawerControl;
 
         public static MySettings Settings
         {
@@ -56,44 +50,7 @@ namespace Drawer.Forms
             }
         }
 
-        public int get_Selected_counts(Student.selectedType st)
-        {
-            int count = 0;
-            switch (st)
-            {
-                case Student.selectedType.Mutiply:
-                    foreach (Student astd in stdSelected)
-                    {
-                        if (astd.Selected_Mutiply == true)
-                        {
-                            count++;
-                        }
-                    }
-                    break;
-                case Student.selectedType.Single:
-                    foreach (Student astd in stdSelected)
-                    {
-                        if (astd.Selected_Single == true)
-                        {
-                            count++;
-                        }
-                    }
-                    break;
-                case Student.selectedType.Report:
-                    foreach (Student astd in stdSelected)
-                    {
-                        if (astd.Selected_Report == true)
-                        {
-                            count++;
-                        }
-                    }
-                    break;
-                default:
-                    break;
-            }
-            return count;
-
-        }
+      
         public ListViewItem UpdateListViewItemForStudent(ListViewItem lvi)
         {
             Student stu = (Student)lvi.Tag;
@@ -122,11 +79,11 @@ namespace Drawer.Forms
         }
         public void LoadConfig_SelectedClassroom()
         {
-            classSelected = new List<Classroom>();
+           drawerControl.classSelected = new List<Classroom>();
             foreach (var str1 in Assistance.Settings.classStrs)
             {
-                Classroom cls = GetOrCreateClassroomById(str1);
-                classSelected.Add(cls);
+                Classroom cls = drawerControl.GetOrCreateClassroomById(str1);
+               drawerControl.classSelected.Add(cls);
             }
         }
         public void ShowSelectedClassroomCheckbox()
@@ -146,7 +103,7 @@ namespace Drawer.Forms
 
             }
 
-            foreach (Classroom cls in classSelected)
+            foreach (Classroom cls in drawerControl.classSelected)
             {
                 System.Windows.Forms.CheckBox tempckb = new System.Windows.Forms.CheckBox();
                 tempckb = new System.Windows.Forms.CheckBox();
@@ -167,13 +124,13 @@ namespace Drawer.Forms
         }
         public void GetClassroomMarkStatus()
         {
-            classMarked.Clear();
+            drawerControl.classMarked.Clear();
             foreach (CheckBox ckb in CheckboxClassroom)
             {
                 if (ckb.Checked)
                 {
-                    Classroom cls = GetClassroomById(ckb.Text);
-                    classMarked.Add(cls);
+                    Classroom cls = drawerControl.GetClassroomById(ckb.Text);
+                    drawerControl.classMarked.Add(cls);
                 }
             }
         }
@@ -213,122 +170,14 @@ namespace Drawer.Forms
         /// <param name="dest">第dest个分隔符后面</param>
         /// <param name="spilt">分隔符</param>
         /// <returns></returns>
-        private void OutPutData()
-        {
-            Settings.dataOutPutPath = Settings.dataOutPutPath + currentTime.ToString("yyyy-mm-dd_hh.mm.ss") + ".csv";
 
-            if (AllStudents.Count == 0)
-            {
-                ReadDataFromDatabase();
-            }
-            try
-            {
-                FileStream fs = new FileStream(Settings.dataOutPutPath, FileMode.Create);
-
-                StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
-                foreach (Student astd in AllStudents)
-                {
-                    sw.WriteLine(astd.Id + "," + astd.Name + "," + astd.Classroom.ClassID + "," + ((astd.Grade.ToString() != "-1") ? astd.Grade.ToString() : ""));
-                }
-                sw.Close();
-                fs.Close();
-
-                System.Diagnostics.Process.Start(@"explorer.exe", @"/e,/select," + Settings.dataOutPutPath);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-
-            }
-
-        }
-        public void updateDataBase()
-        {
-            if (AllStudents.Count == 0)
-            {
-                return;
-            }
-            foreach (Student astd in AllStudents)
-            {
-                astd.Sha1 = astd.getSHA1();
-            }
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            SQLiteConnection conn = new SQLiteConnection();
-            conn.ConnectionString = "Data source=" + Settings.DBpath;
-            conn.Open();
-            var cmd = conn.CreateCommand();
-            StringBuilder tempCmd = new StringBuilder("replace  into students values");
-            foreach (var astd in AllStudents)
-            {
-                tempCmd.Append(getStudentText(astd) + ",");
-            }
-            tempCmd.Remove(tempCmd.Length - 1, 1);
-            cmd.CommandText = tempCmd.ToString();
-            cmd.ExecuteNonQuery();
-            // loadStudent();
-            sw.Stop();
-            var sw1 = new StreamWriter(Settings.SHA1ofDBpath, false);
-            sw1.WriteLine(Assistance.GetSHA1Hash(Settings.DBpath));
-            sw1.Close();
-            spb.add("完成更新！用时" + sw.ElapsedMilliseconds + "ms");
-        }
-        string getStudentText(Student astd)
-        {
-            return "(" + "\"" +
-                astd.Id + "\",\"" +
-                astd.Name + "\",\"" +
-                astd.Classroom.ClassID + "\"," +
-                astd.Grade + ",\"" +
-                astd.Sha1 + "\"," +
-                astd.select_Mutiply_StatusGetint().ToString() + "," +
-                astd.select_Single_StatusGetint().ToString() + "," +
-                astd.select_Report_StatusGetint().ToString() + ")";
-        }
-        public void ExecuteSQLcommand(string cmd)
-        {
-            try
-            {
-                if (conn.State != System.Data.ConnectionState.Open)
-                {
-                    conn.Open();
-                }
-                var command = conn.CreateCommand();
-                command.CommandText = cmd; ;
-
-                var str = command.ExecuteScalar();
-                if (str != null)
-                {
-                    MessageBox.Show(str.ToString());
-                }
-                else
-                {
-                    MessageBox.Show("执行完成");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
         public void BindingDatas()
         {
             TextBoxMutiplyNum.Text = Settings.DefaultMutiplyDrawerNum.ToString();
             timer1.Interval = Settings.RollTimeInteval;
 
         }
-        public static string getPicturePathOrDefault(string path)
-        {
-            if (File.Exists(path))
-            {
-                return path;
-
-            }
-            else
-            {
-                return Settings.PicPath + "default.jpg";
-            }
-        }
+   
         public void DisplayStudentData(Student student)
         {
             TextBoxName.Text = student.Name;
@@ -352,47 +201,49 @@ namespace Drawer.Forms
         /// </summary>
         public int GetStudentsReady(Student.selectedType st)
         {
-            if (stdSelected.Count == 0)
+            if (drawerControl.stdSelected.Count == 0)
             {
                 selectStudents();
             }
-            stdReady.Clear();
-            foreach (Student astd in stdSelected)
+            drawerControl.stdReady.Clear();
+            foreach (Student astd in drawerControl.stdSelected)
             {
                 switch (st)
                 {
                     case Student.selectedType.Mutiply:
                         if (!astd.Selected_Mutiply)
                         {
-                            stdReady.Add(astd);
+                            drawerControl.stdReady.Add(astd);
                         }
                         break;
                     case Student.selectedType.Single:
                         if (!astd.Selected_Single)
                         {
-                            stdReady.Add(astd);
+                            drawerControl.stdReady.Add(astd);
                         }
                         break;
                     case Student.selectedType.Report:
                         if (!astd.Selected_Report)
                         {
-                            stdReady.Add(astd);
+                            drawerControl.stdReady.Add(astd);
                         }
                         break;
                 }
             }
-            maxnum = stdReady.Count;
+            maxnum = drawerControl.stdReady.Count;
             return maxnum;
         }
         public void rollStd()
         {
             int zjz = rd.Next(maxnum);
-            Hitter = stdReady[zjz];
+            Hitter = drawerControl.stdReady[zjz];
             //stdReady.RemoveAt(zjz);
         }
-        public MainForm()
+        public MainForm( DrawerControl dw)
         {
             InitializeComponent();
+            this.drawerControl = dw;
+
             CheckForIllegalCrossThreadCalls = false;
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -412,11 +263,11 @@ namespace Drawer.Forms
                     pib.Show();
                 }
             }
-            conn.ConnectionString = "Data Source=" + Settings.DBpath;
+            drawerControl.conn.ConnectionString = "Data Source=" + Settings.DBpath;
             TBOutput.Location = pictureBox1.Location;
             TBOutput.Size = pictureBox1.Size;
             TBOutput.Visible = false;
-            ReadDataFromDatabase();
+            drawerControl.ReadDataFromDatabase();
             LoadConfig_SelectedClassroom();
             ShowSelectedClassroomCheckbox();
 
@@ -424,7 +275,7 @@ namespace Drawer.Forms
         private void roll5Init(object sender, EventArgs e)//批量抽取
         {
             selectStudents();
-            if (stdSelected.Count == 0)
+            if (drawerControl.stdSelected.Count == 0)
             {
                 MessageBox.Show("请选择班级");
                 return;
@@ -443,8 +294,8 @@ namespace Drawer.Forms
                 {
                     if (MessageBox.Show("每周一问已抽完，是否输出成绩并清空数据库？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        OutPutData();
-                        foreach (Student astd in stdSelected)
+                        drawerControl.OutPutData();
+                        foreach (Student astd in drawerControl.stdSelected)
                         {
                             astd.Selected_Mutiply = false;
                             astd.Grade = -1;
@@ -471,7 +322,7 @@ namespace Drawer.Forms
                 {
                     if (MessageBox.Show("一轮已抽完 是否清空记录进行下一轮？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                     {
-                        foreach (Student astd in stdSelected)
+                        foreach (Student astd in drawerControl.stdSelected)
                         {
                             astd.Selected_Report = false;
                         }
@@ -489,7 +340,7 @@ namespace Drawer.Forms
                     return;
                 }
             }
-            var roll5form = new roll5(this, rollnum, st);
+            var roll5form = new roll5(drawerControl, rollnum, st);
             roll5form.Show();
 
         }
@@ -510,13 +361,13 @@ namespace Drawer.Forms
         public void stopRoll5(Student.selectedType st)
         {
             timer1.Enabled = false;
-            if (get_Selected_counts(st) == stdSelected.Count)
+            if (drawerControl.get_Selected_counts(st) ==drawerControl.stdSelected.Count)
             {
-                stdSelected[0] = new Student();
-                stdSelected[0].Id = "000000";
-                stdSelected[0].Name = "NULL";
-                stdSelected[0].Classroom = new Classroom("0000");
-                stdSelected[0].Classroom.ClassID = "0000";
+               drawerControl.stdSelected[0] = new Student();
+               drawerControl.stdSelected[0].Id = "000000";
+               drawerControl.stdSelected[0].Name = "NULL";
+               drawerControl.stdSelected[0].Classroom = new Classroom("0000");
+               drawerControl.stdSelected[0].Classroom.ClassID = "0000";
                 Assistance.record("ERROR NO MORE STUDENTS");
                 MessageBox.Show("没有更多的学生了");
                 return;
@@ -535,7 +386,7 @@ namespace Drawer.Forms
                     default:
                         break;
                 }
-                stdReady.Remove(Hitter);
+                drawerControl.stdReady.Remove(Hitter);
                 maxnum--;
             }
             Assistance.record(Hitter, "form roll5,selectTpye=" + st.ToString());
@@ -551,28 +402,28 @@ namespace Drawer.Forms
             button6.Visible = true;
             this.Width = 1263;
 
-            stdFound.Clear();
-            if (AllStudents.Count == 0)
+            drawerControl.stdFound.Clear();
+            if (drawerControl.AllStudents.Count == 0)
             {
-                ReadDataFromDatabase();
+                drawerControl.ReadDataFromDatabase();
             }
             if (textBox2Changed == true)//按姓名完全匹配查找
             {
-                foreach (Student astd in AllStudents)
+                foreach (Student astd in drawerControl.AllStudents)
                 {
                     if (TextBoxName.Text == astd.Name)
                     {
-                        stdFound.Add(astd);
+                        drawerControl.stdFound.Add(astd);
                     }
                 }
 
-                if (stdFound.Count == 0)//按姓名查找未找到则转换为模糊查找
+                if (drawerControl.stdFound.Count == 0)//按姓名查找未找到则转换为模糊查找
                 {
-                    foreach (Student astd in AllStudents)
+                    foreach (Student astd in drawerControl.AllStudents)
                     {
                         if (astd.Name.IndexOf(TextBoxName.Text) != -1)
                         {
-                            stdFound.Add(astd);
+                            drawerControl.stdFound.Add(astd);
                         }
                     }
                 }
@@ -580,47 +431,47 @@ namespace Drawer.Forms
             }
             if (textBox3Changed == true)//按学号查找
             {
-                foreach (Student astd in AllStudents)
+                foreach (Student astd in drawerControl.AllStudents)
                 {
                     if (astd.Id == textBoxID.Text || astd.Id.EndsWith(textBoxID.Text))
                     {
-                        stdFound.Add(astd);
+                        drawerControl.stdFound.Add(astd);
                     }
                 }
             }
 
             if (textBox4Changed == true)//按班级查找
             {
-                foreach (Student astd in AllStudents)
+                foreach (Student astd in drawerControl.AllStudents)
                 {
                     if (textBoxClassroom.Text == "" || textBoxClassroom.Text == astd.Classroom.ClassID)
                     {
-                        stdFound.Add(astd);
+                        drawerControl.stdFound.Add(astd);
                     }
                 }
-                if (stdFound.Count == 0)//按班级查找未找到则转换为模糊查找
+                if (drawerControl.stdFound.Count == 0)//按班级查找未找到则转换为模糊查找
                 {
-                    foreach (Student astd in AllStudents)
+                    foreach (Student astd in drawerControl.AllStudents)
                     {
                         if (astd.Classroom.ClassID.IndexOf(textBoxClassroom.Text) != -1)
                         {
-                            stdFound.Add(astd);
+                            drawerControl.stdFound.Add(astd);
                         }
                     }
                 }
             }
-            statusPrint(stdFound.Count + "人已找到");
+            statusPrint(drawerControl.stdFound.Count + "人已找到");
             loadstuFound();
 
         }
         public void loadstuFound()
         {
-            if (stdFound.Count != 0)
+            if (drawerControl.stdFound.Count != 0)
             {
-                DisplayStudentData(stdFound[0]);
+                DisplayStudentData(drawerControl.stdFound[0]);
             }
             listViewResults.Items.Clear();
-            foreach (Student astd in stdFound)
+            foreach (Student astd in drawerControl.stdFound)
             {
                 listViewResults.Items.Add(CreateListViewItemForStudent(astd));
             }
@@ -639,46 +490,26 @@ namespace Drawer.Forms
         }
         private void selectStudents()
         {
-            if (AllStudents.Count == 0)
+            if (drawerControl.AllStudents.Count == 0)
             {
-                ReadDataFromDatabase();
+                drawerControl.ReadDataFromDatabase();
             }
-            stdSelected.Clear();
+           drawerControl.stdSelected.Clear();
             GetClassroomMarkStatus();
-            foreach (Classroom cls in classMarked)
+            foreach (Classroom cls in drawerControl.classMarked)
             {
                 foreach (Student stu in cls.students)
                 {
-                    stdSelected.Add(stu);
+                   drawerControl.stdSelected.Add(stu);
                 }
             }
-            spb.add(stdSelected.Count + "人已选中");
+            spb.add(drawerControl.stdSelected.Count + "人已选中");
             checkBoxChanged = false;
         }
-        private Classroom GetClassroomById(string ClassroomId)
-        {
-            foreach (var aclassroom in classAll)
-            {
-                if (aclassroom.ClassID == ClassroomId)
-                {
-                    return aclassroom;
-                }
-            }
-            return null;
-        }
-        private Classroom GetOrCreateClassroomById(string ClassroomId)
-        {
-            Classroom cls = GetClassroomById(ClassroomId);
-            if (cls == null)
-            {
-                cls = new Classroom(ClassroomId);
-                classAll.Add(cls);
-            }
-            return cls;
-        }
+
         private Student GetStudentById(string id)
         {
-            foreach (var student in AllStudents)
+            foreach (var student in drawerControl.AllStudents)
             {
                 if (student.Id == id)
                 {
@@ -688,85 +519,7 @@ namespace Drawer.Forms
             }
             return null;
         }
-        private void ReadDataFromDatabase()
-        {
-            if (AllStudents.Count != 0)
-            {
-                updateDataBase();
-            }
-            try
-            {
-                if (conn.State != ConnectionState.Open)
-                {
-
-                    spb.add("正在连接数据库");
-                    conn.Open();
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("数据库连接失败！");
-            }
-            try
-            {
-                spb.add("数据库连接成功");
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "select * from students";
-                var reader = cmd.ExecuteReader();
-                AllStudents.Clear();
-                while (reader.Read())
-                {
-                    Student tempstd = new Student();
-                    tempstd.Id = reader.GetString(0);
-                    tempstd.Name = reader.GetString(1);
-                    string tempStrClassID = reader.GetString(2);
-                    Classroom cls = GetOrCreateClassroomById(tempStrClassID);
-
-                    cls.AddStudent(tempstd);
-                    tempstd.Classroom = cls;
-                    tempstd.Grade = reader.GetDouble(3);
-                    tempstd.Sha1 = reader.GetString(4);
-                    tempstd.Selected_Mutiply = reader.GetBoolean(5);
-                    tempstd.Selected_Single = reader.GetBoolean(6);
-                    tempstd.Selected_Report = reader.GetBoolean(7);
-                    AllStudents.Add(tempstd);
-                }
-            }
-            catch (Exception ex)
-            {
-                statusPrint(ex.Message);
-            }
-            if (SECURITY_Enabled == true)
-            {
-                foreach (Student astd in AllStudents)
-                {
-                    if (astd.getSHA1() != astd.Sha1)
-                    {
-                        DialogResult ok = MessageBox.Show(astd.Name + astd.Id + "\n的成绩遭到非法修改" + "为" + astd.Grade + "\n是否清空？", "警告！", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                        if (ok == DialogResult.Yes)
-                        {
-                            astd.Grade = -1;
-                            astd.Selected_Mutiply = false;
-                            updateDataBase();
-                        }
-                    }
-                }
-            }
-            foreach (Student astd in AllStudents)
-            {
-                if (astd.Grade != -1 && astd.Selected_Mutiply == false)
-                {
-                    DialogResult ok = MessageBox.Show(astd.Name + astd.Id + "\n的成绩" + "为" + astd.Grade + "\n但未生成抽取记录，是否重新生成？", "警告！", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (ok == DialogResult.Yes)
-                    {
-                        astd.Selected_Mutiply = true;
-                        updateDataBase();
-                    }
-                }
-            }
-
-            spb.add(AllStudents.Count + "已读取");
-        }
+   
         private void timer1_Tick(object sender, EventArgs e)
         {
             rollStd();
@@ -788,47 +541,56 @@ namespace Drawer.Forms
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
 
-            if (conn.State == System.Data.ConnectionState.Open)
-            {
-                updateDataBase();
-                conn.Close();
-            }
+            drawerControl.CloseConnection();
+
             CollectSettings();
             Assistance.StoreSettings();
 
         }
+        public static string getPicturePathOrDefault(string path)
+        {
+            if (File.Exists(path))
+            {
+                return path;
+
+            }
+            else
+            {
+                return Settings.PicPath + "default.jpg";
+            }
+        }
         private void buttonDeleteAll_Click(object sender, EventArgs e)
         {
-            ReadDataFromDatabase();
+           drawerControl. drawerControl.ReadDataFromDatabase();
             if (MessageBox.Show("此操作将删除所有学生的成绩并将实验报告抽取记录、课堂提问抽取记录，随机提问抽取记录清零，是否确定？", "警告:", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                foreach (Student astd in AllStudents)
+                foreach (Student astd in drawerControl.AllStudents)
                 {
                     astd.Grade = -1;
                     astd.Selected_Mutiply = false;
                     astd.Selected_Report = false;
                     astd.Selected_Single = false;
                 }
-                updateDataBase();
+               drawerControl.updateDataBase();
             }
         }
         private void buttonStart_Click(object sender, EventArgs e) //开始按钮
         {
-            if (stdSelected.Count == 0 || checkBoxChanged == true)
+            if (drawerControl.stdSelected.Count == 0 || checkBoxChanged == true)
             {
                 selectStudents();
             }
-            if (stdSelected.Count == 0)
+            if (drawerControl.stdSelected.Count == 0)
             {
                 spb.add("请选择班级");
                 //    getReady(Student.selectedType.Single);
-                //    maxnum = stdReady.Count;
+                //    maxnum = drawerControl.stdReady.Count;
                 //    timer1.Enabled = true;
             }
             if (GetStudentsReady(Student.selectedType.Single) == 0)
             {
                 MessageBox.Show("所有学生已抽过，记录已清空");
-                foreach (Student astd in stdSelected)
+                foreach (Student astd in drawerControl.stdSelected)
                 {
                     astd.Selected_Single = false;
                 }
@@ -855,14 +617,14 @@ namespace Drawer.Forms
             {
                 listViewResults.Sorting = SortOrder.Ascending;
             }
-            listViewResults.ListViewItemSorter = new Drawer.ListViewItemComparer(e.Column, listViewResults.Sorting);
+            listViewResults.ListViewItemSorter = new ListViewItemComparer(e.Column, listViewResults.Sorting);
             listViewResults.Sort();
 
         }
         private void BTExcCmd_Click(object sender, EventArgs e)
         {
-            ExecuteSQLcommand(textBox1.Text);
-            ReadDataFromDatabase();
+            drawerControl.ExecuteSQLcommand(textBox1.Text);
+            drawerControl.ReadDataFromDatabase();
         }
         private void textBox2_Click(object sender, EventArgs e)
         {
@@ -884,15 +646,15 @@ namespace Drawer.Forms
         }
         private void 读取数据ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ReadDataFromDatabase();
+            drawerControl.ReadDataFromDatabase();
         }
         private void 保存数据ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            updateDataBase();
+            drawerControl.updateDataBase();
         }
         private void 导出数据ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OutPutData();
+            drawerControl.OutPutData();
         }
         private void 执行命令ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1024,13 +786,13 @@ namespace Drawer.Forms
                     }
                     if (Regex.IsMatch(astr, @"^\D*\d{4,4}\D*$"))
                     {
-                        Classroom cls = GetClassroomById(astr);
+                        Classroom cls = drawerControl.GetClassroomById(astr);
                         if (cls == null)
                         {
                             if (MessageBox.Show("该班级" + astr + "尚未创建，是否创建？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
                             {
                                 cls = new Classroom(astr);
-                                classAll.Add(cls);
+                                drawerControl.classAll.Add(cls);
                             }
                         }
                         newStudent.Classroom = cls;
@@ -1042,7 +804,7 @@ namespace Drawer.Forms
                     {
                         if (MessageBox.Show("学号为" + newStudent.Id + "的学生已经存在，是否删除原学生？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
                         {
-                            AllStudents.Remove(GetStudentById(newStudent.Id));
+                            drawerControl.AllStudents.Remove(GetStudentById(newStudent.Id));
                         }
                         else
                         {
@@ -1058,7 +820,7 @@ namespace Drawer.Forms
                 }
                 newStudent.Grade = -1;
 
-                AllStudents.Add(newStudent);
+                drawerControl.AllStudents.Add(newStudent);
                 loge("InputSuccess,Get: " + line);
                 continue;
                 ErrorHandler:
@@ -1069,7 +831,7 @@ namespace Drawer.Forms
         }
         private void 班级设置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ClassPicker classPicker = new ClassPicker(classAll, classSelected);
+            ClassPicker classPicker = new ClassPicker(drawerControl.classAll, drawerControl.classSelected);
             classPicker.Owner = this;
             classPicker.fm = this;
             classPicker.ShowDialog();
@@ -1092,7 +854,7 @@ namespace Drawer.Forms
         public void CollectSettings()
         {
             Assistance.Settings.classStrs.Clear();
-            foreach (Classroom cls in classSelected)
+            foreach (Classroom cls in drawerControl.classSelected)
             {
                 Assistance.Settings.classStrs.Add(cls.ClassID);
 

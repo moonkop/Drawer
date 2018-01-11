@@ -6,8 +6,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Drawer.Classes;
 using System.IO;
+using Drawer.Classes;
+using Drawer.Untils;
+using Drawer.Control;
+using Drawer.Model;
+using Drawer.UserControls;
 
-namespace Drawer
+namespace Drawer.Untils
 {
     /// <summary>
     /// 此类负责读写设置
