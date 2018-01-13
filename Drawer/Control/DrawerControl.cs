@@ -21,7 +21,7 @@ namespace Drawer.Control
         //所有的班级
         public List<Classroom> classAll;
         //显示的班级
-        public List<Classroom> classSelected;
+        public List<Classroom> classShowed;
         //勾选的班级
         public List<Classroom> classMarked;
 
@@ -35,13 +35,15 @@ namespace Drawer.Control
         public StringBuilder logBuffer;
         private SQLiteConnection conn;
 
-        private bool SECURITY_Enabled;
+        private bool securityEnabled;
+
+        public bool SecurityEnabled { get => securityEnabled; }
 
         public DrawerControl()
         {
 
             classAll = new List<Classroom>();
-            classSelected = new List<Classroom>();
+            classShowed = new List<Classroom>();
             classMarked = new List<Classroom>();
             AllStudents = new List<Student>();
             stdSelected = new List<Student>();
@@ -56,12 +58,12 @@ namespace Drawer.Control
 
 
         }
-        public int Get_Selected_counts(SelectedType st)
+        public int Get_Selected_counts(SelectType st)
         {
             int count = 0;
             switch (st)
             {
-                case SelectedType.Mutiply:
+                case SelectType.Mutiply:
                     foreach (Student astd in stdSelected)
                     {
                         if (astd.Selected_Mutiply == true)
@@ -70,7 +72,7 @@ namespace Drawer.Control
                         }
                     }
                     break;
-                case SelectedType.Single:
+                case SelectType.Single:
                     foreach (Student astd in stdSelected)
                     {
                         if (astd.Selected_Single == true)
@@ -79,7 +81,7 @@ namespace Drawer.Control
                         }
                     }
                     break;
-                case SelectedType.Report:
+                case SelectType.Report:
                     foreach (Student astd in stdSelected)
                     {
                         if (astd.Selected_Report == true)
@@ -264,7 +266,7 @@ namespace Drawer.Control
             {
                 LogAndShow(ex.Message);
             }
-            if (SECURITY_Enabled == true)
+            if (SecurityEnabled == true)
             {
                 foreach (Student astd in AllStudents)
                 {
@@ -293,7 +295,7 @@ namespace Drawer.Control
                 }
             }
 
-Log(AllStudents.Count + "已读取");
+            Log(AllStudents.Count + "已读取");
         }
         public void CloseConnection()
         {
@@ -329,9 +331,73 @@ Log(AllStudents.Count + "已读取");
             }
             logForm.Show();
             logForm.TopMost = true;
-           
+
 
         }
 
+
+
+        public Student getNextWinner(SelectType selectedType)
+        {
+            switch (selectedType)
+            {
+                case SelectType.Mutiply:
+                    break;
+                case SelectType.Single:
+                    break;
+                case SelectType.Report:
+                    break;
+                default:
+                    break;
+            }
+        }
+        public void GetSelectedClassrooms()
+        {
+            this.classMarked = mainform.GetClassroomMarked();
+        }
+        public List<Student> GetSelectedStudents()
+        {
+            ValidStudents();
+            stdSelected.Clear();
+            GetSelectedClassrooms();
+            foreach (Classroom cls in classMarked)
+            {
+                foreach (Student stu in cls.students)
+                {
+                    stdSelected.Add(stu);
+                }
+            }
+            Log(stdSelected.Count + "人已选中");
+            return stdSelected;
+        }
+        private bool ValidStudents()
+        {
+            try
+            {
+                if (AllStudents.Count == 0)
+                {
+                    ReadDataFromDatabase();
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message);
+                return false;
+            }
+     
+        }
+    }
+
+
+
+    public static class Controllers
+    {
+        public static DrawerControl drawerControl;
+        public static void Init(DrawerControl drawer)
+        {
+            drawerControl = drawer;
+
+        }
     }
 }

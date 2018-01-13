@@ -21,7 +21,7 @@ namespace Drawer.Forms
         private MutiplyDrawerItem currentRollingItem;
         private DrawerControl drawerControl;
         private int drawNum;
-        private SelectedType st;
+        private SelectType st;
 
         public List<MutiplyDrawerItem> Items
         {
@@ -37,7 +37,7 @@ namespace Drawer.Forms
             items = new List<MutiplyDrawerItem>();
         }
 
-        public NewMutiplyDrawer(int drawNum) : this()
+        public NewMutiplyDrawer(int drawNum, SelectType st) : this()
         {
             for (int i = 0; i < drawNum; i++)
             {
@@ -51,12 +51,7 @@ namespace Drawer.Forms
             }
         }
 
-        public NewMutiplyDrawer(DrawerControl drawerControl, int rollnum, SelectedType st)
-        {
-            this.drawerControl = drawerControl;
-            this.drawNum = rollnum;
-            this.st = st;
-        }
+
 
         private void NewMutiplyDrawer_Load(object sender, EventArgs e)
         {

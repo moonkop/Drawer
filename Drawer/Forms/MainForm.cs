@@ -33,13 +33,18 @@ namespace Drawer.Forms
         bool textBox2Changed;
         bool textBox3Changed;
 
-        SelectedType st;
+        SelectType st;
         public Student Hitter;
         int maxnum;
         private bool checkBoxChanged;
         private string pastDBSHA1;
-        private bool SECURITY_Enabled;
-        private DrawerControl drawerControl;
+        private DrawerControl drawerControl
+        {
+            get
+            {
+                return Controllers.drawerControl;
+            }
+        }
 
         public static MySettings Settings
         {
@@ -49,7 +54,11 @@ namespace Drawer.Forms
             }
         }
 
-      
+        public MainForm()
+        {
+            InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
+        }
         public ListViewItem UpdateListViewItemForStudent(ListViewItem lvi)
         {
             Student stu = (Student)lvi.Tag;
@@ -61,7 +70,6 @@ namespace Drawer.Forms
             lvi.SubItems[5].Text = stu.Selected_Single_ForReading;
             lvi.SubItems[6].Text = stu.Selected_Report_ForReading;
             return lvi;
-
         }
         public ListViewItem CreateListViewItemForStudent(Student std1)
         {
@@ -78,20 +86,18 @@ namespace Drawer.Forms
         }
         public void LoadConfig_SelectedClassroom()
         {
-           drawerControl.classSelected = new List<Classroom>();
+           drawerControl.classShowed = new List<Classroom>();
             foreach (var str1 in Assistance.Settings.classStrs)
             {
                 Classroom cls = drawerControl.GetOrCreateClassroomById(str1);
-               drawerControl.classSelected.Add(cls);
+               drawerControl.classShowed.Add(cls);
             }
         }
         public void ShowSelectedClassroomCheckbox()
         {
-
             int top = checkBox1.Top;
             int left = checkBox1.Left;
             checkBox1.Visible = false;
-
             if (CheckboxClassroom.Count != 0)
             {
                 foreach (CheckBox ckb in CheckboxClassroom)
@@ -99,24 +105,21 @@ namespace Drawer.Forms
                     ckb.Dispose();
                 }
                 CheckboxClassroom.Clear();
-
             }
-
-            foreach (Classroom cls in drawerControl.classSelected)
+            foreach (Classroom cls in drawerControl.classShowed)
             {
                 System.Windows.Forms.CheckBox tempckb = new System.Windows.Forms.CheckBox();
                 tempckb = new System.Windows.Forms.CheckBox();
                 tempckb.Height = checkBox1.Height;
-
                 tempckb.Location = checkBox1.Location;
                 tempckb.Top = top;
-
                 tempckb.Size = checkBox1.Size;
                 tempckb.Text = cls.ClassID;
                 tempckb.Font = checkBox1.Font;
+                tempckb.Tag = cls;
+
                 tempckb.CheckedChanged += new System.EventHandler(this.ckb_CheckedChanged);
                 CheckboxClassroom.Add(tempckb);
-
                 top += 50;
                 this.Controls.Add(tempckb);
             }
@@ -144,23 +147,8 @@ namespace Drawer.Forms
         }
         public void loge<T>(T str)
         {
-            TBOutput.AppendText(str + "\r\n");
-            TBOutput.Visible = true;
-            TBOutput.Select(TBOutput.Text.Length, 0);
-            TBOutput.ScrollToCaret();
-        }
-        public void print(string str = "")
-        {
-            textBox1.Text += str + "\r\n";
-        }
-        /// <summary>
-        /// 打印string在textbox1上
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="LR">换行为true 不换行为false</param>
-        public void print(string str, int LR)
-        {
-            textBox1.AppendText(str + (LR == 0 ? "" : "\r\n"));
+            drawerControl.LogAndShow(str);
+
         }
         /// <summary>
         /// 把一个字符串按照分隔符分割
@@ -169,12 +157,10 @@ namespace Drawer.Forms
         /// <param name="dest">第dest个分隔符后面</param>
         /// <param name="spilt">分隔符</param>
         /// <returns></returns>
-
         public void BindingDatas()
         {
             TextBoxMutiplyNum.Text = Settings.DefaultMutiplyDrawerNum.ToString();
             timer1.Interval = Settings.RollTimeInteval;
-
         }
    
         public void DisplayStudentData(Student student)
@@ -185,66 +171,15 @@ namespace Drawer.Forms
             try
             {
                 TBOutput.Visible = false;
-
-                pictureBox1.Load(getPicturePathOrDefault(Settings.PicPath + student.Id + ".jpg"));
+                pictureBox1.Load(student.PicturePath);
             }
             catch (Exception)
             {
                 // pictureBox1.Load();
 
             }
-
         }
-        /// <summary>
-        /// 把没有抽到过的学生放到一个数组里面
-        /// </summary>
-        public int GetStudentsReady(SelectedType st)
-        {
-            if (drawerControl.stdSelected.Count == 0)
-            {
-                selectStudents();
-            }
-            drawerControl.stdReady.Clear();
-            foreach (Student astd in drawerControl.stdSelected)
-            {
-                switch (st)
-                {
-                    case SelectedType.Mutiply:
-                        if (!astd.Selected_Mutiply)
-                        {
-                            drawerControl.stdReady.Add(astd);
-                        }
-                        break;
-                    case SelectedType.Single:
-                        if (!astd.Selected_Single)
-                        {
-                            drawerControl.stdReady.Add(astd);
-                        }
-                        break;
-                    case SelectedType.Report:
-                        if (!astd.Selected_Report)
-                        {
-                            drawerControl.stdReady.Add(astd);
-                        }
-                        break;
-                }
-            }
-            maxnum = drawerControl.stdReady.Count;
-            return maxnum;
-        }
-        public void rollStd()
-        {
-            int zjz = rd.Next(maxnum);
-            Hitter = drawerControl.stdReady[zjz];
-            //stdReady.RemoveAt(zjz);
-        }
-        public MainForm( DrawerControl dw)
-        {
-            InitializeComponent();
-            this.drawerControl = dw;
-
-            CheckForIllegalCrossThreadCalls = false;
-        }
+      
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -252,7 +187,7 @@ namespace Drawer.Forms
             //NameNumLength = FileLength(numpath);
             spb.obj = toolStripStatusLabel1;
             pastDBSHA1 = Assistance.Settings.ShA1OfDB;
-            if (SECURITY_Enabled == true)
+            if (drawerControl.SecurityEnabled == true)
             {
                 if (pastDBSHA1 != Assistance.GetSHA1Hash(Settings.DBpath))
                 {
@@ -287,7 +222,7 @@ namespace Drawer.Forms
 
             if (radioButton1.Checked == true)//批量抽取 每周一问
             {
-                st = SelectedType.Mutiply;
+                st = SelectType.Mutiply;
                 if (GetStudentsReady(st) == 0)
                 {
                     if (MessageBox.Show("每周一问已抽完，是否输出成绩并清空数据库？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -315,7 +250,7 @@ namespace Drawer.Forms
             }
             else//批量抽取 实验报告
             {
-                st = SelectedType.Report;
+                st = SelectType.Report;
                 if (GetStudentsReady(st) == 0)
                 {
                     if (MessageBox.Show("一轮已抽完 是否清空记录进行下一轮？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
@@ -338,8 +273,8 @@ namespace Drawer.Forms
                     return;
                 }
             }
-            var roll5form = new NewMutiplyDrawer(drawerControl, rollnum, st);
-            roll5form.Show();
+ new NewMutiplyDrawer(rollnum,st).Show();
+
 
         }
         public void startRoll5()
@@ -356,7 +291,7 @@ namespace Drawer.Forms
             //else spb.add("请选择班级");
             timer1.Enabled = true;
         }
-        public void stopRoll5(SelectedType st)
+        public void stopRoll5(SelectType st)
         {
             timer1.Enabled = false;
             if (drawerControl.Get_Selected_counts(st) ==drawerControl.stdSelected.Count)
@@ -375,10 +310,10 @@ namespace Drawer.Forms
                 DisplayStudentData(Hitter);
                 switch (st)
                 {
-                    case SelectedType.Mutiply:
+                    case SelectType.Mutiply:
                         Hitter.Selected_Mutiply = true;
                         break;
-                    case SelectedType.Report:
+                    case SelectType.Report:
                         Hitter.Selected_Report = true;
                         break;
                     default:
@@ -459,10 +394,27 @@ namespace Drawer.Forms
                 }
             }
             statusPrint(drawerControl.stdFound.Count + "人已找到");
-            loadstuFound();
+            LoadstuFound();
 
         }
-        public void loadstuFound()
+
+        internal List<Classroom> GetClassroomMarked()
+        {
+            List<Classroom> classroomMarked = new List<Classroom>();
+            foreach (CheckBox item in CheckboxClassroom)
+            {
+                if (item.Checked==true)
+                {
+                    classroomMarked.Add((Classroom)item.Tag);
+                }
+            }
+            checkBoxChanged = false;
+
+            return classroomMarked;
+
+        }
+
+        public void LoadstuFound()
         {
             if (drawerControl.stdFound.Count != 0)
             {
@@ -486,24 +438,7 @@ namespace Drawer.Forms
             button6.Visible = false;
             this.Width = 783;
         }
-        private void selectStudents()
-        {
-            if (drawerControl.AllStudents.Count == 0)
-            {
-                drawerControl.ReadDataFromDatabase();
-            }
-           drawerControl.stdSelected.Clear();
-            GetClassroomMarkStatus();
-            foreach (Classroom cls in drawerControl.classMarked)
-            {
-                foreach (Student stu in cls.students)
-                {
-                   drawerControl.stdSelected.Add(stu);
-                }
-            }
-            spb.add(drawerControl.stdSelected.Count + "人已选中");
-            checkBoxChanged = false;
-        }
+
 
         private Student GetStudentById(string id)
         {
@@ -512,7 +447,6 @@ namespace Drawer.Forms
                 if (student.Id == id)
                 {
                     return student;
-
                 }
             }
             return null;
@@ -520,8 +454,8 @@ namespace Drawer.Forms
    
         private void timer1_Tick(object sender, EventArgs e)
         {
-            rollStd();
-            DisplayStudentData(Hitter);
+           
+            DisplayStudentData(drawerControl.getNextWinner(SelectType.Single));
         }
         private void ckb_CheckedChanged(object sender, EventArgs e)
         {
@@ -538,19 +472,15 @@ namespace Drawer.Forms
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-
             drawerControl.CloseConnection();
-
             CollectSettings();
             Assistance.StoreSettings();
-
         }
         public static string getPicturePathOrDefault(string path)
         {
             if (File.Exists(path))
             {
                 return path;
-
             }
             else
             {
@@ -585,7 +515,7 @@ namespace Drawer.Forms
                 //    maxnum = drawerControl.stdReady.Count;
                 //    timer1.Enabled = true;
             }
-            if (GetStudentsReady(SelectedType.Single) == 0)
+            if (drawerControl.GetStudentsReady(SelectType.Single) == 0)
             {
                 MessageBox.Show("所有学生已抽过，记录已清空");
                 foreach (Student astd in drawerControl.stdSelected)
@@ -657,7 +587,7 @@ namespace Drawer.Forms
         private void 执行命令ToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            if (SECURITY_Enabled == true)
+            if (drawerControl.SecurityEnabled == true)
             {
                 var pib = new PasswordInputDialog(this, "请输入密码以执行命令", true);
                 pib.Show();
@@ -829,7 +759,7 @@ namespace Drawer.Forms
         }
         private void 班级设置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ClassPicker classPicker = new ClassPicker(drawerControl.classAll, drawerControl.classSelected);
+            ClassPicker classPicker = new ClassPicker(drawerControl.classAll, drawerControl.classShowed);
             classPicker.Owner = this;
             classPicker.fm = this;
             classPicker.ShowDialog();
@@ -852,7 +782,7 @@ namespace Drawer.Forms
         public void CollectSettings()
         {
             Assistance.Settings.classStrs.Clear();
-            foreach (Classroom cls in drawerControl.classSelected)
+            foreach (Classroom cls in drawerControl.classShowed)
             {
                 Assistance.Settings.classStrs.Add(cls.ClassID);
 
@@ -862,7 +792,7 @@ namespace Drawer.Forms
 
         private void newMutiplyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new NewMutiplyDrawer(20).Show();
+            new NewMutiplyDrawer(20,SelectType.Mutiply).Show();
         }
 
         private void 修改ToolStripMenuItem_Click(object sender, EventArgs e)

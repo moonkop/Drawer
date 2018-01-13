@@ -18,7 +18,8 @@ namespace Drawer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             DrawerControl drawerControl = new DrawerControl();
-            MainForm mainForm = new MainForm(drawerControl);
+            MainForm mainForm = new MainForm();
+            Controllers.Init(drawerControl);
             drawerControl.mainform = mainForm;
             Application.Run(mainForm);
         }

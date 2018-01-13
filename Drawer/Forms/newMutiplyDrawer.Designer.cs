@@ -31,7 +31,6 @@ namespace Drawer.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewMutiplyDrawer));
-            this.button2 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.sizeDragger1 = new Drawer.UserControls.SizeDragger();
@@ -41,18 +40,6 @@ namespace Drawer.Forms
             this.BtnClose = new Drawer.UserControls.ToolBoxItem();
             this.toolBoxGroup1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // button2
-            // 
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(637, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(42, 24);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "保存";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -88,8 +75,7 @@ namespace Drawer.Forms
             this.toolBoxGroup1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.toolBoxGroup1.AutoSize = true;
             this.toolBoxGroup1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.toolBoxGroup1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.toolBoxGroup1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.toolBoxGroup1.BackColor = System.Drawing.Color.White;
             this.toolBoxGroup1.Controls.Add(this.BtnSave);
             this.toolBoxGroup1.Controls.Add(this.BtnMinimize);
             this.toolBoxGroup1.Controls.Add(this.BtnClose);
@@ -98,7 +84,7 @@ namespace Drawer.Forms
             this.toolBoxGroup1.Items.Add(this.BtnClose);
             this.toolBoxGroup1.Location = new System.Drawing.Point(780, 0);
             this.toolBoxGroup1.Name = "toolBoxGroup1";
-            this.toolBoxGroup1.Size = new System.Drawing.Size(92, 32);
+            this.toolBoxGroup1.Size = new System.Drawing.Size(92, 30);
             this.toolBoxGroup1.TabIndex = 7;
             // 
             // BtnSave
@@ -107,7 +93,7 @@ namespace Drawer.Forms
             this.BtnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.BtnSave.BackgroundImage = global::Drawer.Properties.Resources.save;
             this.BtnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.BtnSave.Location = new System.Drawing.Point(0, 0);
+            this.BtnSave.Location = new System.Drawing.Point(2, 0);
             this.BtnSave.Margin = new System.Windows.Forms.Padding(0);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(30, 30);
@@ -119,7 +105,7 @@ namespace Drawer.Forms
             this.BtnMinimize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.BtnMinimize.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnMinimize.BackgroundImage")));
             this.BtnMinimize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.BtnMinimize.Location = new System.Drawing.Point(30, 0);
+            this.BtnMinimize.Location = new System.Drawing.Point(32, 0);
             this.BtnMinimize.Margin = new System.Windows.Forms.Padding(0);
             this.BtnMinimize.Name = "BtnMinimize";
             this.BtnMinimize.Size = new System.Drawing.Size(30, 30);
@@ -132,7 +118,7 @@ namespace Drawer.Forms
             this.BtnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.BtnClose.BackgroundImage = global::Drawer.Properties.Resources.close_600px_1181428_easyicon_net;
             this.BtnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.BtnClose.Location = new System.Drawing.Point(60, 0);
+            this.BtnClose.Location = new System.Drawing.Point(62, 0);
             this.BtnClose.Margin = new System.Windows.Forms.Padding(0);
             this.BtnClose.Name = "BtnClose";
             this.BtnClose.Size = new System.Drawing.Size(30, 30);
@@ -148,7 +134,6 @@ namespace Drawer.Forms
             this.Controls.Add(this.sizeDragger1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.toolBoxGroup1);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.flowLayoutPanel1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -163,9 +148,6 @@ namespace Drawer.Forms
 
 
         #endregion
-
-        private MutiplyDrawerItem mutiplyDrawerItem;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label1;
         private UserControls.SizeDragger sizeDragger1;

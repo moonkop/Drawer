@@ -250,7 +250,7 @@ namespace Drawer.Model
         }
     }
 
-    public enum SelectedType
+    public enum SelectType
     {
         Mutiply = 1,
         Single = 2,
