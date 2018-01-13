@@ -34,7 +34,7 @@ namespace Drawer.Forms
             this.button2 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.sizeDragger1 = new Drawer.Classes.SizeDragger();
+            this.sizeDragger1 = new Drawer.UserControls.SizeDragger();
             this.toolBoxGroup1 = new Drawer.UserControls.ToolBoxGroup();
             this.BtnSave = new Drawer.UserControls.ToolBoxItem();
             this.BtnMinimize = new Drawer.UserControls.ToolBoxItem();
@@ -168,7 +168,7 @@ namespace Drawer.Forms
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label1;
-        private Classes.SizeDragger sizeDragger1;
+        private UserControls.SizeDragger sizeDragger1;
         private UserControls.ToolBoxGroup toolBoxGroup1;
         private ToolBoxItem BtnMinimize;
         private ToolBoxItem BtnClose;

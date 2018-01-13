@@ -339,7 +339,7 @@ namespace Drawer.Forms
                     return;
                 }
             }
-            var roll5form = new roll5(drawerControl, rollnum, st);
+            var roll5form = new NewMutiplyDrawer(drawerControl, rollnum, st);
             roll5form.Show();
 
         }

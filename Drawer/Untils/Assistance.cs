@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using Drawer.Classes;
 using Drawer.Untils;
 using Drawer.Control;
 using Drawer.Model;

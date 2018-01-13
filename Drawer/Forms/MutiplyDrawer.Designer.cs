@@ -1,5 +1,7 @@
 ﻿namespace Drawer.Forms
 {
+
+    /*
     partial class roll5
     {
         /// <summary>
@@ -166,4 +168,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
     }
+    */
+
+
 }

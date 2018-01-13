@@ -1,4 +1,4 @@
-﻿using Drawer.Classes;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +13,7 @@ using Drawer.Model;
 using Drawer.UserControls;
 namespace Drawer.Forms
 {
-    public partial class roll5 : Form
+ /*   public partial class roll5 : Form
     {
         public int[][] l = new int[100][];
         DrawerControl drawerControl;
@@ -570,4 +570,5 @@ namespace Drawer.Forms
             this.Close();
         }
     }
+    */
 }

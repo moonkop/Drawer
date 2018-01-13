@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections.ObjectModel;
-using Drawer.Classes;
 using Drawer.Untils;
 using Drawer.Control;
 using Drawer.Model;
