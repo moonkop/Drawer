@@ -87,9 +87,9 @@
             this.关于ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.测试ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newMutiplyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.显示日志ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BTExcCmd = new System.Windows.Forms.Button();
             this.TBOutput = new System.Windows.Forms.TextBox();
-            this.显示日志ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStripStudentDetails.SuspendLayout();
@@ -101,7 +101,7 @@
             this.BTFind.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BTFind.Location = new System.Drawing.Point(246, 227);
             this.BTFind.Name = "BTFind";
-            this.BTFind.Size = new System.Drawing.Size(92, 51);
+            this.BTFind.Size = new System.Drawing.Size(97, 51);
             this.BTFind.TabIndex = 3;
             this.BTFind.Text = "查找";
             this.BTFind.UseVisualStyleBackColor = true;
@@ -110,9 +110,9 @@
             // pictureBox1
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(373, 28);
+            this.pictureBox1.Location = new System.Drawing.Point(373, 35);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(382, 472);
+            this.pictureBox1.Size = new System.Drawing.Size(382, 457);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
@@ -165,7 +165,7 @@
             // 
             this.checkBox1.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.checkBox1.Location = new System.Drawing.Point(79, 240);
+            this.checkBox1.Location = new System.Drawing.Point(60, 227);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(170, 27);
             this.checkBox1.TabIndex = 16;
@@ -209,7 +209,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 506);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 503);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(766, 22);
             this.statusStrip1.TabIndex = 20;
@@ -316,16 +316,15 @@
             this.buttonMutiplyDraw.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonMutiplyDraw.Location = new System.Drawing.Point(246, 397);
             this.buttonMutiplyDraw.Name = "buttonMutiplyDraw";
-            this.buttonMutiplyDraw.Size = new System.Drawing.Size(96, 50);
+            this.buttonMutiplyDraw.Size = new System.Drawing.Size(97, 50);
             this.buttonMutiplyDraw.TabIndex = 28;
             this.buttonMutiplyDraw.Text = "批量抽取";
             this.buttonMutiplyDraw.UseVisualStyleBackColor = true;
-            this.buttonMutiplyDraw.Click += new System.EventHandler(this.roll5Init);
             // 
             // TextBoxMutiplyNum
             // 
             this.TextBoxMutiplyNum.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.TextBoxMutiplyNum.Location = new System.Drawing.Point(324, 461);
+            this.TextBoxMutiplyNum.Location = new System.Drawing.Point(299, 453);
             this.TextBoxMutiplyNum.Name = "TextBoxMutiplyNum";
             this.TextBoxMutiplyNum.Size = new System.Drawing.Size(43, 39);
             this.TextBoxMutiplyNum.TabIndex = 29;
@@ -347,7 +346,7 @@
             // 
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(246, 461);
+            this.radioButton1.Location = new System.Drawing.Point(221, 453);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(71, 16);
             this.radioButton1.TabIndex = 33;
@@ -358,7 +357,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(246, 484);
+            this.radioButton2.Location = new System.Drawing.Point(221, 476);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(71, 16);
             this.radioButton2.TabIndex = 34;
@@ -370,7 +369,7 @@
             this.buttonStart.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonStart.Location = new System.Drawing.Point(246, 284);
             this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(92, 51);
+            this.buttonStart.Size = new System.Drawing.Size(97, 51);
             this.buttonStart.TabIndex = 35;
             this.buttonStart.Text = "开始";
             this.buttonStart.UseVisualStyleBackColor = true;
@@ -381,7 +380,7 @@
             this.buttonStop.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonStop.Location = new System.Drawing.Point(246, 341);
             this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(92, 51);
+            this.buttonStop.Size = new System.Drawing.Size(97, 51);
             this.buttonStop.TabIndex = 36;
             this.buttonStop.Text = "停止";
             this.buttonStop.UseVisualStyleBackColor = true;
@@ -530,14 +529,14 @@
             // 帮助ToolStripMenuItem
             // 
             this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
-            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.帮助ToolStripMenuItem.Text = "帮助";
             this.帮助ToolStripMenuItem.Click += new System.EventHandler(this.帮助ToolStripMenuItem_Click);
             // 
             // 关于ToolStripMenuItem1
             // 
             this.关于ToolStripMenuItem1.Name = "关于ToolStripMenuItem1";
-            this.关于ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.关于ToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
             this.关于ToolStripMenuItem1.Text = "关于";
             // 
             // 测试ToolStripMenuItem
@@ -545,7 +544,7 @@
             this.测试ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newMutiplyToolStripMenuItem});
             this.测试ToolStripMenuItem.Name = "测试ToolStripMenuItem";
-            this.测试ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.测试ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.测试ToolStripMenuItem.Text = "test";
             // 
             // newMutiplyToolStripMenuItem
@@ -554,6 +553,13 @@
             this.newMutiplyToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.newMutiplyToolStripMenuItem.Text = "newMutiply";
             this.newMutiplyToolStripMenuItem.Click += new System.EventHandler(this.newMutiplyToolStripMenuItem_Click);
+            // 
+            // 显示日志ToolStripMenuItem
+            // 
+            this.显示日志ToolStripMenuItem.Name = "显示日志ToolStripMenuItem";
+            this.显示日志ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.显示日志ToolStripMenuItem.Text = "显示日志";
+            this.显示日志ToolStripMenuItem.Click += new System.EventHandler(this.显示日志ToolStripMenuItem_Click);
             // 
             // BTExcCmd
             // 
@@ -569,7 +575,7 @@
             // 
             // TBOutput
             // 
-            this.TBOutput.Location = new System.Drawing.Point(373, 28);
+            this.TBOutput.Location = new System.Drawing.Point(373, 35);
             this.TBOutput.MaxLength = 10000000;
             this.TBOutput.Multiline = true;
             this.TBOutput.Name = "TBOutput";
@@ -577,18 +583,11 @@
             this.TBOutput.Size = new System.Drawing.Size(100, 58);
             this.TBOutput.TabIndex = 40;
             // 
-            // 显示日志ToolStripMenuItem
-            // 
-            this.显示日志ToolStripMenuItem.Name = "显示日志ToolStripMenuItem";
-            this.显示日志ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.显示日志ToolStripMenuItem.Text = "显示日志";
-            this.显示日志ToolStripMenuItem.Click += new System.EventHandler(this.显示日志ToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(766, 528);
+            this.ClientSize = new System.Drawing.Size(766, 525);
             this.Controls.Add(this.TBOutput);
             this.Controls.Add(this.BTExcCmd);
             this.Controls.Add(this.listViewResults);

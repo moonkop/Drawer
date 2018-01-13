@@ -32,11 +32,9 @@ namespace Drawer.Forms
         bool textBox4Changed;
         bool textBox2Changed;
         bool textBox3Changed;
-
         SelectType st;
-        public Student Hitter;
+        public Student winner;
         int maxnum;
-        private bool checkBoxChanged;
         private string pastDBSHA1;
         private DrawerControl drawerControl
         {
@@ -205,78 +203,78 @@ namespace Drawer.Forms
             ShowSelectedClassroomCheckbox();
 
         }
-        private void roll5Init(object sender, EventArgs e)//批量抽取
-        {
-            selectStudents();
-            if (drawerControl.stdSelected.Count == 0)
-            {
-                MessageBox.Show("请选择班级");
-                return;
-            }
-            int rollnum = 0;
-            if (!int.TryParse(TextBoxMutiplyNum.Text, out rollnum))
-            {
-                MessageBox.Show("请输入数字");
-                return;
-            }
+ //       private void roll5Init(object sender, EventArgs e)//批量抽取
+ //       {
+ //           selectStudents();
+ //           if (drawerControl.stdSelected.Count == 0)
+ //           {
+ //               MessageBox.Show("请选择班级");
+ //               return;
+ //           }
+ //           int rollnum = 0;
+ //           if (!int.TryParse(TextBoxMutiplyNum.Text, out rollnum))
+ //           {
+ //               MessageBox.Show("请输入数字");
+ //               return;
+ //           }
 
-            if (radioButton1.Checked == true)//批量抽取 每周一问
-            {
-                st = SelectType.Mutiply;
-                if (GetStudentsReady(st) == 0)
-                {
-                    if (MessageBox.Show("每周一问已抽完，是否输出成绩并清空数据库？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        drawerControl.OutPutData();
-                        foreach (Student astd in drawerControl.stdSelected)
-                        {
-                            astd.Selected_Mutiply = false;
-                            astd.Grade = -1;
-                        }
-                        MessageBox.Show("成绩已保存至" + Settings.dataOutPutPath + "\n并清空");
-                        return;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                else if (rollnum > maxnum)
-                {
+ //           if (radioButton1.Checked == true)//批量抽取 每周一问
+ //           {
+ //               st = SelectType.Mutiply;
+ //               if (GetStudentsReady(st) == 0)
+ //               {
+ //                   if (MessageBox.Show("每周一问已抽完，是否输出成绩并清空数据库？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+ //                   {
+ //                       drawerControl.ExportData();
+ //                       foreach (Student astd in drawerControl.stdSelected)
+ //                       {
+ //                           astd.Selected_Mutiply = false;
+ //                           astd.Grade = -1;
+ //                       }
+ //                       MessageBox.Show("成绩已保存至" + Settings.dataOutPutPath + "\n并清空");
+ //                       return;
+ //                   }
+ //                   else
+ //                   {
+ //                       return;
+ //                   }
+ //               }
+ //               else if (rollnum > maxnum)
+ //               {
 
-                    MessageBox.Show("超过未抽取的人数，还有" + maxnum + "人可以抽取");
-                    return;
-                }
-            }
-            else//批量抽取 实验报告
-            {
-                st = SelectType.Report;
-                if (GetStudentsReady(st) == 0)
-                {
-                    if (MessageBox.Show("一轮已抽完 是否清空记录进行下一轮？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
-                    {
-                        foreach (Student astd in drawerControl.stdSelected)
-                        {
-                            astd.Selected_Report = false;
-                        }
-                        MessageBox.Show("清空完毕！");
-                        return;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                else if (rollnum > maxnum)
-                {
-                    MessageBox.Show("超过未抽取的人数，还有" + maxnum + "人可以抽取");
-                    return;
-                }
-            }
- new NewMutiplyDrawer(rollnum,st).Show();
+ //                   MessageBox.Show("超过未抽取的人数，还有" + maxnum + "人可以抽取");
+ //                   return;
+ //               }
+ //           }
+ //           else//批量抽取 实验报告
+ //           {
+ //               st = SelectType.Report;
+ //               if (GetStudentsReady(st) == 0)
+ //               {
+ //                   if (MessageBox.Show("一轮已抽完 是否清空记录进行下一轮？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+ //                   {
+ //                       foreach (Student astd in drawerControl.stdSelected)
+ //                       {
+ //                           astd.Selected_Report = false;
+ //                       }
+ //                       MessageBox.Show("清空完毕！");
+ //                       return;
+ //                   }
+ //                   else
+ //                   {
+ //                       return;
+ //                   }
+ //               }
+ //               else if (rollnum > maxnum)
+ //               {
+ //                   MessageBox.Show("超过未抽取的人数，还有" + maxnum + "人可以抽取");
+ //                   return;
+ //               }
+ //           }
+ //new NewMutiplyDrawer(rollnum,st).Show();
 
 
-        }
+ //       }
         public void startRoll5()
         {
             //if (stdSelected.Count == 0 || checkBoxChanged == true)
@@ -307,22 +305,22 @@ namespace Drawer.Forms
             }
             else
             {
-                DisplayStudentData(Hitter);
+                DisplayStudentData(winner);
                 switch (st)
                 {
                     case SelectType.Mutiply:
-                        Hitter.Selected_Mutiply = true;
+                        winner.Selected_Mutiply = true;
                         break;
                     case SelectType.Report:
-                        Hitter.Selected_Report = true;
+                        winner.Selected_Report = true;
                         break;
                     default:
                         break;
                 }
-                drawerControl.stdReady.Remove(Hitter);
+                drawerControl.stdReady.Remove(winner);
                 maxnum--;
             }
-            Assistance.record(Hitter, "form roll5,selectTpye=" + st.ToString());
+            Assistance.record(winner, "form roll5,selectTpye=" + st.ToString());
         }
         /// <summary>
         /// 查找
@@ -408,10 +406,7 @@ namespace Drawer.Forms
                     classroomMarked.Add((Classroom)item.Tag);
                 }
             }
-            checkBoxChanged = false;
-
             return classroomMarked;
-
         }
 
         public void LoadstuFound()
@@ -455,11 +450,11 @@ namespace Drawer.Forms
         private void timer1_Tick(object sender, EventArgs e)
         {
            
-            DisplayStudentData(drawerControl.getNextWinner(SelectType.Single));
+            DisplayStudentData(drawSingleSession.nextWinner());
         }
         private void ckb_CheckedChanged(object sender, EventArgs e)
         {
-            checkBoxChanged = true;
+           drawerControl.classMarked= GetClassroomMarked();
         }
         private void listView1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
@@ -502,28 +497,11 @@ namespace Drawer.Forms
                drawerControl.UpdateDataBase();
             }
         }
+        DrawSession drawSingleSession;
         private void buttonStart_Click(object sender, EventArgs e) //开始按钮
         {
-            if (drawerControl.stdSelected.Count == 0 || checkBoxChanged == true)
-            {
-                selectStudents();
-            }
-            if (drawerControl.stdSelected.Count == 0)
-            {
-                spb.add("请选择班级");
-                //    getReady(SelectedType.Single);
-                //    maxnum = drawerControl.stdReady.Count;
-                //    timer1.Enabled = true;
-            }
-            if (drawerControl.GetStudentsReady(SelectType.Single) == 0)
-            {
-                MessageBox.Show("所有学生已抽过，记录已清空");
-                foreach (Student astd in drawerControl.stdSelected)
-                {
-                    astd.Selected_Single = false;
-                }
-            }
-            else
+            drawSingleSession = drawerControl.GetDrawSession(SelectType.Single);
+            if (drawSingleSession!=null)
             {
                 timer1.Enabled = true;
             }
@@ -531,9 +509,16 @@ namespace Drawer.Forms
         private void buttonStop_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
-            DisplayStudentData(Hitter);
-            Hitter.Selected_Single = true;
-            Assistance.record(Hitter, "from single ");
+            if (drawSingleSession==null)
+            {
+                return;
+            }
+            winner = drawSingleSession.GetFinalWinner();
+            DisplayStudentData(winner);
+            winner.Selected_Single = true;
+            Assistance.record(winner, "from single ");
+             drawSingleSession=null;
+
         }
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
         {
@@ -582,7 +567,7 @@ namespace Drawer.Forms
         }
         private void 导出数据ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            drawerControl.OutPutData();
+            drawerControl.ExportData();
         }
         private void 执行命令ToolStripMenuItem_Click(object sender, EventArgs e)
         {

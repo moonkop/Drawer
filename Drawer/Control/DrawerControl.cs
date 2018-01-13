@@ -96,7 +96,7 @@ namespace Drawer.Control
             return count;
 
         }
-        public void OutPutData()
+        public void ExportData()
         {
             Assistance.Settings.dataOutPutPath = Assistance.Settings.dataOutPutPath + DateTime.Now.ToString("yyyy-mm-dd_hh.mm.ss") + ".csv";
 
@@ -337,18 +337,99 @@ namespace Drawer.Control
 
 
 
-        public Student getNextWinner(SelectType selectedType)
+        public DrawSession GetDrawSession(SelectType st)
         {
-            switch (selectedType)
+            List<Student> studentReady = new List<Student>();
+
+            try
             {
-                case SelectType.Mutiply:
-                    break;
-                case SelectType.Single:
-                    break;
-                case SelectType.Report:
-                    break;
-                default:
-                    break;
+
+                if (AllStudents.Count == 0)
+                {
+                    ReadDataFromDatabase();
+                }
+                if (AllStudents.Count == 0)
+                {
+                    throw new Exception("无学生数据");
+                }
+                if (classMarked.Count == 0)
+                {
+                    throw new Exception("请选择班级");
+                }
+                foreach (Classroom classroom in classMarked)
+                {
+                    foreach (Student student in classroom.students)
+                    {
+                        if (!student.GetIsSelected(st))
+                        {
+                            studentReady.Add(student);
+                        }
+                    }
+                }
+                if (studentReady.Count == 0)
+                {
+
+                    switch (st)
+                    {
+                        case SelectType.Mutiply:
+                            if (MessageBox.Show("当前选择班级已抽完，是否导出数据？","提示",MessageBoxButtons.YesNo)==DialogResult.Yes)
+                            {
+                                ExportData();
+                            }
+                            else
+                            {
+                                return null;
+                            }
+                            break;
+                        case SelectType.Single:
+
+
+                            break;
+                        case SelectType.Report:
+
+                            break;
+                        default:
+                            break;
+                    }
+                    if (MessageBox.Show("当前选择班级已经抽完，是否清空数据？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        foreach (Classroom classroom in classMarked)
+                        {
+                            foreach (Student student in classroom.students)
+                            {
+                                student.ResetSelectStatus(st);
+                            }
+                        }
+                        //ForEachStudent((student) =>
+                        //{
+
+                        //});
+                    }
+
+                }
+                return new DrawSession(studentReady);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+
+            }
+
+
+
+
+        }
+        public delegate void StudentDelegate(Student stu);
+        public void ForEachStudent(StudentDelegate action)
+        {
+            foreach (Classroom classroom in classMarked)
+            {
+                foreach (Student student in classroom.students)
+                {
+                    action(student);
+                }
             }
         }
         public void GetSelectedClassrooms()
@@ -385,7 +466,7 @@ namespace Drawer.Control
                 Log(ex.Message);
                 return false;
             }
-     
+
         }
     }
 

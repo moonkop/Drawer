@@ -235,6 +235,29 @@ namespace Drawer.Model
         {
             return this.sha1Old = this.CurrentSHA1;
         }
+        private ref bool GetSelectStatus(SelectType selectType)
+        {
+            switch (selectType)
+            {
+                case SelectType.Mutiply:
+                    return ref selected_Mutiply;
+                case SelectType.Single:
+                    return ref selected_Single;
+                case SelectType.Report:
+                    return ref selected_Report;
+            }
+            throw new Exception();
+        }
+        public bool GetIsSelected( SelectType selectType)
+        {
+            return GetSelectStatus(selectType);
+
+        }
+        internal void ResetSelectStatus(SelectType selectType)
+        {
+            GetSelectStatus(selectType) = false;
+
+        }
 
         public int Select_Mutiply_StatusGetint()
         {
@@ -248,6 +271,8 @@ namespace Drawer.Model
         {
             return Selected_Report == true ? 1 : 0;
         }
+
+      
     }
 
     public enum SelectType
