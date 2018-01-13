@@ -1,4 +1,4 @@
-﻿namespace Drawer
+﻿namespace Drawer.UserControls
 {
     partial class MutiplyDrawerItem
     {

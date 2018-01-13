@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Drawer.Classes;
+
 using Drawer.Untils;
 using Drawer.Control;
 using Drawer.Model;
@@ -16,7 +16,7 @@ using System.Data;
 
 namespace Drawer.Control
 {
-    class DrawerControl
+   public class DrawerControl
     {
         //所有的班级
         public List<Classroom> classAll = new List<Classroom>();
@@ -31,6 +31,10 @@ namespace Drawer.Control
         SQLiteConnection conn = new SQLiteConnection();
         public MainForm mainform;
         private bool SECURITY_Enabled;
+        public DrawerControl()
+        {
+conn.ConnectionString = "Data Source=" + Assistance.Settings.DBpath;
+        }
         public int get_Selected_counts(Student.selectedType st)
         {
             int count = 0;
@@ -167,7 +171,7 @@ namespace Drawer.Control
                 MessageBox.Show(ex.Message);
             }
         }
-        private Classroom GetClassroomById(string ClassroomId)
+        public Classroom GetClassroomById(string ClassroomId)
         {
             foreach (var aclassroom in classAll)
             {

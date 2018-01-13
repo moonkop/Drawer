@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Drawer.Classes
+namespace Drawer.Forms
 {
     public partial class SizeDragger : UserControl
     {

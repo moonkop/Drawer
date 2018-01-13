@@ -6,7 +6,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Forms;
 
-namespace Drawer
+namespace Drawer.Untils
 {
     public class StatusPrintBuffer
     {

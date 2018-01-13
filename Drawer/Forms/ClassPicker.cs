@@ -25,6 +25,7 @@ namespace Drawer.Forms
 
         public ClassPicker(List<Classroom> classroomsAll ,List<Classroom> classroomSelected)
         {
+            
             InitializeComponent();
             this.classroomsAll = classroomsAll;
             this._classroomSelected = classroomSelected;

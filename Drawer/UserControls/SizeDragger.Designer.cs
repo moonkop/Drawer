@@ -1,4 +1,4 @@
-﻿namespace Drawer.Classes
+﻿namespace Drawer.Forms
 {
     partial class SizeDragger
     {

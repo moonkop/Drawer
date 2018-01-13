@@ -13,7 +13,6 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using System.Configuration;
-using Drawer.Classes;
 using Drawer.Untils;
 using Drawer.Control;
 using Drawer.Model;
@@ -263,7 +262,7 @@ namespace Drawer.Forms
                     pib.Show();
                 }
             }
-            drawerControl.conn.ConnectionString = "Data Source=" + Settings.DBpath;
+       
             TBOutput.Location = pictureBox1.Location;
             TBOutput.Size = pictureBox1.Size;
             TBOutput.Visible = false;
@@ -561,7 +560,7 @@ namespace Drawer.Forms
         }
         private void buttonDeleteAll_Click(object sender, EventArgs e)
         {
-           drawerControl. drawerControl.ReadDataFromDatabase();
+           drawerControl.ReadDataFromDatabase();
             if (MessageBox.Show("此操作将删除所有学生的成绩并将实验报告抽取记录、课堂提问抽取记录，随机提问抽取记录清零，是否确定？", "警告:", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 foreach (Student astd in drawerControl.AllStudents)

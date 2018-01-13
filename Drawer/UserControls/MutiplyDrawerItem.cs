@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Drawer
+namespace Drawer.UserControls
 {
     public partial class MutiplyDrawerItem : UserControl
     {

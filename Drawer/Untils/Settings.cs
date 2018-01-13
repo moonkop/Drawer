@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 
-namespace Drawer.Classes
+namespace Drawer.Untils
 {
     public class MySettings
     {
