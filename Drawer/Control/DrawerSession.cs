@@ -41,6 +41,17 @@ namespace Drawer.Control
             return student;
 
         }
+        public void PutBack(Student student)
+        {
+            if (studentReady.IndexOf(student)==-1)
+            {
+                studentReady.Add(student);
+
+            }
+        }
+
+
+
         public int Count
         {
             get

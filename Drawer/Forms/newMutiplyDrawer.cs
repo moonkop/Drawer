@@ -19,7 +19,10 @@ namespace Drawer.Forms
     {
         private List<MutiplyDrawerItem> items;
         private MutiplyDrawerItem currentRollingItem;
-        private DrawerControl drawerControl;
+        private DrawSession drawSession;
+        System.Timers.Timer timerRoll;
+        System.Timers.Timer timerFinal;
+        public int rollTime = 10;
         private int drawNum;
         private SelectType st;
 
@@ -35,27 +38,65 @@ namespace Drawer.Forms
         {
             InitializeComponent();
             items = new List<MutiplyDrawerItem>();
+            timerRoll = new System.Timers.Timer();
+            timerRoll.Interval = 20;
+            timerRoll.Elapsed += TimerRoll_Elapsed;
         }
 
-        public NewMutiplyDrawer(int drawNum, SelectType st) : this()
+        private int currentRollTime;
+        private void TimerRoll_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            for (int i = 0; i < drawNum; i++)
+            currentRollingItem.LoadStudent(drawSession.nextWinner());
+            if (currentRollTime-- == 0)
             {
-                MutiplyDrawerItem item = new MutiplyDrawerItem();
-                Items.Add(item);
+                TimerFinal();
             }
-            foreach (var item in Items)
+        }
+        private void TimerFinal()
+        {
+            timerRoll.Stop();
+            currentRollingItem.LoadStudent(drawSession.GetFinalWinner());
+            currentRollTime = rollTime;
+
+            if (drawNum > items.Count)
             {
-                this.flowLayoutPanel1.Controls.Add(item);
-                
+                AddDrawerItem();
+                timerRoll.Start();
             }
+        }
+        public NewMutiplyDrawer(DrawSession drawSession, int drawNum, SelectType st) : this()
+        {
+            this.drawNum = drawNum;
+            this.drawSession = drawSession;
+            currentRollTime = rollTime;
         }
 
 
+        private void AddDrawerItem()
+        {
+            currentRollingItem = new MutiplyDrawerItem();
+            currentRollingItem.buttonSkip.Click += ButtonSkip_Click;
+            this.items.Add(currentRollingItem);
+            this.Invoke(new MethodInvoker(() =>
+            {
+                this.flowLayoutPanel1.Controls.Add(currentRollingItem);
+            }));
+        }
+
+        private void ButtonSkip_Click(object sender, EventArgs e)
+        {
+            MutiplyDrawerItem item = (MutiplyDrawerItem)(((Button)sender).Parent);
+            Student studentSkip = item.student;
+            drawSession.PutBack(studentSkip);
+            item.LoadStudent(drawSession.GetFinalWinner());
+
+        }
 
         private void NewMutiplyDrawer_Load(object sender, EventArgs e)
         {
+            AddDrawerItem();
 
+            timerRoll.Start();
         }
 
         private void button2_Click(object sender, EventArgs e)

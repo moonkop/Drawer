@@ -400,12 +400,8 @@ namespace Drawer.Control
                                 student.ResetSelectStatus(st);
                             }
                         }
-                        //ForEachStudent((student) =>
-                        //{
-
-                        //});
                     }
-
+                    return null;
                 }
                 return new DrawSession(studentReady);
 
@@ -414,12 +410,7 @@ namespace Drawer.Control
             {
                 MessageBox.Show(ex.Message);
                 return null;
-
             }
-
-
-
-
         }
         public delegate void StudentDelegate(Student stu);
         public void ForEachStudent(StudentDelegate action)
@@ -466,6 +457,26 @@ namespace Drawer.Control
                 Log(ex.Message);
                 return false;
             }
+
+        }
+
+        internal void StartDrawMutiply(SelectType selectType,int drawNum)
+        {
+
+
+            DrawSession drawSession = GetDrawSession(selectType);
+            if (drawSession==null)
+            {
+                return;
+            }
+            if (drawSession.Count<drawNum)
+            {
+                MessageBox.Show("当前可抽取人数不足，剩余" + drawSession.Count.ToString() + "人");
+                return;
+
+            }
+            NewMutiplyDrawer drawer = new NewMutiplyDrawer(drawSession, drawNum, selectType);
+            drawer.Show();
 
         }
     }

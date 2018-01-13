@@ -174,6 +174,7 @@ namespace Drawer.Forms
             catch (Exception)
             {
                 // pictureBox1.Load();
+             //   throw;
 
             }
         }
@@ -777,7 +778,7 @@ namespace Drawer.Forms
 
         private void newMutiplyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new NewMutiplyDrawer(20,SelectType.Mutiply).Show();
+       //     new NewMutiplyDrawer(20,SelectType.Mutiply).Show();
         }
 
         private void 修改ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -794,6 +795,25 @@ namespace Drawer.Forms
         private void 显示日志ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             drawerControl.ShowLogForm();
+
+        }
+        SelectType GetChooseSelectType()
+        {
+            if (radioButtonMutiply.Checked=true)
+            {
+                return SelectType.Mutiply;
+            }
+            else
+            {
+                return SelectType.Report;
+            }
+        }
+        private void buttonMutiplyDraw_Click(object sender, EventArgs e)
+        {
+
+            drawerControl.StartDrawMutiply(GetChooseSelectType(),int.Parse(TextBoxMutiplyNum.Text));
+
+
 
         }
     }

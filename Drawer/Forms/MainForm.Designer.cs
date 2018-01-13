@@ -62,8 +62,8 @@
             this.buttonMutiplyDraw = new System.Windows.Forms.Button();
             this.TextBoxMutiplyNum = new System.Windows.Forms.TextBox();
             this.button11 = new System.Windows.Forms.Button();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButtonMutiply = new System.Windows.Forms.RadioButton();
+            this.radioButtonReport = new System.Windows.Forms.RadioButton();
             this.buttonStart = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -320,6 +320,7 @@
             this.buttonMutiplyDraw.TabIndex = 28;
             this.buttonMutiplyDraw.Text = "批量抽取";
             this.buttonMutiplyDraw.UseVisualStyleBackColor = true;
+            this.buttonMutiplyDraw.Click += new System.EventHandler(this.buttonMutiplyDraw_Click);
             // 
             // TextBoxMutiplyNum
             // 
@@ -342,27 +343,27 @@
             this.button11.Visible = false;
             this.button11.Click += new System.EventHandler(this.buttonDeleteAll_Click);
             // 
-            // radioButton1
+            // radioButtonMutiply
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(221, 453);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(71, 16);
-            this.radioButton1.TabIndex = 33;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "每周一问";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButtonMutiply.AutoSize = true;
+            this.radioButtonMutiply.Checked = true;
+            this.radioButtonMutiply.Location = new System.Drawing.Point(221, 453);
+            this.radioButtonMutiply.Name = "radioButtonMutiply";
+            this.radioButtonMutiply.Size = new System.Drawing.Size(71, 16);
+            this.radioButtonMutiply.TabIndex = 33;
+            this.radioButtonMutiply.TabStop = true;
+            this.radioButtonMutiply.Text = "每周一问";
+            this.radioButtonMutiply.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // radioButtonReport
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(221, 476);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(71, 16);
-            this.radioButton2.TabIndex = 34;
-            this.radioButton2.Text = "实验报告";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButtonReport.AutoSize = true;
+            this.radioButtonReport.Location = new System.Drawing.Point(221, 476);
+            this.radioButtonReport.Name = "radioButtonReport";
+            this.radioButtonReport.Size = new System.Drawing.Size(71, 16);
+            this.radioButtonReport.TabIndex = 34;
+            this.radioButtonReport.Text = "实验报告";
+            this.radioButtonReport.UseVisualStyleBackColor = true;
             // 
             // buttonStart
             // 
@@ -593,8 +594,8 @@
             this.Controls.Add(this.listViewResults);
             this.Controls.Add(this.buttonStop);
             this.Controls.Add(this.buttonStart);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.radioButtonReport);
+            this.Controls.Add(this.radioButtonMutiply);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.TextBoxMutiplyNum);
             this.Controls.Add(this.buttonMutiplyDraw);
@@ -648,8 +649,8 @@
         private System.Windows.Forms.Button buttonMutiplyDraw;
         private System.Windows.Forms.TextBox TextBoxMutiplyNum;
         private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButtonMutiply;
+        private System.Windows.Forms.RadioButton radioButtonReport;
         private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.Button buttonStop;
         private System.Windows.Forms.MenuStrip menuStrip1;
