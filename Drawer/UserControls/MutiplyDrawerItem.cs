@@ -13,6 +13,7 @@ namespace Drawer.UserControls
     public partial class MutiplyDrawerItem : UserControl
     {
         Student student;
+        double grade;
         public MutiplyDrawerItem()
         {
             InitializeComponent();
@@ -29,11 +30,23 @@ namespace Drawer.UserControls
             this.pictureBox.Load(student.PicturePath);
             this.textBoxName.Text = student.Name;
             this.textBoxClassNum.Text = student.Classroom.ClassID;
-            
         }
-        public double getGrade()
-        {
 
+        public bool GradeIsVaild()
+        {
+            return double.TryParse(textBoxGrade.Text, out this.grade);
+
+        }
+        public double GetGrade()
+        {
+            try
+            {
+                return double.Parse(textBoxGrade.Text);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception ("输入的成绩不合法");
+            }
         }
     }
 }

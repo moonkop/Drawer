@@ -71,6 +71,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\LogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LogForm.Designer.cs">
+      <DependentUpon>LogForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Untils\Assistance.cs" />
     <Compile Include="Untils\Settings.cs" />
     <Compile Include="Control\DrawerControl.cs" />
@@ -88,9 +94,7 @@
     </Compile>
     <Compile Include="Model\Classroom.cs" />
     <Compile Include="Untils\ListViewComparer.cs" />
-    <Compile Include="Forms\MutiplyDrawer.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\MutiplyDrawer.cs" />
     <Compile Include="Forms\MutiplyDrawer.Designer.cs">
       <DependentUpon>MutiplyDrawer.cs</DependentUpon>
     </Compile>
@@ -141,6 +145,9 @@
     <Compile Include="Forms\StudentStatus.Designer.cs">
       <DependentUpon>StudentStatus.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\LogForm.resx">
+      <DependentUpon>LogForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SizeDragger.resx">
       <DependentUpon>SizeDragger.cs</DependentUpon>
     </EmbeddedResource>

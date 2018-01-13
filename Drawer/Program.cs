@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Drawer.Forms;
+using Drawer.Control;
+
 namespace Drawer
 {
     static class Program
@@ -15,7 +17,10 @@ namespace Drawer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            DrawerControl drawerControl = new DrawerControl();
+            MainForm mainForm = new MainForm(drawerControl);
+            drawerControl.mainform = mainForm;
+            Application.Run(mainForm);
         }
     }
 }

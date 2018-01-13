@@ -47,9 +47,9 @@
             this.columnHeader1,
             this.columnHeader2});
             this.listViewAll.FullRowSelect = true;
-            this.listViewAll.Location = new System.Drawing.Point(12, 36);
+            this.listViewAll.Location = new System.Drawing.Point(12, 32);
             this.listViewAll.Name = "listViewAll";
-            this.listViewAll.Size = new System.Drawing.Size(260, 432);
+            this.listViewAll.Size = new System.Drawing.Size(260, 436);
             this.listViewAll.TabIndex = 0;
             this.listViewAll.UseCompatibleStateImageBehavior = false;
             this.listViewAll.View = System.Windows.Forms.View.Details;
@@ -68,7 +68,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(8, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 20);
             this.label1.TabIndex = 1;
@@ -102,7 +102,7 @@
             this.listViewSelected.FullRowSelect = true;
             this.listViewSelected.Location = new System.Drawing.Point(363, 32);
             this.listViewSelected.Name = "listViewSelected";
-            this.listViewSelected.Size = new System.Drawing.Size(260, 432);
+            this.listViewSelected.Size = new System.Drawing.Size(260, 436);
             this.listViewSelected.TabIndex = 4;
             this.listViewSelected.UseCompatibleStateImageBehavior = false;
             this.listViewSelected.View = System.Windows.Forms.View.Details;
@@ -129,7 +129,7 @@
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(639, 429);
+            this.btnConfirm.Location = new System.Drawing.Point(631, 433);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(56, 35);
             this.btnConfirm.TabIndex = 6;
@@ -141,7 +141,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(716, 484);
+            this.ClientSize = new System.Drawing.Size(692, 474);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.listViewSelected);

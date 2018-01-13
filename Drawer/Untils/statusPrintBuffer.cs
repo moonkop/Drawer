@@ -76,7 +76,7 @@ namespace Drawer.Untils
 
 
         }
-        public void add<T>(T str)
+        public void Add<T>(T str)
         {
             add(str.ToString());
 

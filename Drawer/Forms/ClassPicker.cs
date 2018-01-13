@@ -17,14 +17,12 @@ namespace Drawer.Forms
     public partial class ClassPicker : Form
     {
         public List<Classroom> classroomsAll;
-
         public ObservableCollection<Classroom> classroomSelected;
         public List<Classroom> _classroomSelected;
         public MainForm fm;
 
         public ClassPicker(List<Classroom> classroomsAll ,List<Classroom> classroomSelected)
-        {
-            
+        { 
             InitializeComponent();
             this.classroomsAll = classroomsAll;
             this._classroomSelected = classroomSelected;

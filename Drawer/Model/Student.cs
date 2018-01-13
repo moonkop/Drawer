@@ -16,9 +16,8 @@ namespace Drawer.Model
         private string id;
         private Classroom classroom;
         private double grade;
-        private string sha1;
+        private string sha1Old;
         private string sex;
-        private string currentSHA1;
         private string picturePath;
         private bool selected_Mutiply;
         private bool selected_Single;
@@ -34,9 +33,8 @@ namespace Drawer.Model
                 }
                 else
                 {
-                    return Assistance.Settings.PicPath + DefaultPicturePath;
+                    return Assistance.Settings.PicPath +Assistance.Settings.defaultPicPath;
                 }
-               
             }
         }
         #region 属性
@@ -78,7 +76,6 @@ namespace Drawer.Model
                 if (picturePath != null)
                 {
                     return picturePath;
-
                 }
                 else if (System.IO.File.Exists(this.DefaultPicturePath))
                 {
@@ -145,16 +142,16 @@ namespace Drawer.Model
             }
         }
 
-        public string Sha1
+        public string Sha1Old
         {
             get
             {
-                return sha1;
+                return sha1Old;
             }
 
             set
             {
-                sha1 = value;
+                sha1Old = value;
             }
         }
 
@@ -170,21 +167,7 @@ namespace Drawer.Model
                 sex = value;
             }
         }
-
-        public string CurrentSHA1
-        {
-            get
-            {
-                return currentSHA1;
-            }
-
-            set
-            {
-                currentSHA1 = value;
-            }
-        }
-      
-
+        
         public bool Selected_Mutiply
         {
             get
@@ -238,30 +221,39 @@ namespace Drawer.Model
         }
         #endregion
 
-        public enum selectedType
+
+        public string CurrentSHA1
         {
-            Mutiply = 1,
-            Single = 2,
-            Report = 3
+            get
+            {
+                string str;
+                str = this.Id + this.Name + this.Grade + MainForm.Settings.SHA1ofPASSWORD;
+                return Assistance.getSHA1ofString(str);
+            }
         }
-        public string getSHA1()
+        public string UpdateSHA1()
         {
-            string str;
-            str = this.Id + this.Name + this.Grade + MainForm.Settings.SHA1ofPASSWORD;
-            CurrentSHA1 = Assistance.getSHA1ofString(str);
-            return CurrentSHA1;
+            return this.sha1Old = this.CurrentSHA1;
         }
-        public int select_Mutiply_StatusGetint()
+
+        public int Select_Mutiply_StatusGetint()
         {
             return Selected_Mutiply == true ? 1 : 0;
         }
-        public int select_Single_StatusGetint()
+        public int Select_Single_StatusGetint()
         {
             return Selected_Single == true ? 1 : 0;
         }
-        public int select_Report_StatusGetint()
+        public int Select_Report_StatusGetint()
         {
             return Selected_Report == true ? 1 : 0;
         }
+    }
+
+    public enum SelectedType
+    {
+        Mutiply = 1,
+        Single = 2,
+        Report = 3
     }
 }

@@ -16,31 +16,52 @@ using System.Data;
 
 namespace Drawer.Control
 {
-   public class DrawerControl
+    public class DrawerControl
     {
         //所有的班级
-        public List<Classroom> classAll = new List<Classroom>();
+        public List<Classroom> classAll;
         //显示的班级
-        public List<Classroom> classSelected = new List<Classroom>();
+        public List<Classroom> classSelected;
         //勾选的班级
-        public List<Classroom> classMarked = new List<Classroom>();
-        public List<Student> AllStudents = new List<Student>();
-        public List<Student> stdSelected = new List<Student>();
-        public List<Student> stdFound = new List<Student>();
-        public List<Student> stdReady = new List<Student>();
-        SQLiteConnection conn = new SQLiteConnection();
+        public List<Classroom> classMarked;
+
+        public List<Student> AllStudents;
+        public List<Student> stdSelected;
+        public List<Student> stdFound;
+        public List<Student> stdReady;
+        public LogForm logForm;
         public MainForm mainform;
+
+        public StringBuilder logBuffer;
+        private SQLiteConnection conn;
+
         private bool SECURITY_Enabled;
+
         public DrawerControl()
         {
-conn.ConnectionString = "Data Source=" + Assistance.Settings.DBpath;
+
+            classAll = new List<Classroom>();
+            classSelected = new List<Classroom>();
+            classMarked = new List<Classroom>();
+            AllStudents = new List<Student>();
+            stdSelected = new List<Student>();
+            stdFound = new List<Student>();
+            stdReady = new List<Student>();
+            conn = new SQLiteConnection();
+            logBuffer = new StringBuilder();
+
+            Assistance.Init();
+            Assistance.LoadSettings();
+            conn.ConnectionString = "Data Source=" + Assistance.Settings.DBpath;
+
+
         }
-        public int get_Selected_counts(Student.selectedType st)
+        public int Get_Selected_counts(SelectedType st)
         {
             int count = 0;
             switch (st)
             {
-                case Student.selectedType.Mutiply:
+                case SelectedType.Mutiply:
                     foreach (Student astd in stdSelected)
                     {
                         if (astd.Selected_Mutiply == true)
@@ -49,7 +70,7 @@ conn.ConnectionString = "Data Source=" + Assistance.Settings.DBpath;
                         }
                     }
                     break;
-                case Student.selectedType.Single:
+                case SelectedType.Single:
                     foreach (Student astd in stdSelected)
                     {
                         if (astd.Selected_Single == true)
@@ -58,7 +79,7 @@ conn.ConnectionString = "Data Source=" + Assistance.Settings.DBpath;
                         }
                     }
                     break;
-                case Student.selectedType.Report:
+                case SelectedType.Report:
                     foreach (Student astd in stdSelected)
                     {
                         if (astd.Selected_Report == true)
@@ -102,7 +123,7 @@ conn.ConnectionString = "Data Source=" + Assistance.Settings.DBpath;
             }
 
         }
-        public void updateDataBase()
+        public void UpdateDataBase()
         {
             if (AllStudents.Count == 0)
             {
@@ -110,7 +131,7 @@ conn.ConnectionString = "Data Source=" + Assistance.Settings.DBpath;
             }
             foreach (Student astd in AllStudents)
             {
-                astd.Sha1 = astd.getSHA1();
+                astd.UpdateSHA1();
             }
             Stopwatch sw = new Stopwatch();
             sw.Start();
@@ -121,7 +142,7 @@ conn.ConnectionString = "Data Source=" + Assistance.Settings.DBpath;
             StringBuilder tempCmd = new StringBuilder("replace  into students values");
             foreach (var astd in AllStudents)
             {
-                tempCmd.Append(getStudentText(astd) + ",");
+                tempCmd.Append(GetStudentText(astd) + ",");
             }
             tempCmd.Remove(tempCmd.Length - 1, 1);
             cmd.CommandText = tempCmd.ToString();
@@ -133,17 +154,17 @@ conn.ConnectionString = "Data Source=" + Assistance.Settings.DBpath;
             sw1.Close();
             mainform.spb.add("完成更新！用时" + sw.ElapsedMilliseconds + "ms");
         }
-        string getStudentText(Student astd)
+        public string GetStudentText(Student astd)
         {
             return "(" + "\"" +
                 astd.Id + "\",\"" +
                 astd.Name + "\",\"" +
                 astd.Classroom.ClassID + "\"," +
                 astd.Grade + ",\"" +
-                astd.Sha1 + "\"," +
-                astd.select_Mutiply_StatusGetint().ToString() + "," +
-                astd.select_Single_StatusGetint().ToString() + "," +
-                astd.select_Report_StatusGetint().ToString() + ")";
+                astd.Sha1Old + "\"," +
+                astd.Select_Mutiply_StatusGetint().ToString() + "," +
+                astd.Select_Single_StatusGetint().ToString() + "," +
+                astd.Select_Report_StatusGetint().ToString() + ")";
         }
         public void ExecuteSQLcommand(string cmd)
         {
@@ -198,24 +219,25 @@ conn.ConnectionString = "Data Source=" + Assistance.Settings.DBpath;
         {
             if (AllStudents.Count != 0)
             {
-                updateDataBase();
+                UpdateDataBase();
             }
             try
             {
                 if (conn.State != ConnectionState.Open)
                 {
 
-                    mainform.spb.add("正在连接数据库");
+                    Log("正在连接数据库");
                     conn.Open();
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("数据库连接失败！");
+
+                LogAndShow("数据库连接失败！");
             }
             try
             {
-               mainform. spb.add("数据库连接成功");
+                Log("数据库连接成功");
                 var cmd = conn.CreateCommand();
                 cmd.CommandText = "select * from students";
                 var reader = cmd.ExecuteReader();
@@ -231,7 +253,7 @@ conn.ConnectionString = "Data Source=" + Assistance.Settings.DBpath;
                     cls.AddStudent(tempstd);
                     tempstd.Classroom = cls;
                     tempstd.Grade = reader.GetDouble(3);
-                    tempstd.Sha1 = reader.GetString(4);
+                    tempstd.Sha1Old = reader.GetString(4);
                     tempstd.Selected_Mutiply = reader.GetBoolean(5);
                     tempstd.Selected_Single = reader.GetBoolean(6);
                     tempstd.Selected_Report = reader.GetBoolean(7);
@@ -240,20 +262,20 @@ conn.ConnectionString = "Data Source=" + Assistance.Settings.DBpath;
             }
             catch (Exception ex)
             {
-                mainform.statusPrint(ex.Message);
+                LogAndShow(ex.Message);
             }
             if (SECURITY_Enabled == true)
             {
                 foreach (Student astd in AllStudents)
                 {
-                    if (astd.getSHA1() != astd.Sha1)
+                    if (astd.CurrentSHA1 != astd.Sha1Old)
                     {
                         DialogResult ok = MessageBox.Show(astd.Name + astd.Id + "\n的成绩遭到非法修改" + "为" + astd.Grade + "\n是否清空？", "警告！", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         if (ok == DialogResult.Yes)
                         {
                             astd.Grade = -1;
                             astd.Selected_Mutiply = false;
-                            updateDataBase();
+                            UpdateDataBase();
                         }
                     }
                 }
@@ -266,23 +288,48 @@ conn.ConnectionString = "Data Source=" + Assistance.Settings.DBpath;
                     if (ok == DialogResult.Yes)
                     {
                         astd.Selected_Mutiply = true;
-                        updateDataBase();
+                        UpdateDataBase();
                     }
                 }
             }
 
-            mainform.spb.add(AllStudents.Count + "已读取");
+Log(AllStudents.Count + "已读取");
         }
         public void CloseConnection()
         {
             if (conn.State == System.Data.ConnectionState.Open)
             {
-                updateDataBase();
+                UpdateDataBase();
                 conn.Close();
             }
         }
         public void OpenConnection()
         {
+
+        }
+        public void Log<T>(T str)
+        {
+            logBuffer.AppendLine(str.ToString());
+            if (logForm != null)
+            {
+                logForm.RefreshLog();
+
+            }
+        }
+        public void LogAndShow<T>(T str)
+        {
+            ShowLogForm();
+            Log(str);
+        }
+        public void ShowLogForm()
+        {
+            if (logForm == null)
+            {
+                logForm = new LogForm(logBuffer);
+            }
+            logForm.Show();
+            logForm.TopMost = true;
+           
 
         }
 

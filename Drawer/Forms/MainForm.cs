@@ -33,7 +33,7 @@ namespace Drawer.Forms
         bool textBox2Changed;
         bool textBox3Changed;
 
-        Student.selectedType st;
+        SelectedType st;
         public Student Hitter;
         int maxnum;
         private bool checkBoxChanged;
@@ -198,7 +198,7 @@ namespace Drawer.Forms
         /// <summary>
         /// 把没有抽到过的学生放到一个数组里面
         /// </summary>
-        public int GetStudentsReady(Student.selectedType st)
+        public int GetStudentsReady(SelectedType st)
         {
             if (drawerControl.stdSelected.Count == 0)
             {
@@ -209,19 +209,19 @@ namespace Drawer.Forms
             {
                 switch (st)
                 {
-                    case Student.selectedType.Mutiply:
+                    case SelectedType.Mutiply:
                         if (!astd.Selected_Mutiply)
                         {
                             drawerControl.stdReady.Add(astd);
                         }
                         break;
-                    case Student.selectedType.Single:
+                    case SelectedType.Single:
                         if (!astd.Selected_Single)
                         {
                             drawerControl.stdReady.Add(astd);
                         }
                         break;
-                    case Student.selectedType.Report:
+                    case SelectedType.Report:
                         if (!astd.Selected_Report)
                         {
                             drawerControl.stdReady.Add(astd);
@@ -247,8 +247,7 @@ namespace Drawer.Forms
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            Assistance.Init();
-            Assistance.LoadSettings();
+
             BindingDatas();
             //NameNumLength = FileLength(numpath);
             spb.obj = toolStripStatusLabel1;
@@ -288,7 +287,7 @@ namespace Drawer.Forms
 
             if (radioButton1.Checked == true)//批量抽取 每周一问
             {
-                st = Student.selectedType.Mutiply;
+                st = SelectedType.Mutiply;
                 if (GetStudentsReady(st) == 0)
                 {
                     if (MessageBox.Show("每周一问已抽完，是否输出成绩并清空数据库？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -316,7 +315,7 @@ namespace Drawer.Forms
             }
             else//批量抽取 实验报告
             {
-                st = Student.selectedType.Report;
+                st = SelectedType.Report;
                 if (GetStudentsReady(st) == 0)
                 {
                     if (MessageBox.Show("一轮已抽完 是否清空记录进行下一轮？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
@@ -357,10 +356,10 @@ namespace Drawer.Forms
             //else spb.add("请选择班级");
             timer1.Enabled = true;
         }
-        public void stopRoll5(Student.selectedType st)
+        public void stopRoll5(SelectedType st)
         {
             timer1.Enabled = false;
-            if (drawerControl.get_Selected_counts(st) ==drawerControl.stdSelected.Count)
+            if (drawerControl.Get_Selected_counts(st) ==drawerControl.stdSelected.Count)
             {
                drawerControl.stdSelected[0] = new Student();
                drawerControl.stdSelected[0].Id = "000000";
@@ -376,10 +375,10 @@ namespace Drawer.Forms
                 DisplayStudentData(Hitter);
                 switch (st)
                 {
-                    case Student.selectedType.Mutiply:
+                    case SelectedType.Mutiply:
                         Hitter.Selected_Mutiply = true;
                         break;
-                    case Student.selectedType.Report:
+                    case SelectedType.Report:
                         Hitter.Selected_Report = true;
                         break;
                     default:
@@ -570,7 +569,7 @@ namespace Drawer.Forms
                     astd.Selected_Report = false;
                     astd.Selected_Single = false;
                 }
-               drawerControl.updateDataBase();
+               drawerControl.UpdateDataBase();
             }
         }
         private void buttonStart_Click(object sender, EventArgs e) //开始按钮
@@ -582,11 +581,11 @@ namespace Drawer.Forms
             if (drawerControl.stdSelected.Count == 0)
             {
                 spb.add("请选择班级");
-                //    getReady(Student.selectedType.Single);
+                //    getReady(SelectedType.Single);
                 //    maxnum = drawerControl.stdReady.Count;
                 //    timer1.Enabled = true;
             }
-            if (GetStudentsReady(Student.selectedType.Single) == 0)
+            if (GetStudentsReady(SelectedType.Single) == 0)
             {
                 MessageBox.Show("所有学生已抽过，记录已清空");
                 foreach (Student astd in drawerControl.stdSelected)
@@ -649,7 +648,7 @@ namespace Drawer.Forms
         }
         private void 保存数据ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            drawerControl.updateDataBase();
+            drawerControl.UpdateDataBase();
         }
         private void 导出数据ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -874,6 +873,12 @@ namespace Drawer.Forms
             StudentStatus studentStatus = new StudentStatus(stuSelected);
             studentStatus.ShowDialog();
             UpdateListViewItemForStudent(itemSelected);
+
+        }
+
+        private void 显示日志ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            drawerControl.ShowLogForm();
 
         }
     }
