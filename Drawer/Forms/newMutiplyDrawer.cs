@@ -24,7 +24,7 @@ namespace Drawer.Forms
         System.Timers.Timer timerFinal;
         public int rollTime = 10;
         private int drawNum;
-        private SelectType st;
+        private SelectType selectType;
 
         public List<MutiplyDrawerItem> Items
         {
@@ -68,13 +68,15 @@ namespace Drawer.Forms
         {
             this.drawNum = drawNum;
             this.drawSession = drawSession;
+            this.selectType = st;
+                
             currentRollTime = rollTime;
         }
 
 
         private void AddDrawerItem()
         {
-            currentRollingItem = new MutiplyDrawerItem();
+            currentRollingItem = new MutiplyDrawerItem(selectType);
             currentRollingItem.buttonSkip.Click += ButtonSkip_Click;
             this.items.Add(currentRollingItem);
             this.Invoke(new MethodInvoker(() =>
@@ -112,22 +114,120 @@ namespace Drawer.Forms
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void BtnClose_Click(object sender, EventArgs e)
+        private void TryClose()
         {
-            this.Close();
+
 
         }
 
+        private void BtnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        bool saved = false;
+
+        private void Save()
+        {
+            switch (this.selectType)
+            {
+                case SelectType.Mutiply:
+                    CollectGradeAndSaveStatus();
+                    break;
+
+                case SelectType.Report:
+                    drawSession.SaveStudentDrawStatus(this.selectType);
+                    break;
+            }
+            Controllers.drawerControl.UpdateDataBase();
+            saved = true;
+            MessageBox.Show("已保存");
+        }
+
+        private void AlertAndSave()
+        {
+            if (MessageBox.Show("是否保存?", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Save();
+            }
+        }
+        private void CloseAndSave()
+        {
+            switch (MessageBox.Show("是否保存退出?","提示",MessageBoxButtons.YesNoCancel))
+            {
+                case DialogResult.Cancel:
+                    break;
+                case DialogResult.Yes:
+                    Save();
+                    break;
+                case DialogResult.No:
+                    break;
+            }
+        }
+
+
         private void BtnSave_Click(object sender, System.EventArgs e)
         {
-            MessageBox.Show("已保存");
-
-
+            AlertAndSave();
         }
 
         private void toolBoxGroup1_Load(object sender, EventArgs e)
         {
 
+        }
+        private bool GradeIsInput()
+        {
+            foreach (MutiplyDrawerItem item in items)
+            {
+                if (item.GradeIsVaild())
+                {
+                    return true;
+                } 
+            }
+            return false;
+        }
+        private void CollectGradeAndSaveStatus()
+        {
+            foreach (MutiplyDrawerItem item in items)
+            {
+                if (item.CollectGrade())
+                {
+                    item.student.GetSelectStatus(selectType)=true;
+                }
+            }
+        }
+        private void NewMutiplyDrawer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            bool showAlert = false;
+            if (saved == false)
+            {
+                switch (this.selectType)
+                {
+                    case SelectType.Mutiply:
+                        if (GradeIsInput())
+                        {
+                            showAlert = true;
+                        }
+                        break;
+                    case SelectType.Report:
+                        showAlert = true;
+                        break;
+                }
+                if (showAlert)
+                {
+                    switch (MessageBox.Show("是否保存退出?", "提示", MessageBoxButtons.YesNoCancel))
+                    {
+                        case DialogResult.Cancel:
+                            e.Cancel = true;
+                            break;
+                        case DialogResult.Yes:
+                            Save();
+                            break;
+                        case DialogResult.No:
+                            break;
+                    }
+                }
+            }
         }
     }
 }

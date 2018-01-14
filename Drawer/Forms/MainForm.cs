@@ -799,7 +799,7 @@ namespace Drawer.Forms
         }
         SelectType GetChooseSelectType()
         {
-            if (radioButtonMutiply.Checked=true)
+            if (radioButtonMutiply.Checked==true)
             {
                 return SelectType.Mutiply;
             }

@@ -10,12 +10,14 @@ namespace Drawer.Control
    public class DrawSession
     {
         List<Student> studentReady;
+        List<Student> studentDrawed;
         Random random;
 
   
 
         public DrawSession(List<Student> studentReady)
         {
+            studentDrawed = new List<Student>();
             this.studentReady = studentReady;
             if (studentReady.Count==0)
             {
@@ -38,15 +40,28 @@ namespace Drawer.Control
         {
             Student student = nextWinner();
             studentReady.Remove(student);
+            studentDrawed.Add(student);
+
             return student;
 
+        }
+        public void SaveStudentDrawStatus(SelectType selectType)
+        {
+            foreach (Student student in studentDrawed)
+            {
+                student.GetSelectStatus(selectType) = true;
+            }
         }
         public void PutBack(Student student)
         {
             if (studentReady.IndexOf(student)==-1)
             {
                 studentReady.Add(student);
+            }
 
+            if (studentDrawed.IndexOf(student) != -1)
+            {
+                studentDrawed.Remove(student);
             }
         }
 

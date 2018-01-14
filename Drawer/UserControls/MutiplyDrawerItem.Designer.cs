@@ -38,12 +38,12 @@
             // 
             // textBoxGrade
             // 
-            this.textBoxGrade.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxGrade.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxGrade.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.textBoxGrade.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxGrade.Location = new System.Drawing.Point(0, 240);
+            this.textBoxGrade.Location = new System.Drawing.Point(0, 233);
             this.textBoxGrade.Name = "textBoxGrade";
-            this.textBoxGrade.Size = new System.Drawing.Size(178, 22);
+            this.textBoxGrade.Size = new System.Drawing.Size(178, 29);
             this.textBoxGrade.TabIndex = 2;
             // 
             // textBoxClassNum
@@ -51,31 +51,34 @@
             this.textBoxClassNum.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxClassNum.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.textBoxClassNum.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxClassNum.Location = new System.Drawing.Point(0, 218);
+            this.textBoxClassNum.Location = new System.Drawing.Point(0, 211);
             this.textBoxClassNum.Name = "textBoxClassNum";
+            this.textBoxClassNum.ReadOnly = true;
             this.textBoxClassNum.Size = new System.Drawing.Size(178, 22);
             this.textBoxClassNum.TabIndex = 1;
+            this.textBoxClassNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxName
             // 
             this.textBoxName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxName.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.textBoxName.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxName.Location = new System.Drawing.Point(0, 196);
+            this.textBoxName.Location = new System.Drawing.Point(0, 189);
             this.textBoxName.Name = "textBoxName";
+            this.textBoxName.ReadOnly = true;
             this.textBoxName.Size = new System.Drawing.Size(178, 22);
             this.textBoxName.TabIndex = 0;
+            this.textBoxName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // pictureBox
             // 
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox.Location = new System.Drawing.Point(0, 0);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(178, 196);
+            this.pictureBox.Size = new System.Drawing.Size(178, 189);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox.TabIndex = 3;
             this.pictureBox.TabStop = false;
-  
             // 
             // buttonSkip
             // 

@@ -76,6 +76,7 @@ namespace Drawer.Forms
             this.toolBoxGroup1.AutoSize = true;
             this.toolBoxGroup1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.toolBoxGroup1.BackColor = System.Drawing.Color.White;
+            this.toolBoxGroup1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.toolBoxGroup1.Controls.Add(this.BtnSave);
             this.toolBoxGroup1.Controls.Add(this.BtnMinimize);
             this.toolBoxGroup1.Controls.Add(this.BtnClose);
@@ -84,7 +85,7 @@ namespace Drawer.Forms
             this.toolBoxGroup1.Items.Add(this.BtnClose);
             this.toolBoxGroup1.Location = new System.Drawing.Point(780, 0);
             this.toolBoxGroup1.Name = "toolBoxGroup1";
-            this.toolBoxGroup1.Size = new System.Drawing.Size(92, 30);
+            this.toolBoxGroup1.Size = new System.Drawing.Size(92, 32);
             this.toolBoxGroup1.TabIndex = 7;
             // 
             // BtnSave
@@ -98,6 +99,7 @@ namespace Drawer.Forms
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(30, 30);
             this.BtnSave.TabIndex = 0;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // BtnMinimize
             // 
@@ -139,6 +141,7 @@ namespace Drawer.Forms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "NewMutiplyDrawer";
             this.Text = "NewMutiplyDrawer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NewMutiplyDrawer_FormClosing);
             this.Load += new System.EventHandler(this.NewMutiplyDrawer_Load);
             this.toolBoxGroup1.ResumeLayout(false);
             this.ResumeLayout(false);

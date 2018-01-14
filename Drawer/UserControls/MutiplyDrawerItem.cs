@@ -14,11 +14,22 @@ namespace Drawer.UserControls
     {
         public Student student;
         double grade;
-        public MutiplyDrawerItem()
+        SelectType selectType;
+        public MutiplyDrawerItem(SelectType selectType)
         {
+            
             InitializeComponent();
+            this.selectType = selectType;
             this.pictureBox.MouseDown += PictureBox_MouseDown;
-       
+            switch (selectType)
+            {
+                case SelectType.Mutiply:
+
+                    break;
+                case SelectType.Report:
+                    textBoxGrade.Dispose();
+                    break;
+            }
         }
 
       
@@ -39,10 +50,18 @@ namespace Drawer.UserControls
             }
     
         }
-
+        public bool CollectGrade()
+        {
+            bool returnval= double.TryParse(textBoxGrade.Text, out this.grade);
+            if (returnval==true)
+            {
+                this.student.Grade = this.grade;
+            }
+            return returnval;
+        }
         public bool GradeIsVaild()
         {
-            return double.TryParse(textBoxGrade.Text, out this.grade);
+            return double.TryParse(this.textBoxGrade.Text  ,out this.grade );
 
         }
         public double GetGrade()

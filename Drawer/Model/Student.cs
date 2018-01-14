@@ -235,7 +235,7 @@ namespace Drawer.Model
         {
             return this.sha1Old = this.CurrentSHA1;
         }
-        private ref bool GetSelectStatus(SelectType selectType)
+        public ref bool GetSelectStatus(SelectType selectType)
         {
             switch (selectType)
             {
